@@ -1,0 +1,97 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../core/services/app_preferences.dart';
+import '../../progress/data/progress_repository.dart';
+
+class ProfileScreen extends ConsumerWidget {
+  const ProfileScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final settings = ref.watch(appSettingsProvider);
+    final progress = ref.watch(userProgressProvider).valueOrNull;
+    return Scaffold(
+      appBar: AppBar(title: const Text('Profil')),
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          const Center(
+            child: CircleAvatar(
+              radius: 46,
+              child: Icon(Icons.code_rounded, size: 46),
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            'Java Rookie',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  fontWeight: FontWeight.w800,
+                ),
+          ),
+          Text(
+            'Niveau ${progress?.level ?? 1} • ${progress?.xp ?? 0} XP',
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          Card(
+            child: Column(
+              children: [
+                ListTile(
+                  leading: const Icon(Icons.flag_outlined),
+                  title: const Text('Objectif'),
+                  subtitle: Text(settings.learningGoal ?? 'Non défini'),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  leading: const Icon(Icons.school_outlined),
+                  title: const Text('Niveau de départ'),
+                  subtitle: Text(settings.learningLevel ?? 'Non défini'),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Apparence',
+                      style: Theme.of(context).textTheme.titleMedium
+                          ?.copyWith(fontWeight: FontWeight.w800)),
+                  const SizedBox(height: 8),
+                  SegmentedButton<ThemeMode>(
+                    segments: const [
+                      ButtonSegment(
+                        value: ThemeMode.light,
+                        icon: Icon(Icons.light_mode_outlined),
+                        label: Text('Clair'),
+                      ),
+                      ButtonSegment(
+                        value: ThemeMode.system,
+                        icon: Icon(Icons.settings_suggest_outlined),
+                        label: Text('Auto'),
+                      ),
+                      ButtonSegment(
+                        value: ThemeMode.dark,
+                        icon: Icon(Icons.dark_mode_outlined),
+                        label: Text('Sombre'),
+                      ),
+                    ],
+                    selected: {settings.themeMode},
+                    onSelectionChanged: (selection) => ref
+                        .read(appSettingsProvider.notifier)
+                        .setThemeMode(selection.first),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

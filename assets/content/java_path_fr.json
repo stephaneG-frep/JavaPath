@@ -1,0 +1,333 @@
+{
+  "locale": "fr",
+  "version": 1,
+  "modules": [
+    {
+      "id": "fondamentaux-1",
+      "level": 1,
+      "title": "Premiers pas en Java",
+      "description": "Comprendre Java et écrire ses premiers programmes sans prérequis.",
+      "projectTitle": "Jeu du nombre mystère",
+      "lessons": [
+        {
+          "id": "introduction-java",
+          "moduleId": "fondamentaux-1",
+          "title": "Introduction à Java",
+          "description": "Découvre ce qu’est Java, pourquoi il existe et où il est utilisé.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 8,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "À quoi sert Java ?",
+              "content": "Java est un langage de programmation : un moyen d’écrire des instructions qu’un ordinateur peut exécuter. Il est utilisé pour des applications web, des outils d’entreprise, des logiciels et de nombreux systèmes Android existants."
+            },
+            {
+              "title": "Pourquoi est-il portable ?",
+              "content": "Le code Java est transformé en bytecode. Ce format intermédiaire est lu par une JVM, la machine virtuelle Java. Une JVM adaptée à chaque système permet au même programme de fonctionner sur plusieurs plateformes."
+            },
+            {
+              "title": "À retenir",
+              "content": "Le fichier source contient du code lisible. Le compilateur le transforme en bytecode. La JVM exécute ensuite ce bytecode."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Une première instruction",
+              "code": "System.out.println(\"Bonjour Java !\");",
+              "explanation": "System.out représente la sortie standard, généralement la console. println affiche le texte placé entre parenthèses puis passe à la ligne."
+            }
+          ]
+        },
+        {
+          "id": "jdk-jre-jvm",
+          "moduleId": "fondamentaux-1",
+          "title": "JDK, JRE et JVM",
+          "description": "Distingue les trois éléments qui permettent de développer et lancer Java.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 10,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "Trois rôles différents",
+              "content": "La JVM exécute le bytecode. Le JRE regroupe ce qui est nécessaire pour exécuter un programme. Le JDK ajoute les outils de développement, notamment le compilateur javac."
+            },
+            {
+              "title": "Le chemin du programme",
+              "content": "Tu écris un fichier .java. javac le compile en fichier .class. La commande java demande ensuite à la JVM d’exécuter la classe."
+            },
+            {
+              "title": "Erreur fréquente",
+              "content": "Installer seulement un environnement d’exécution ne suffit pas toujours pour compiler. Pour développer, installe un JDK."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Compiler puis exécuter",
+              "code": "javac Main.java\njava Main",
+              "explanation": "La première commande produit Main.class. La seconde lance la classe Main ; l’extension .class n’est pas écrite dans la commande."
+            }
+          ]
+        },
+        {
+          "id": "premier-programme",
+          "moduleId": "fondamentaux-1",
+          "title": "Ton premier programme",
+          "description": "Construis une classe complète et comprends chaque ligne.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 12,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "La classe",
+              "content": "Une classe est une structure qui regroupe du code. Ici, elle s’appelle Main. Java respecte la casse : Main et main sont deux noms différents."
+            },
+            {
+              "title": "Le point d’entrée",
+              "content": "La méthode main est le point de départ d’une application Java classique. La JVM cherche cette signature précise avant de commencer l’exécution."
+            },
+            {
+              "title": "Erreur fréquente",
+              "content": "Si la classe publique s’appelle Main, le fichier doit s’appeler Main.java. Chaque instruction comme println se termine par un point-virgule."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Hello Java",
+              "code": "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"Bonjour Java !\");\n  }\n}",
+              "explanation": "Les accolades délimitent la classe puis la méthode. L’exécution entre dans main et appelle println une seule fois."
+            }
+          ]
+        },
+        {
+          "id": "variables",
+          "moduleId": "fondamentaux-1",
+          "title": "Les variables",
+          "description": "Stocke une valeur, donne-lui un nom et fais-la évoluer.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 14,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "À quoi cela sert ?",
+              "content": "Une variable est une zone nommée qui conserve une valeur. Au lieu de répéter 25 partout, on peut utiliser le nom age et rendre le programme plus clair."
+            },
+            {
+              "title": "Déclaration et affectation",
+              "content": "Dans int age = 25, int est le type, age est le nom et 25 est la valeur initiale. Le signe = affecte la valeur située à droite à la variable située à gauche."
+            },
+            {
+              "title": "Erreur fréquente",
+              "content": "Une variable de type int attend un nombre entier. Écrire int age = \"25\" est incorrect car les guillemets créent une chaîne de caractères."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Créer puis modifier une variable",
+              "code": "int age = 25;\nSystem.out.println(age);\nage = 26;\nSystem.out.println(age);",
+              "explanation": "La première sortie vaut 25. La troisième ligne remplace la valeur contenue dans age, donc la seconde sortie vaut 26."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fondamentaux-2",
+      "level": 1,
+      "title": "Décisions et répétitions",
+      "description": "Faire réagir un programme et répéter automatiquement des instructions.",
+      "projectTitle": "Convertisseur de température",
+      "lessons": [
+        {
+          "id": "types-primitifs-string",
+          "moduleId": "fondamentaux-2",
+          "title": "Types primitifs et String",
+          "description": "Choisis un type adapté aux données de ton programme.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 15,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "Pourquoi des types ?",
+              "content": "Le type indique à Java la nature d’une valeur et les opérations autorisées. int stocke un entier, double un nombre décimal, boolean vrai ou faux et char un seul caractère."
+            },
+            {
+              "title": "Le cas de String",
+              "content": "String représente du texte. Ce n’est pas un type primitif mais une classe. Une chaîne utilise des guillemets doubles, tandis qu’un char utilise des apostrophes."
+            },
+            {
+              "title": "À retenir",
+              "content": "Choisir le bon type permet à Java de détecter tôt certaines erreurs et documente l’intention du code."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Plusieurs sortes de valeurs",
+              "code": "int score = 42;\ndouble temperature = 18.5;\nboolean connecte = true;\nchar initiale = 'L';\nString nom = \"Lina\";",
+              "explanation": "Chaque variable reçoit une valeur compatible avec son type. Le point est utilisé pour écrire la partie décimale d’un double."
+            }
+          ]
+        },
+        {
+          "id": "operateurs",
+          "moduleId": "fondamentaux-2",
+          "title": "Les opérateurs",
+          "description": "Calcule, compare et combine des conditions.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 14,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "Calculer",
+              "content": "Les opérateurs +, -, * et / effectuent les opérations habituelles. Le symbole % donne le reste d’une division et sert notamment à reconnaître un nombre pair."
+            },
+            {
+              "title": "Comparer",
+              "content": "== teste l’égalité, != la différence, > et < comparent l’ordre. Le résultat d’une comparaison est un boolean."
+            },
+            {
+              "title": "Erreur fréquente",
+              "content": "Le symbole = affecte une valeur ; == compare deux valeurs. Les confondre change le sens de l’instruction."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Tester si un nombre est pair",
+              "code": "int nombre = 8;\nboolean estPair = nombre % 2 == 0;\nSystem.out.println(estPair);",
+              "explanation": "8 divisé par 2 laisse un reste de 0. La comparaison est donc vraie et le programme affiche true."
+            }
+          ]
+        },
+        {
+          "id": "conditions",
+          "moduleId": "fondamentaux-2",
+          "title": "Les conditions",
+          "description": "Exécute un bloc seulement lorsqu’une condition est vraie.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 16,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "Prendre une décision",
+              "content": "if reçoit une expression booléenne. Si elle vaut true, Java exécute le premier bloc. Sinon, le bloc else est exécuté lorsqu’il existe."
+            },
+            {
+              "title": "Plusieurs possibilités",
+              "content": "else if ajoute un autre test. Java évalue les conditions dans l’ordre et s’arrête au premier bloc dont la condition est vraie."
+            },
+            {
+              "title": "Lisibilité",
+              "content": "Même pour une seule instruction, garder les accolades réduit les erreurs lorsqu’on modifie le code plus tard."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Vérifier un âge",
+              "code": "int age = 17;\nif (age >= 18) {\n  System.out.println(\"Majeur\");\n} else {\n  System.out.println(\"Mineur\");\n}",
+              "explanation": "17 n’est pas supérieur ou égal à 18. Le premier bloc est ignoré et le programme affiche Mineur."
+            }
+          ]
+        },
+        {
+          "id": "boucle-for",
+          "moduleId": "fondamentaux-2",
+          "title": "La boucle for",
+          "description": "Répète une action un nombre de fois prévisible.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 16,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "Les trois parties",
+              "content": "Une boucle for contient une initialisation, une condition et une mise à jour. int i = 0 démarre le compteur, i < 3 autorise un tour et i++ ajoute 1 après chaque tour."
+            },
+            {
+              "title": "Déroulement",
+              "content": "Java teste la condition avant chaque tour. Dès qu’elle devient fausse, l’exécution reprend après la boucle."
+            },
+            {
+              "title": "Erreur fréquente",
+              "content": "Une mauvaise condition ou l’absence de mise à jour peut créer une boucle infinie. Vérifie toujours que le compteur se rapproche de la limite."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Que va afficher ce programme ?",
+              "code": "for (int i = 0; i < 3; i++) {\n  System.out.println(i);\n}",
+              "explanation": "Le programme affiche 0, puis 1, puis 2 sur des lignes séparées. Quand i devient 3, la condition i < 3 est fausse."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "structures-methodes",
+      "level": 1,
+      "title": "Structurer ses données et son code",
+      "description": "Regrouper des valeurs et éviter de répéter la même logique.",
+      "projectTitle": "Gestionnaire de notes",
+      "lessons": [
+        {
+          "id": "tableaux",
+          "moduleId": "structures-methodes",
+          "title": "Les tableaux",
+          "description": "Range plusieurs valeurs du même type dans une structure ordonnée.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 17,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "Une collection de taille fixe",
+              "content": "Un tableau conserve plusieurs éléments du même type. Sa taille est fixée à la création. Chaque élément possède un indice qui commence à zéro."
+            },
+            {
+              "title": "Lire un élément",
+              "content": "notes[0] désigne le premier élément. notes.length donne le nombre d’éléments et aide à parcourir le tableau sans dépasser sa limite."
+            },
+            {
+              "title": "Erreur fréquente",
+              "content": "Pour trois éléments, les indices valides sont 0, 1 et 2. Accéder à l’indice 3 provoque une ArrayIndexOutOfBoundsException."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Parcourir des notes",
+              "code": "int[] notes = {12, 15, 18};\nfor (int i = 0; i < notes.length; i++) {\n  System.out.println(notes[i]);\n}",
+              "explanation": "i prend les valeurs 0, 1 et 2. À chaque tour, notes[i] récupère la note située à cet indice."
+            }
+          ]
+        },
+        {
+          "id": "methodes",
+          "moduleId": "structures-methodes",
+          "title": "Les méthodes",
+          "description": "Donne un nom à une action réutilisable.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 18,
+          "xpReward": 10,
+          "sections": [
+            {
+              "title": "Pourquoi créer une méthode ?",
+              "content": "Une méthode regroupe des instructions qui réalisent une tâche précise. Elle évite la duplication et permet de lire un programme comme une suite d’actions nommées."
+            },
+            {
+              "title": "Paramètres et retour",
+              "content": "Les paramètres sont les données reçues par la méthode. Le type placé avant son nom indique ce qu’elle renvoie. void signifie qu’aucune valeur n’est renvoyée."
+            },
+            {
+              "title": "Portée",
+              "content": "Une variable déclarée dans une méthode est locale : elle n’existe que dans le bloc où elle est déclarée."
+            }
+          ],
+          "codeExamples": [
+            {
+              "title": "Additionner deux nombres",
+              "code": "static int additionner(int a, int b) {\n  int resultat = a + b;\n  return resultat;\n}\n\nint total = additionner(3, 4);\nSystem.out.println(total);",
+              "explanation": "3 est associé à a et 4 à b. La méthode calcule 7, return renvoie cette valeur, puis total la conserve avant son affichage."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
