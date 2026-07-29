@@ -6,7 +6,15 @@ import '../../features/common/presentation/coming_soon_screen.dart';
 import '../../features/courses/presentation/learning_path_screen.dart';
 import '../../features/courses/presentation/lesson_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/help/presentation/help_screen.dart';
+import '../../features/help/presentation/java_setup_screen.dart';
 import '../../features/onboarding/presentation/onboarding_screen.dart';
+import '../../features/practice/presentation/exercise_list_screen.dart';
+import '../../features/practice/presentation/exercise_screen.dart';
+import '../../features/practice/presentation/challenge_list_screen.dart';
+import '../../features/practice/presentation/challenge_screen.dart';
+import '../../features/practice/presentation/practice_screen.dart';
+import '../../features/practice/presentation/quiz_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
 import '../../features/shell/presentation/main_shell.dart';
 import '../services/app_preferences.dart';
@@ -54,12 +62,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/practice',
-                builder: (context, state) => const ComingSoonScreen(
-                  title: 'Pratiquer',
-                  message:
-                      'Les exercices, quiz et le playground arrivent dans les phases 3 à 6.',
-                  icon: Icons.terminal_rounded,
-                ),
+                builder: (context, state) => const PracticeScreen(),
               ),
             ],
           ),
@@ -92,6 +95,45 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => LessonScreen(
           lessonId: state.pathParameters['lessonId']!,
         ),
+      ),
+      GoRoute(
+        path: '/quiz',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const QuizScreen(),
+      ),
+      GoRoute(
+        path: '/exercises',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ExerciseListScreen(),
+      ),
+      GoRoute(
+        path: '/exercise/:exerciseId',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => ExerciseScreen(
+          exerciseId: state.pathParameters['exerciseId']!,
+        ),
+      ),
+      GoRoute(
+        path: '/challenges',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ChallengeListScreen(),
+      ),
+      GoRoute(
+        path: '/challenge/:challengeId',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => ChallengeScreen(
+          challengeId: state.pathParameters['challengeId']!,
+        ),
+      ),
+      GoRoute(
+        path: '/help',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const HelpScreen(),
+      ),
+      GoRoute(
+        path: '/help/java-setup',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const JavaSetupScreen(),
       ),
     ],
   );

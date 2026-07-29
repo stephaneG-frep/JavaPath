@@ -42,6 +42,16 @@ class QuizQuestion {
   final List<String> choices;
   final int correctChoiceIndex;
   final String explanation;
+
+  factory QuizQuestion.fromJson(Map<String, dynamic> json) {
+    return QuizQuestion(
+      id: json['id'] as String,
+      prompt: json['prompt'] as String,
+      choices: List<String>.from(json['choices'] as List<dynamic>),
+      correctChoiceIndex: json['correctChoiceIndex'] as int,
+      explanation: json['explanation'] as String,
+    );
+  }
 }
 
 class Exercise {
@@ -55,6 +65,8 @@ class Exercise {
     required this.hints,
     required this.solution,
     required this.explanation,
+    this.choices = const [],
+    this.acceptedAnswers = const [],
   });
   final String id;
   final String conceptId;
@@ -65,6 +77,48 @@ class Exercise {
   final List<String> hints;
   final String solution;
   final String explanation;
+  final List<String> choices;
+  final List<String> acceptedAnswers;
+
+  factory Exercise.fromJson(Map<String, dynamic> json) {
+    return Exercise(
+      id: json['id'] as String,
+      conceptId: json['conceptId'] as String,
+      type: ExerciseType.values.byName(json['type'] as String),
+      prompt: json['prompt'] as String,
+      difficulty: json['difficulty'] as String,
+      xpReward: json['xpReward'] as int,
+      hints: List<String>.from(json['hints'] as List<dynamic>),
+      solution: json['solution'] as String,
+      explanation: json['explanation'] as String,
+      choices: List<String>.from(
+        (json['choices'] as List<dynamic>?) ?? const [],
+      ),
+      acceptedAnswers: List<String>.from(
+        (json['acceptedAnswers'] as List<dynamic>?) ?? const [],
+      ),
+    );
+  }
+}
+
+class PracticeCatalog {
+  const PracticeCatalog({
+    required this.quizQuestions,
+    required this.exercises,
+  });
+  final List<QuizQuestion> quizQuestions;
+  final List<Exercise> exercises;
+
+  factory PracticeCatalog.fromJson(Map<String, dynamic> json) {
+    return PracticeCatalog(
+      quizQuestions: (json['quizQuestions'] as List<dynamic>)
+          .map((item) => QuizQuestion.fromJson(item as Map<String, dynamic>))
+          .toList(),
+      exercises: (json['exercises'] as List<dynamic>)
+          .map((item) => Exercise.fromJson(item as Map<String, dynamic>))
+          .toList(),
+    );
+  }
 }
 
 class Challenge {
@@ -73,15 +127,55 @@ class Challenge {
     required this.title,
     required this.code,
     required this.category,
+    required this.prompt,
+    required this.difficulty,
     required this.explanation,
     required this.xpReward,
+    required this.hints,
+    required this.acceptedAnswers,
+    required this.solution,
+    required this.partialSolution,
+    required this.detailTitle,
+    required this.detail,
+    this.choices = const [],
   });
   final String id;
   final String title;
   final String code;
   final String category;
+  final String prompt;
+  final String difficulty;
   final String explanation;
   final int xpReward;
+  final List<String> hints;
+  final List<String> acceptedAnswers;
+  final String solution;
+  final String partialSolution;
+  final String detailTitle;
+  final String detail;
+  final List<String> choices;
+
+  factory Challenge.fromJson(Map<String, dynamic> json) {
+    return Challenge(
+      id: json['id'] as String,
+      title: json['title'] as String,
+      code: json['code'] as String,
+      category: json['category'] as String,
+      prompt: json['prompt'] as String,
+      difficulty: json['difficulty'] as String,
+      explanation: json['explanation'] as String,
+      xpReward: json['xpReward'] as int,
+      hints: List<String>.from(json['hints'] as List<dynamic>),
+      acceptedAnswers:
+          List<String>.from(json['acceptedAnswers'] as List<dynamic>),
+      solution: json['solution'] as String,
+      partialSolution: json['partialSolution'] as String,
+      detailTitle: json['detailTitle'] as String,
+      detail: json['detail'] as String,
+      choices:
+          List<String>.from((json['choices'] as List<dynamic>?) ?? const []),
+    );
+  }
 }
 
 class LearningProject {

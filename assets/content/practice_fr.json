@@ -1,0 +1,269 @@
+{
+  "locale": "fr",
+  "quizQuestions": [
+    {
+      "id": "quiz-01",
+      "prompt": "Quel composant exécute le bytecode Java ?",
+      "choices": ["Le JDK", "La JVM", "Git", "Maven"],
+      "correctChoiceIndex": 1,
+      "explanation": "La JVM, ou machine virtuelle Java, lit et exécute le bytecode produit par le compilateur."
+    },
+    {
+      "id": "quiz-02",
+      "prompt": "Quelle commande compile Main.java ?",
+      "choices": ["java Main.java", "javac Main.java", "jdk Main", "compile Main"],
+      "correctChoiceIndex": 1,
+      "explanation": "javac est le compilateur fourni avec le JDK. Il produit généralement un fichier Main.class."
+    },
+    {
+      "id": "quiz-03",
+      "prompt": "Quel est le point d’entrée d’une application Java classique ?",
+      "choices": ["start()", "run()", "main()", "init()"],
+      "correctChoiceIndex": 2,
+      "explanation": "La JVM commence l’exécution dans la méthode main dont la signature est public static void main(String[] args)."
+    },
+    {
+      "id": "quiz-04",
+      "prompt": "Quel type convient à un âge exprimé en années entières ?",
+      "choices": ["boolean", "int", "char", "String[]"],
+      "correctChoiceIndex": 1,
+      "explanation": "int stocke un nombre entier, ce qui convient à une valeur comme 25."
+    },
+    {
+      "id": "quiz-05",
+      "prompt": "Quelle déclaration crée correctement une chaîne ?",
+      "choices": ["String nom = \"Lina\";", "string nom = 'Lina';", "char nom = \"Lina\";", "text nom = Lina;"],
+      "correctChoiceIndex": 0,
+      "explanation": "String commence par une majuscule et une chaîne de caractères s’écrit entre guillemets doubles."
+    },
+    {
+      "id": "quiz-06",
+      "prompt": "Que signifie le symbole = dans int score = 10; ?",
+      "choices": ["Comparer", "Affecter une valeur", "Additionner", "Déclarer une méthode"],
+      "correctChoiceIndex": 1,
+      "explanation": "L’opérateur = affecte la valeur située à droite à la variable située à gauche."
+    },
+    {
+      "id": "quiz-07",
+      "prompt": "Quel opérateur teste l’égalité de deux int ?",
+      "choices": ["=", "==", "!=", "=>"],
+      "correctChoiceIndex": 1,
+      "explanation": "== compare deux valeurs. Un seul signe = sert à l’affectation."
+    },
+    {
+      "id": "quiz-08",
+      "prompt": "Quelle valeur produit 9 % 2 ?",
+      "choices": ["0", "1", "2", "4.5"],
+      "correctChoiceIndex": 1,
+      "explanation": "L’opérateur % donne le reste de la division entière. 9 divisé par 2 laisse un reste de 1."
+    },
+    {
+      "id": "quiz-09",
+      "prompt": "Quel type ne peut contenir que true ou false ?",
+      "choices": ["boolean", "double", "char", "long"],
+      "correctChoiceIndex": 0,
+      "explanation": "boolean représente une valeur logique : true ou false."
+    },
+    {
+      "id": "quiz-10",
+      "prompt": "Que se passe-t-il si la condition d’un if vaut false et qu’il n’y a pas de else ?",
+      "choices": ["Le programme s’arrête", "Le bloc est ignoré", "Le bloc est exécuté deux fois", "Une erreur de compilation apparaît"],
+      "correctChoiceIndex": 1,
+      "explanation": "Le contenu du bloc if est simplement ignoré et l’exécution continue après celui-ci."
+    },
+    {
+      "id": "quiz-11",
+      "prompt": "Dans une chaîne if / else if / else, combien de blocs au maximum sont exécutés ?",
+      "choices": ["Aucun", "Un seul", "Deux", "Tous"],
+      "correctChoiceIndex": 1,
+      "explanation": "Java s’arrête au premier bloc dont la condition est vraie. Le bloc else sert de dernier recours."
+    },
+    {
+      "id": "quiz-12",
+      "prompt": "Combien de fois s’exécute for (int i = 0; i < 3; i++) ?",
+      "choices": ["2 fois", "3 fois", "4 fois", "À l’infini"],
+      "correctChoiceIndex": 1,
+      "explanation": "La boucle s’exécute pour i égal à 0, 1 et 2, soit trois tours."
+    },
+    {
+      "id": "quiz-13",
+      "prompt": "Que fait i++ ?",
+      "choices": ["Retire 1", "Ajoute 1", "Multiplie par 2", "Compare i à 1"],
+      "correctChoiceIndex": 1,
+      "explanation": "i++ incrémente i, c’est-à-dire qu’il ajoute 1 à sa valeur."
+    },
+    {
+      "id": "quiz-14",
+      "prompt": "Quel est le premier indice d’un tableau Java ?",
+      "choices": ["-1", "0", "1", "Cela dépend du type"],
+      "correctChoiceIndex": 1,
+      "explanation": "Les indices commencent à zéro. Le premier élément de notes est donc notes[0]."
+    },
+    {
+      "id": "quiz-15",
+      "prompt": "Comment connaître le nombre d’éléments du tableau notes ?",
+      "choices": ["notes.size()", "notes.length", "notes.count", "length(notes)"],
+      "correctChoiceIndex": 1,
+      "explanation": "Pour un tableau, length est un champ et s’utilise sans parenthèses."
+    },
+    {
+      "id": "quiz-16",
+      "prompt": "Pour un tableau de taille 3, quel indice est invalide ?",
+      "choices": ["0", "1", "2", "3"],
+      "correctChoiceIndex": 3,
+      "explanation": "Les indices valides vont de 0 à length - 1. L’indice 3 dépasse donc le tableau."
+    },
+    {
+      "id": "quiz-17",
+      "prompt": "Que signifie void devant le nom d’une méthode ?",
+      "choices": ["Elle est vide", "Elle ne renvoie aucune valeur", "Elle est privée", "Elle ne prend aucun paramètre"],
+      "correctChoiceIndex": 1,
+      "explanation": "void indique l’absence de valeur de retour. La méthode peut tout de même exécuter des instructions."
+    },
+    {
+      "id": "quiz-18",
+      "prompt": "Quel mot-clé renvoie une valeur depuis une méthode ?",
+      "choices": ["send", "yield", "return", "result"],
+      "correctChoiceIndex": 2,
+      "explanation": "return termine la méthode et transmet la valeur à l’endroit où la méthode a été appelée."
+    },
+    {
+      "id": "quiz-19",
+      "prompt": "Une variable déclarée dans une méthode est généralement…",
+      "choices": ["globale", "locale", "publique", "abstraite"],
+      "correctChoiceIndex": 1,
+      "explanation": "Elle est locale au bloc où elle a été déclarée et n’est pas accessible partout."
+    },
+    {
+      "id": "quiz-20",
+      "prompt": "Pourquoi donner des noms explicites aux variables ?",
+      "choices": ["Pour accélérer la JVM", "Pour rendre le code compréhensible", "Pour éviter le compilateur", "Pour réduire la mémoire à zéro"],
+      "correctChoiceIndex": 1,
+      "explanation": "Un nom comme ageUtilisateur communique l’intention du code et facilite sa maintenance."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "exercise-01",
+      "conceptId": "variables",
+      "type": "completeCode",
+      "prompt": "Complète la valeur pour créer un âge égal à 25 :\nint age = ___;",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Il faut écrire un nombre entier.", "Les guillemets ne sont pas nécessaires."],
+      "solution": "25",
+      "acceptedAnswers": ["25", "25;"],
+      "explanation": "int attend un entier. La ligne complète est int age = 25;."
+    },
+    {
+      "id": "exercise-02",
+      "conceptId": "types",
+      "type": "multipleChoice",
+      "prompt": "Quelle ligne contient une erreur de type ?",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Observe les guillemets.", "Une valeur entre guillemets est une String."],
+      "choices": ["int score = 10;", "boolean actif = true;", "int age = \"25\";", "double prix = 4.5;"],
+      "solution": "int age = \"25\";",
+      "acceptedAnswers": ["int age = \"25\";"],
+      "explanation": "\"25\" est une String, alors que la variable age attend un int."
+    },
+    {
+      "id": "exercise-03",
+      "conceptId": "operateurs",
+      "type": "predictOutput",
+      "prompt": "Que va afficher ce code ?\nint resultat = 7 + 3 * 2;\nSystem.out.println(resultat);",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["La multiplication est prioritaire.", "Calcule d’abord 3 * 2."],
+      "solution": "13",
+      "acceptedAnswers": ["13"],
+      "explanation": "Java calcule d’abord 3 * 2 = 6, puis 7 + 6 = 13."
+    },
+    {
+      "id": "exercise-04",
+      "conceptId": "conditions",
+      "type": "predictOutput",
+      "prompt": "Que va afficher le programme ?\nint age = 20;\nif (age >= 18) {\n  System.out.println(\"Majeur\");\n} else {\n  System.out.println(\"Mineur\");\n}",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Compare 20 et 18.", "20 est supérieur à 18."],
+      "solution": "Majeur",
+      "acceptedAnswers": ["majeur"],
+      "explanation": "20 >= 18 vaut true, donc Java exécute le premier bloc."
+    },
+    {
+      "id": "exercise-05",
+      "conceptId": "boucles",
+      "type": "predictOutput",
+      "prompt": "Écris les valeurs affichées, séparées par des espaces :\nfor (int i = 1; i <= 3; i++) {\n  System.out.println(i);\n}",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Le compteur commence à 1.", "La condition accepte aussi la valeur 3."],
+      "solution": "1 2 3",
+      "acceptedAnswers": ["1 2 3", "1\n2\n3", "123"],
+      "explanation": "La boucle affiche 1, 2 et 3. Après l’incrément suivant, i vaut 4 et la condition devient fausse."
+    },
+    {
+      "id": "exercise-06",
+      "conceptId": "boucles",
+      "type": "findError",
+      "prompt": "Quelle partie provoque une boucle infinie ?\nfor (int i = 0; i < 5; i--) { ... }",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["i commence à zéro et doit atteindre 5.", "Observe le sens de variation de i."],
+      "solution": "i--",
+      "acceptedAnswers": ["i--", "la décrémentation", "decrementation"],
+      "explanation": "i-- diminue i et l’éloigne de 5. Il faut utiliser i++ pour que la condition finisse par devenir fausse."
+    },
+    {
+      "id": "exercise-07",
+      "conceptId": "tableaux",
+      "type": "multipleChoice",
+      "prompt": "Comment lire le deuxième élément de int[] nombres ?",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Les indices commencent à zéro.", "Le deuxième indice est 1."],
+      "choices": ["nombres[0]", "nombres[1]", "nombres[2]", "nombres.second()"],
+      "solution": "nombres[1]",
+      "acceptedAnswers": ["nombres[1]"],
+      "explanation": "Le premier élément utilise l’indice 0 ; le deuxième utilise donc l’indice 1."
+    },
+    {
+      "id": "exercise-08",
+      "conceptId": "tableaux",
+      "type": "fixProgram",
+      "prompt": "Corrige la limite pour parcourir tout le tableau sans erreur :\nfor (int i = 0; i <= notes.length; i++)",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Le dernier indice vaut length - 1.", "La comparaison ne doit pas accepter length."],
+      "solution": "i < notes.length",
+      "acceptedAnswers": ["i < notes.length", "<", "remplacer <= par <"],
+      "explanation": "Avec i < notes.length, le dernier tour utilise l’indice notes.length - 1, qui est valide."
+    },
+    {
+      "id": "exercise-09",
+      "conceptId": "methodes",
+      "type": "completeCode",
+      "prompt": "Complète le mot-clé qui renvoie somme :\nstatic int additionner(int a, int b) {\n  int somme = a + b;\n  ___ somme;\n}",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["La méthode annonce qu’elle renvoie un int.", "Le mot-clé commence par r."],
+      "solution": "return",
+      "acceptedAnswers": ["return", "return somme;", "return somme"],
+      "explanation": "return transmet la valeur de somme à l’appelant de la méthode."
+    },
+    {
+      "id": "exercise-10",
+      "conceptId": "methodes",
+      "type": "predictOutput",
+      "prompt": "Que va afficher ce code ?\nstatic int doubler(int n) { return n * 2; }\nSystem.out.println(doubler(6));",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["n reçoit la valeur 6.", "Multiplie 6 par 2."],
+      "solution": "12",
+      "acceptedAnswers": ["12"],
+      "explanation": "La méthode reçoit 6, calcule 6 * 2 et renvoie 12 à println."
+    }
+  ]
+}

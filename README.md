@@ -13,13 +13,16 @@ Cette base comprend :
 - dashboard avec progression XP ;
 - parcours pédagogique alimenté par un fichier JSON français ;
 - 3 modules et 10 leçons Java réelles ;
+- 20 questions de quiz avec correction expliquée ;
+- 10 exercices validés localement avec attribution d’XP ;
+- 5 Debug Challenges et 5 exercices de prédiction ;
+- indices progressifs avec réduction transparente de l’XP ;
 - stockage Drift de la progression, des sessions et des futurs snippets ;
 - modèles de domaine pour les futures phases ;
 - tests du calcul de niveau, de la persistance XP et de l’onboarding.
 
-Les exercices, projets, playground et services IA ne sont pas implémentés dans
-cette phase. Leurs emplacements sont visibles et explicitement signalés dans
-l’interface.
+Les projets, le playground et les services IA ne sont pas encore implémentés.
+Leurs emplacements sont visibles et explicitement signalés dans l’interface.
 
 ## Architecture
 
@@ -35,6 +38,7 @@ lib/
     ├── onboarding/
     ├── home/
     ├── courses/        # data / domain / presentation
+    ├── practice/       # quiz, exercices et validation
     ├── progress/       # data / domain
     ├── profile/
     ├── shell/

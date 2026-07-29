@@ -37,6 +37,12 @@ class HomeScreen extends ConsumerWidget {
                       ],
                     ),
                   ),
+                  IconButton(
+                    tooltip: 'Mode d’emploi et aide',
+                    onPressed: () => context.push('/help'),
+                    icon: const Icon(Icons.help_outline_rounded),
+                  ),
+                  const SizedBox(width: 4),
                   const CircleAvatar(
                     radius: 24,
                     child: Icon(Icons.code_rounded),
@@ -185,9 +191,44 @@ class _ProgressCard extends StatelessWidget {
                 Text('${progress.nextLevelXp} XP'),
               ],
             ),
+            const SizedBox(height: 16),
+            Row(
+              children: [
+                Expanded(
+                  child: _ProgressStat(
+                    value: '${progress.completedLessons}',
+                    label: 'Leçons',
+                  ),
+                ),
+                Expanded(
+                  child: _ProgressStat(
+                    value: '${progress.completedExercises}',
+                    label: 'Exercices',
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ProgressStat extends StatelessWidget {
+  const _ProgressStat({required this.value, required this.label});
+  final String value;
+  final String label;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(value,
+            style: Theme.of(context).textTheme.titleLarge
+                ?.copyWith(fontWeight: FontWeight.w800)),
+        Text(label),
+      ],
     );
   }
 }

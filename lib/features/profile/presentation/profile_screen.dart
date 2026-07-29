@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/services/app_preferences.dart';
 import '../../progress/data/progress_repository.dart';
@@ -88,6 +89,22 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                 ],
               ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: ListTile(
+              onTap: () => context.push('/help'),
+              leading: const Icon(Icons.help_outline_rounded),
+              title: const Text(
+                'Mode d’emploi & aide',
+                style: TextStyle(fontWeight: FontWeight.w700),
+              ),
+              subtitle: const Text(
+                'Comprendre le parcours, l’XP, les indices et le mode hors ligne',
+              ),
+              trailing: const Icon(Icons.chevron_right_rounded),
             ),
           ),
         ],
