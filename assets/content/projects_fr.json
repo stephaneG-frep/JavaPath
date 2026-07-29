@@ -1,0 +1,174 @@
+{
+  "locale": "fr",
+  "projects": [
+    {
+      "id": "nombre-mystere",
+      "title": "Jeu du nombre mystère",
+      "description": "Crée un jeu console dans lequel le joueur doit retrouver un nombre secret.",
+      "difficulty": "Débutant",
+      "estimatedHours": 2,
+      "concepts": ["Variables", "Scanner", "Conditions", "Boucles"],
+      "xpReward": 200,
+      "missions": [
+        {
+          "id": "structure",
+          "order": 1,
+          "title": "Créer la structure du programme",
+          "instructions": "Crée une classe Main avec sa méthode main. Affiche un message de bienvenue pour vérifier que le programme démarre correctement.",
+          "successCriteria": ["Le fichier s’appelle Main.java.", "La signature de main est correcte.", "Un message de bienvenue est affiché."],
+          "starterCode": "public class Main {\n  public static void main(String[] args) {\n    // Affiche le message de bienvenue\n  }\n}"
+        },
+        {
+          "id": "secret",
+          "order": 2,
+          "title": "Définir le nombre secret",
+          "instructions": "Crée une variable entière nombreSecret contenant 42. Crée aussi une variable proposition initialisée à 0.",
+          "successCriteria": ["nombreSecret est un int.", "proposition est déclarée séparément.", "Les noms décrivent clairement leur rôle."],
+          "starterCode": "int nombreSecret = 42;\nint proposition = 0;"
+        },
+        {
+          "id": "lecture",
+          "order": 3,
+          "title": "Lire la proposition",
+          "instructions": "Importe Scanner, crée un scanner lié à System.in et demande au joueur de saisir un nombre.",
+          "successCriteria": ["Scanner est importé.", "nextInt() lit la proposition.", "La consigne est affichée avant la saisie."],
+          "starterCode": "import java.util.Scanner;\n\nScanner scanner = new Scanner(System.in);\nSystem.out.print(\"Ton nombre : \");\nint proposition = scanner.nextInt();"
+        },
+        {
+          "id": "comparer",
+          "order": 4,
+          "title": "Guider le joueur",
+          "instructions": "Compare la proposition au secret. Affiche « Trop petit », « Trop grand » ou « Bravo » selon le résultat.",
+          "successCriteria": ["Les trois cas sont traités.", "Les comparaisons utilisent <, > et else.", "Le message correspond au résultat."],
+          "starterCode": "if (proposition < nombreSecret) {\n  // Trop petit\n} else if (proposition > nombreSecret) {\n  // Trop grand\n} else {\n  // Bravo\n}"
+        },
+        {
+          "id": "boucle",
+          "order": 5,
+          "title": "Répéter jusqu’à la victoire",
+          "instructions": "Place la lecture et les comparaisons dans une boucle qui continue tant que la proposition est différente du nombre secret.",
+          "successCriteria": ["La boucle se termine quand le nombre est trouvé.", "Une nouvelle proposition est lue à chaque tour.", "Le scanner est fermé à la fin."],
+          "starterCode": "while (proposition != nombreSecret) {\n  // Lire et comparer\n}\nscanner.close();"
+        }
+      ]
+    },
+    {
+      "id": "bibliotheque",
+      "title": "Gestionnaire de bibliothèque",
+      "description": "Modélise des livres et une bibliothèque avec la programmation orientée objet.",
+      "difficulty": "Intermédiaire",
+      "estimatedHours": 4,
+      "concepts": ["Classes", "Objets", "Constructeurs", "ArrayList"],
+      "xpReward": 200,
+      "missions": [
+        {
+          "id": "book",
+          "order": 1,
+          "title": "Créer la classe Book",
+          "instructions": "Crée une classe Book dans un fichier Book.java. Elle représentera un livre du catalogue.",
+          "successCriteria": ["La classe est publique.", "Le fichier et la classe portent le même nom.", "La classe compile."],
+          "starterCode": "public class Book {\n}"
+        },
+        {
+          "id": "fields",
+          "order": 2,
+          "title": "Ajouter les attributs",
+          "instructions": "Ajoute les attributs privés title et author de type String.",
+          "successCriteria": ["Les deux attributs sont privés.", "Les noms sont explicites.", "Le type String est utilisé."],
+          "starterCode": "private String title;\nprivate String author;"
+        },
+        {
+          "id": "constructor",
+          "order": 3,
+          "title": "Construire un livre",
+          "instructions": "Crée un constructeur qui reçoit title et author, puis initialise les attributs avec this.",
+          "successCriteria": ["Le constructeur n’a pas de type de retour.", "Il reçoit deux paramètres.", "this distingue attributs et paramètres."],
+          "starterCode": "public Book(String title, String author) {\n  this.title = title;\n  this.author = author;\n}"
+        },
+        {
+          "id": "library",
+          "order": 4,
+          "title": "Créer la bibliothèque",
+          "instructions": "Crée une classe Library contenant une ArrayList<Book> initialement vide.",
+          "successCriteria": ["ArrayList est importée.", "La liste est privée.", "La liste est paramétrée avec Book."],
+          "starterCode": "import java.util.ArrayList;\n\npublic class Library {\n  private final ArrayList<Book> books = new ArrayList<>();\n}"
+        },
+        {
+          "id": "add-remove",
+          "order": 5,
+          "title": "Ajouter et supprimer",
+          "instructions": "Ajoute les méthodes addBook et removeBook. Elles reçoivent un Book et modifient la liste.",
+          "successCriteria": ["addBook utilise books.add.", "removeBook utilise books.remove.", "Les méthodes ont un nom explicite."],
+          "starterCode": "public void addBook(Book book) {\n  books.add(book);\n}\n\npublic void removeBook(Book book) {\n  books.remove(book);\n}"
+        },
+        {
+          "id": "search",
+          "order": 6,
+          "title": "Rechercher par titre",
+          "instructions": "Crée une méthode findByTitle qui parcourt les livres et renvoie celui dont le titre correspond, ou null si rien n’est trouvé.",
+          "successCriteria": ["Tous les livres sont parcourus.", "La comparaison de texte utilise equalsIgnoreCase.", "Le cas absent est géré."],
+          "starterCode": "public Book findByTitle(String title) {\n  for (Book book : books) {\n    // Comparer le titre\n  }\n  return null;\n}"
+        }
+      ]
+    },
+    {
+      "id": "contacts",
+      "title": "Gestionnaire de contacts",
+      "description": "Construis une petite application console capable d’ajouter, rechercher et supprimer des contacts.",
+      "difficulty": "Intermédiaire",
+      "estimatedHours": 5,
+      "concepts": ["POO", "Collections", "Méthodes", "Exceptions"],
+      "xpReward": 200,
+      "missions": [
+        {
+          "id": "contact",
+          "order": 1,
+          "title": "Modéliser un contact",
+          "instructions": "Crée une classe Contact avec les attributs privés name, phone et email.",
+          "successCriteria": ["Les attributs sont encapsulés.", "Un constructeur initialise les trois valeurs.", "Des getters permettent la lecture."],
+          "starterCode": "public class Contact {\n  private String name;\n  private String phone;\n  private String email;\n}"
+        },
+        {
+          "id": "manager",
+          "order": 2,
+          "title": "Créer le gestionnaire",
+          "instructions": "Crée ContactManager avec une liste privée de contacts.",
+          "successCriteria": ["La collection est une ArrayList<Contact>.", "Elle est initialisée une seule fois.", "Elle reste privée."],
+          "starterCode": "private final List<Contact> contacts = new ArrayList<>();"
+        },
+        {
+          "id": "add",
+          "order": 3,
+          "title": "Ajouter un contact",
+          "instructions": "Crée addContact. Refuse l’ajout si le téléphone est vide et explique l’erreur avec IllegalArgumentException.",
+          "successCriteria": ["Le téléphone est validé.", "Une exception claire est levée si nécessaire.", "Le contact valide est ajouté."],
+          "starterCode": "public void addContact(Contact contact) {\n  if (contact.getPhone().isBlank()) {\n    throw new IllegalArgumentException(\"Téléphone obligatoire\");\n  }\n  contacts.add(contact);\n}"
+        },
+        {
+          "id": "find",
+          "order": 4,
+          "title": "Rechercher un contact",
+          "instructions": "Crée findByName qui renvoie un Optional<Contact> afin de représenter proprement l’absence de résultat.",
+          "successCriteria": ["La méthode renvoie Optional<Contact>.", "La casse est ignorée.", "Optional.empty représente l’absence."],
+          "starterCode": "public Optional<Contact> findByName(String name) {\n  // Parcourir les contacts\n  return Optional.empty();\n}"
+        },
+        {
+          "id": "remove",
+          "order": 5,
+          "title": "Supprimer un contact",
+          "instructions": "Crée removeByName. La méthode renvoie true si un contact a été supprimé et false sinon.",
+          "successCriteria": ["La valeur de retour décrit le résultat.", "La collection est modifiée sans erreur.", "Le cas absent est géré."],
+          "starterCode": "public boolean removeByName(String name) {\n  return contacts.removeIf(\n    contact -> contact.getName().equalsIgnoreCase(name)\n  );\n}"
+        },
+        {
+          "id": "menu",
+          "order": 6,
+          "title": "Créer le menu console",
+          "instructions": "Crée une boucle avec un menu : ajouter, rechercher, supprimer, afficher et quitter.",
+          "successCriteria": ["Le menu se répète jusqu’à Quitter.", "Chaque choix appelle une méthode dédiée.", "Une saisie inconnue affiche un message utile."],
+          "starterCode": "boolean running = true;\nwhile (running) {\n  System.out.println(\"1. Ajouter\");\n  System.out.println(\"2. Rechercher\");\n  System.out.println(\"0. Quitter\");\n  // Lire et traiter le choix\n}"
+        }
+      ]
+    }
+  ]
+}

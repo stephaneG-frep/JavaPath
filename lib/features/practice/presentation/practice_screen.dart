@@ -67,10 +67,13 @@ class PracticeScreen extends ConsumerWidget {
               onTap: () => context.push('/challenges'),
             ),
             const SizedBox(height: 14),
-            const _LockedPracticeCard(
+            _PracticeCard(
               icon: Icons.terminal_rounded,
               title: 'Playground Java',
-              phase: 'Phase 6',
+              description: 'Éditeur Java, snippets et historique local',
+              badge: 'Mode démonstration',
+              color: Theme.of(context).colorScheme.surfaceContainerHigh,
+              onTap: () => context.push('/playground'),
             ),
           ],
         ),
@@ -127,30 +130,6 @@ class _PracticeCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _LockedPracticeCard extends StatelessWidget {
-  const _LockedPracticeCard({
-    required this.icon,
-    required this.title,
-    required this.phase,
-  });
-  final IconData icon;
-  final String title;
-  final String phase;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        contentPadding: const EdgeInsets.all(16),
-        leading: Icon(icon, size: 36),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.w700)),
-        subtitle: Text('Prévu pour la $phase'),
-        trailing: const Icon(Icons.lock_outline_rounded),
       ),
     );
   }

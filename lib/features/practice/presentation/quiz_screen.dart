@@ -23,13 +23,19 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
   Future<void> _validate(QuizQuestion question) async {
     if (_selected == null || _validated) return;
     final correct = _selected == question.correctChoiceIndex;
+    final repository = ref.read(progressRepositoryProvider);
+    await repository.recordAttempt(question.id, 'quiz');
     if (correct) {
-      await ref.read(progressRepositoryProvider).completeActivity(
+      await repository.recordCorrectAnswer();
+      await repository.completeActivity(
             activityId: question.id,
             activityType: 'quiz',
             xp: 5,
           );
+      await repository.recordReviewSuccess(question.conceptId);
       _correctAnswers++;
+    } else {
+      await repository.recordReviewError(question.conceptId);
     }
     if (mounted) setState(() => _validated = true);
   }

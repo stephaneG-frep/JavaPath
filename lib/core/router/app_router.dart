@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../features/common/presentation/coming_soon_screen.dart';
 import '../../features/courses/presentation/learning_path_screen.dart';
 import '../../features/courses/presentation/lesson_screen.dart';
+import '../../features/achievements/presentation/achievements_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/help/presentation/help_screen.dart';
 import '../../features/help/presentation/java_setup_screen.dart';
@@ -15,7 +15,14 @@ import '../../features/practice/presentation/challenge_list_screen.dart';
 import '../../features/practice/presentation/challenge_screen.dart';
 import '../../features/practice/presentation/practice_screen.dart';
 import '../../features/practice/presentation/quiz_screen.dart';
+import '../../features/playground/presentation/execution_history_screen.dart';
+import '../../features/playground/presentation/playground_screen.dart';
+import '../../features/playground/presentation/snippet_list_screen.dart';
 import '../../features/profile/presentation/profile_screen.dart';
+import '../../features/projects/presentation/project_list_screen.dart';
+import '../../features/projects/presentation/project_screen.dart';
+import '../../features/reviews/presentation/review_screen.dart';
+import '../../features/statistics/presentation/statistics_screen.dart';
 import '../../features/shell/presentation/main_shell.dart';
 import '../services/app_preferences.dart';
 
@@ -70,12 +77,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             routes: [
               GoRoute(
                 path: '/projects',
-                builder: (context, state) => const ComingSoonScreen(
-                  title: 'Projets',
-                  message:
-                      'Les projets guidés et leurs missions arrivent en phase 5.',
-                  icon: Icons.rocket_launch_rounded,
-                ),
+                builder: (context, state) => const ProjectListScreen(),
               ),
             ],
           ),
@@ -134,6 +136,45 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/help/java-setup',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const JavaSetupScreen(),
+      ),
+      GoRoute(
+        path: '/project/:projectId',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => ProjectScreen(
+          projectId: state.pathParameters['projectId']!,
+        ),
+      ),
+      GoRoute(
+        path: '/playground',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => PlaygroundScreen(
+          initialCode: state.extra as String?,
+        ),
+      ),
+      GoRoute(
+        path: '/playground/snippets',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const SnippetListScreen(),
+      ),
+      GoRoute(
+        path: '/playground/history',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ExecutionHistoryScreen(),
+      ),
+      GoRoute(
+        path: '/statistics',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const StatisticsScreen(),
+      ),
+      GoRoute(
+        path: '/achievements',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const AchievementsScreen(),
+      ),
+      GoRoute(
+        path: '/reviews',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const ReviewScreen(),
       ),
     ],
   );

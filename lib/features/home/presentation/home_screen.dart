@@ -120,7 +120,7 @@ class HomeScreen extends ConsumerWidget {
                   _Shortcut(
                     label: 'Playground',
                     icon: Icons.terminal_rounded,
-                    onTap: () => context.go('/practice'),
+                    onTap: () => context.push('/playground'),
                   ),
                   _Shortcut(
                     label: 'Exercices',
@@ -131,6 +131,21 @@ class HomeScreen extends ConsumerWidget {
                     label: 'Projets',
                     icon: Icons.rocket_launch_rounded,
                     onTap: () => context.go('/projects'),
+                  ),
+                  _Shortcut(
+                    label: 'Révisions',
+                    icon: Icons.refresh_rounded,
+                    onTap: () => context.push('/reviews'),
+                  ),
+                  _Shortcut(
+                    label: 'Statistiques',
+                    icon: Icons.bar_chart_rounded,
+                    onTap: () => context.push('/statistics'),
+                  ),
+                  _Shortcut(
+                    label: 'Badges',
+                    icon: Icons.emoji_events_outlined,
+                    onTap: () => context.push('/achievements'),
                   ),
                 ],
               ),
@@ -181,6 +196,20 @@ class _ProgressCard extends StatelessWidget {
                     style: const TextStyle(fontWeight: FontWeight.w800)),
               ],
             ),
+            const SizedBox(height: 6),
+            Row(
+              children: [
+                Text('Record : ${progress.bestStreak} jour(s)'),
+                const Spacer(),
+                Icon(
+                  Icons.shield_outlined,
+                  size: 17,
+                  color: Theme.of(context).colorScheme.primary,
+                ),
+                const SizedBox(width: 4),
+                Text('${progress.streakProtections} protection'),
+              ],
+            ),
             const SizedBox(height: 14),
             LinearProgressIndicator(value: progress.levelProgress),
             const SizedBox(height: 8),
@@ -204,6 +233,12 @@ class _ProgressCard extends StatelessWidget {
                   child: _ProgressStat(
                     value: '${progress.completedExercises}',
                     label: 'Exercices',
+                  ),
+                ),
+                Expanded(
+                  child: _ProgressStat(
+                    value: '${progress.completedProjects}',
+                    label: 'Projets',
                   ),
                 ),
               ],

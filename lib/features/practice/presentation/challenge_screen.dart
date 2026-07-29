@@ -66,6 +66,9 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
     final valid =
         AnswerValidator.matches(answer, challenge.acceptedAnswers);
     if (!valid) {
+      await ref
+          .read(progressRepositoryProvider)
+          .recordReviewError(challenge.category);
       if (mounted) {
         setState(() {
           _feedback =
@@ -75,6 +78,7 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
       return;
     }
 
+    await ref.read(progressRepositoryProvider).recordCorrectAnswer();
     final reward = HintPolicy.reward(
       baseXp: challenge.xpReward,
       hintsUsed: _hintsUsed,
@@ -85,6 +89,9 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
           activityType: _activityType,
           xp: reward,
         );
+    await ref
+        .read(progressRepositoryProvider)
+        .recordReviewSuccess(challenge.category);
     if (!mounted) return;
     setState(() {
       _correct = true;

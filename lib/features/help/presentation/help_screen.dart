@@ -142,6 +142,17 @@ class HelpScreen extends StatelessWidget {
             ],
           ),
           const _HelpSection(
+            icon: Icons.refresh_rounded,
+            title: 'Séries, statistiques et révisions',
+            children: [
+              'Une activité réussie dans la journée entretient ta série.',
+              'Une protection peut couvrir automatiquement une journée manquée.',
+              'Les statistiques utilisent tes vraies tentatives enregistrées localement.',
+              'Après une erreur, la notion apparaît dans À réviser.',
+              'Chaque révision réussie espace progressivement la suivante.',
+            ],
+          ),
+          const _HelpSection(
             icon: Icons.offline_bolt_rounded,
             title: 'Utilisation hors ligne',
             children: [
@@ -154,9 +165,9 @@ class HelpScreen extends StatelessWidget {
             icon: Icons.construction_rounded,
             title: 'Fonctionnalités à venir',
             children: [
-              'Les projets guidés, le playground Java et le mentor IA seront ajoutés dans de prochaines phases.',
-              'Le playground n’exécute pas encore de code Java.',
-              'JavaPath ne prétend donc pas compiler un programme tant que le service sécurisé n’est pas disponible.',
+              'Le mentor IA sera ajouté dans une prochaine phase.',
+              'Le playground permet déjà d’écrire et sauvegarder du code, mais il n’exécute pas encore Java.',
+              'JavaPath ne prétend pas compiler un programme tant que le futur service sécurisé n’est pas disponible.',
             ],
           ),
           const SizedBox(height: 20),

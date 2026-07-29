@@ -28,8 +28,12 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
 
   Future<void> _validate(Exercise exercise) async {
     final answer = exercise.choices.isEmpty ? _controller.text : _choice ?? '';
+    if (answer.trim().isEmpty) return;
+    final repository = ref.read(progressRepositoryProvider);
+    await repository.recordAttempt(exercise.id, 'exercise');
     final valid = AnswerValidator.matches(answer, exercise.acceptedAnswers);
     if (!valid) {
+      await repository.recordReviewError(exercise.conceptId);
       setState(() {
         _feedback =
             'Ce n’est pas encore ça. Relis la consigne et essaie une autre réponse.';
@@ -37,11 +41,13 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
       return;
     }
 
-    final earned = await ref.read(progressRepositoryProvider).completeActivity(
+    await repository.recordCorrectAnswer();
+    final earned = await repository.completeActivity(
           activityId: exercise.id,
           activityType: 'exercise',
           xp: exercise.xpReward,
         );
+    await repository.recordReviewSuccess(exercise.conceptId);
     if (!mounted) return;
     setState(() {
       _correct = true;

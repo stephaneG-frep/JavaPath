@@ -28,7 +28,11 @@ class LessonScreen extends ConsumerWidget {
           onPressed: () async {
             final earned = await ref
                 .read(progressRepositoryProvider)
-                .completeLesson(lesson.id, lesson.xpReward);
+                .completeLesson(
+                  lesson.id,
+                  lesson.xpReward,
+                  lesson.estimatedMinutes,
+                );
             if (context.mounted) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(

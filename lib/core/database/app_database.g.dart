@@ -1909,6 +1909,735 @@ class ActivityStatesCompanion extends UpdateCompanion<ActivityState> {
   }
 }
 
+class $ExecutionHistoriesTable extends ExecutionHistories
+    with TableInfo<$ExecutionHistoriesTable, ExecutionHistory> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ExecutionHistoriesTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+    'id',
+    aliasedName,
+    false,
+    hasAutoIncrement: true,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultConstraints: GeneratedColumn.constraintIsAlways(
+      'PRIMARY KEY AUTOINCREMENT',
+    ),
+  );
+  static const VerificationMeta _codeMeta = const VerificationMeta('code');
+  @override
+  late final GeneratedColumn<String> code = GeneratedColumn<String>(
+    'code',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _outputMeta = const VerificationMeta('output');
+  @override
+  late final GeneratedColumn<String> output = GeneratedColumn<String>(
+    'output',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _statusMeta = const VerificationMeta('status');
+  @override
+  late final GeneratedColumn<String> status = GeneratedColumn<String>(
+    'status',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _executedAtMeta = const VerificationMeta(
+    'executedAt',
+  );
+  @override
+  late final GeneratedColumn<DateTime> executedAt = GeneratedColumn<DateTime>(
+    'executed_at',
+    aliasedName,
+    false,
+    type: DriftSqlType.dateTime,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [id, code, output, status, executedAt];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'execution_histories';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ExecutionHistory> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('code')) {
+      context.handle(
+        _codeMeta,
+        code.isAcceptableOrUnknown(data['code']!, _codeMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_codeMeta);
+    }
+    if (data.containsKey('output')) {
+      context.handle(
+        _outputMeta,
+        output.isAcceptableOrUnknown(data['output']!, _outputMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_outputMeta);
+    }
+    if (data.containsKey('status')) {
+      context.handle(
+        _statusMeta,
+        status.isAcceptableOrUnknown(data['status']!, _statusMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_statusMeta);
+    }
+    if (data.containsKey('executed_at')) {
+      context.handle(
+        _executedAtMeta,
+        executedAt.isAcceptableOrUnknown(data['executed_at']!, _executedAtMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_executedAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  ExecutionHistory map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ExecutionHistory(
+      id: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}id'],
+      )!,
+      code: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}code'],
+      )!,
+      output: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}output'],
+      )!,
+      status: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}status'],
+      )!,
+      executedAt: attachedDatabase.typeMapping.read(
+        DriftSqlType.dateTime,
+        data['${effectivePrefix}executed_at'],
+      )!,
+    );
+  }
+
+  @override
+  $ExecutionHistoriesTable createAlias(String alias) {
+    return $ExecutionHistoriesTable(attachedDatabase, alias);
+  }
+}
+
+class ExecutionHistory extends DataClass
+    implements Insertable<ExecutionHistory> {
+  final int id;
+  final String code;
+  final String output;
+  final String status;
+  final DateTime executedAt;
+  const ExecutionHistory({
+    required this.id,
+    required this.code,
+    required this.output,
+    required this.status,
+    required this.executedAt,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['code'] = Variable<String>(code);
+    map['output'] = Variable<String>(output);
+    map['status'] = Variable<String>(status);
+    map['executed_at'] = Variable<DateTime>(executedAt);
+    return map;
+  }
+
+  ExecutionHistoriesCompanion toCompanion(bool nullToAbsent) {
+    return ExecutionHistoriesCompanion(
+      id: Value(id),
+      code: Value(code),
+      output: Value(output),
+      status: Value(status),
+      executedAt: Value(executedAt),
+    );
+  }
+
+  factory ExecutionHistory.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ExecutionHistory(
+      id: serializer.fromJson<int>(json['id']),
+      code: serializer.fromJson<String>(json['code']),
+      output: serializer.fromJson<String>(json['output']),
+      status: serializer.fromJson<String>(json['status']),
+      executedAt: serializer.fromJson<DateTime>(json['executedAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'code': serializer.toJson<String>(code),
+      'output': serializer.toJson<String>(output),
+      'status': serializer.toJson<String>(status),
+      'executedAt': serializer.toJson<DateTime>(executedAt),
+    };
+  }
+
+  ExecutionHistory copyWith({
+    int? id,
+    String? code,
+    String? output,
+    String? status,
+    DateTime? executedAt,
+  }) => ExecutionHistory(
+    id: id ?? this.id,
+    code: code ?? this.code,
+    output: output ?? this.output,
+    status: status ?? this.status,
+    executedAt: executedAt ?? this.executedAt,
+  );
+  ExecutionHistory copyWithCompanion(ExecutionHistoriesCompanion data) {
+    return ExecutionHistory(
+      id: data.id.present ? data.id.value : this.id,
+      code: data.code.present ? data.code.value : this.code,
+      output: data.output.present ? data.output.value : this.output,
+      status: data.status.present ? data.status.value : this.status,
+      executedAt: data.executedAt.present
+          ? data.executedAt.value
+          : this.executedAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExecutionHistory(')
+          ..write('id: $id, ')
+          ..write('code: $code, ')
+          ..write('output: $output, ')
+          ..write('status: $status, ')
+          ..write('executedAt: $executedAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, code, output, status, executedAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ExecutionHistory &&
+          other.id == this.id &&
+          other.code == this.code &&
+          other.output == this.output &&
+          other.status == this.status &&
+          other.executedAt == this.executedAt);
+}
+
+class ExecutionHistoriesCompanion extends UpdateCompanion<ExecutionHistory> {
+  final Value<int> id;
+  final Value<String> code;
+  final Value<String> output;
+  final Value<String> status;
+  final Value<DateTime> executedAt;
+  const ExecutionHistoriesCompanion({
+    this.id = const Value.absent(),
+    this.code = const Value.absent(),
+    this.output = const Value.absent(),
+    this.status = const Value.absent(),
+    this.executedAt = const Value.absent(),
+  });
+  ExecutionHistoriesCompanion.insert({
+    this.id = const Value.absent(),
+    required String code,
+    required String output,
+    required String status,
+    required DateTime executedAt,
+  }) : code = Value(code),
+       output = Value(output),
+       status = Value(status),
+       executedAt = Value(executedAt);
+  static Insertable<ExecutionHistory> custom({
+    Expression<int>? id,
+    Expression<String>? code,
+    Expression<String>? output,
+    Expression<String>? status,
+    Expression<DateTime>? executedAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (code != null) 'code': code,
+      if (output != null) 'output': output,
+      if (status != null) 'status': status,
+      if (executedAt != null) 'executed_at': executedAt,
+    });
+  }
+
+  ExecutionHistoriesCompanion copyWith({
+    Value<int>? id,
+    Value<String>? code,
+    Value<String>? output,
+    Value<String>? status,
+    Value<DateTime>? executedAt,
+  }) {
+    return ExecutionHistoriesCompanion(
+      id: id ?? this.id,
+      code: code ?? this.code,
+      output: output ?? this.output,
+      status: status ?? this.status,
+      executedAt: executedAt ?? this.executedAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (code.present) {
+      map['code'] = Variable<String>(code.value);
+    }
+    if (output.present) {
+      map['output'] = Variable<String>(output.value);
+    }
+    if (status.present) {
+      map['status'] = Variable<String>(status.value);
+    }
+    if (executedAt.present) {
+      map['executed_at'] = Variable<DateTime>(executedAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ExecutionHistoriesCompanion(')
+          ..write('id: $id, ')
+          ..write('code: $code, ')
+          ..write('output: $output, ')
+          ..write('status: $status, ')
+          ..write('executedAt: $executedAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $ReviewRecordsTable extends ReviewRecords
+    with TableInfo<$ReviewRecordsTable, ReviewRecord> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $ReviewRecordsTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _conceptIdMeta = const VerificationMeta(
+    'conceptId',
+  );
+  @override
+  late final GeneratedColumn<String> conceptId = GeneratedColumn<String>(
+    'concept_id',
+    aliasedName,
+    false,
+    type: DriftSqlType.string,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _errorCountMeta = const VerificationMeta(
+    'errorCount',
+  );
+  @override
+  late final GeneratedColumn<int> errorCount = GeneratedColumn<int>(
+    'error_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _successCountMeta = const VerificationMeta(
+    'successCount',
+  );
+  @override
+  late final GeneratedColumn<int> successCount = GeneratedColumn<int>(
+    'success_count',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: false,
+    defaultValue: const Constant(0),
+  );
+  static const VerificationMeta _nextReviewDayMeta = const VerificationMeta(
+    'nextReviewDay',
+  );
+  @override
+  late final GeneratedColumn<int> nextReviewDay = GeneratedColumn<int>(
+    'next_review_day',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  static const VerificationMeta _lastReviewDayMeta = const VerificationMeta(
+    'lastReviewDay',
+  );
+  @override
+  late final GeneratedColumn<int> lastReviewDay = GeneratedColumn<int>(
+    'last_review_day',
+    aliasedName,
+    false,
+    type: DriftSqlType.int,
+    requiredDuringInsert: true,
+  );
+  @override
+  List<GeneratedColumn> get $columns => [
+    conceptId,
+    errorCount,
+    successCount,
+    nextReviewDay,
+    lastReviewDay,
+  ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'review_records';
+  @override
+  VerificationContext validateIntegrity(
+    Insertable<ReviewRecord> instance, {
+    bool isInserting = false,
+  }) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('concept_id')) {
+      context.handle(
+        _conceptIdMeta,
+        conceptId.isAcceptableOrUnknown(data['concept_id']!, _conceptIdMeta),
+      );
+    } else if (isInserting) {
+      context.missing(_conceptIdMeta);
+    }
+    if (data.containsKey('error_count')) {
+      context.handle(
+        _errorCountMeta,
+        errorCount.isAcceptableOrUnknown(data['error_count']!, _errorCountMeta),
+      );
+    }
+    if (data.containsKey('success_count')) {
+      context.handle(
+        _successCountMeta,
+        successCount.isAcceptableOrUnknown(
+          data['success_count']!,
+          _successCountMeta,
+        ),
+      );
+    }
+    if (data.containsKey('next_review_day')) {
+      context.handle(
+        _nextReviewDayMeta,
+        nextReviewDay.isAcceptableOrUnknown(
+          data['next_review_day']!,
+          _nextReviewDayMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_nextReviewDayMeta);
+    }
+    if (data.containsKey('last_review_day')) {
+      context.handle(
+        _lastReviewDayMeta,
+        lastReviewDay.isAcceptableOrUnknown(
+          data['last_review_day']!,
+          _lastReviewDayMeta,
+        ),
+      );
+    } else if (isInserting) {
+      context.missing(_lastReviewDayMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {conceptId};
+  @override
+  ReviewRecord map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return ReviewRecord(
+      conceptId: attachedDatabase.typeMapping.read(
+        DriftSqlType.string,
+        data['${effectivePrefix}concept_id'],
+      )!,
+      errorCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}error_count'],
+      )!,
+      successCount: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}success_count'],
+      )!,
+      nextReviewDay: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}next_review_day'],
+      )!,
+      lastReviewDay: attachedDatabase.typeMapping.read(
+        DriftSqlType.int,
+        data['${effectivePrefix}last_review_day'],
+      )!,
+    );
+  }
+
+  @override
+  $ReviewRecordsTable createAlias(String alias) {
+    return $ReviewRecordsTable(attachedDatabase, alias);
+  }
+}
+
+class ReviewRecord extends DataClass implements Insertable<ReviewRecord> {
+  final String conceptId;
+  final int errorCount;
+  final int successCount;
+  final int nextReviewDay;
+  final int lastReviewDay;
+  const ReviewRecord({
+    required this.conceptId,
+    required this.errorCount,
+    required this.successCount,
+    required this.nextReviewDay,
+    required this.lastReviewDay,
+  });
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['concept_id'] = Variable<String>(conceptId);
+    map['error_count'] = Variable<int>(errorCount);
+    map['success_count'] = Variable<int>(successCount);
+    map['next_review_day'] = Variable<int>(nextReviewDay);
+    map['last_review_day'] = Variable<int>(lastReviewDay);
+    return map;
+  }
+
+  ReviewRecordsCompanion toCompanion(bool nullToAbsent) {
+    return ReviewRecordsCompanion(
+      conceptId: Value(conceptId),
+      errorCount: Value(errorCount),
+      successCount: Value(successCount),
+      nextReviewDay: Value(nextReviewDay),
+      lastReviewDay: Value(lastReviewDay),
+    );
+  }
+
+  factory ReviewRecord.fromJson(
+    Map<String, dynamic> json, {
+    ValueSerializer? serializer,
+  }) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return ReviewRecord(
+      conceptId: serializer.fromJson<String>(json['conceptId']),
+      errorCount: serializer.fromJson<int>(json['errorCount']),
+      successCount: serializer.fromJson<int>(json['successCount']),
+      nextReviewDay: serializer.fromJson<int>(json['nextReviewDay']),
+      lastReviewDay: serializer.fromJson<int>(json['lastReviewDay']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'conceptId': serializer.toJson<String>(conceptId),
+      'errorCount': serializer.toJson<int>(errorCount),
+      'successCount': serializer.toJson<int>(successCount),
+      'nextReviewDay': serializer.toJson<int>(nextReviewDay),
+      'lastReviewDay': serializer.toJson<int>(lastReviewDay),
+    };
+  }
+
+  ReviewRecord copyWith({
+    String? conceptId,
+    int? errorCount,
+    int? successCount,
+    int? nextReviewDay,
+    int? lastReviewDay,
+  }) => ReviewRecord(
+    conceptId: conceptId ?? this.conceptId,
+    errorCount: errorCount ?? this.errorCount,
+    successCount: successCount ?? this.successCount,
+    nextReviewDay: nextReviewDay ?? this.nextReviewDay,
+    lastReviewDay: lastReviewDay ?? this.lastReviewDay,
+  );
+  ReviewRecord copyWithCompanion(ReviewRecordsCompanion data) {
+    return ReviewRecord(
+      conceptId: data.conceptId.present ? data.conceptId.value : this.conceptId,
+      errorCount: data.errorCount.present
+          ? data.errorCount.value
+          : this.errorCount,
+      successCount: data.successCount.present
+          ? data.successCount.value
+          : this.successCount,
+      nextReviewDay: data.nextReviewDay.present
+          ? data.nextReviewDay.value
+          : this.nextReviewDay,
+      lastReviewDay: data.lastReviewDay.present
+          ? data.lastReviewDay.value
+          : this.lastReviewDay,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReviewRecord(')
+          ..write('conceptId: $conceptId, ')
+          ..write('errorCount: $errorCount, ')
+          ..write('successCount: $successCount, ')
+          ..write('nextReviewDay: $nextReviewDay, ')
+          ..write('lastReviewDay: $lastReviewDay')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+    conceptId,
+    errorCount,
+    successCount,
+    nextReviewDay,
+    lastReviewDay,
+  );
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is ReviewRecord &&
+          other.conceptId == this.conceptId &&
+          other.errorCount == this.errorCount &&
+          other.successCount == this.successCount &&
+          other.nextReviewDay == this.nextReviewDay &&
+          other.lastReviewDay == this.lastReviewDay);
+}
+
+class ReviewRecordsCompanion extends UpdateCompanion<ReviewRecord> {
+  final Value<String> conceptId;
+  final Value<int> errorCount;
+  final Value<int> successCount;
+  final Value<int> nextReviewDay;
+  final Value<int> lastReviewDay;
+  final Value<int> rowid;
+  const ReviewRecordsCompanion({
+    this.conceptId = const Value.absent(),
+    this.errorCount = const Value.absent(),
+    this.successCount = const Value.absent(),
+    this.nextReviewDay = const Value.absent(),
+    this.lastReviewDay = const Value.absent(),
+    this.rowid = const Value.absent(),
+  });
+  ReviewRecordsCompanion.insert({
+    required String conceptId,
+    this.errorCount = const Value.absent(),
+    this.successCount = const Value.absent(),
+    required int nextReviewDay,
+    required int lastReviewDay,
+    this.rowid = const Value.absent(),
+  }) : conceptId = Value(conceptId),
+       nextReviewDay = Value(nextReviewDay),
+       lastReviewDay = Value(lastReviewDay);
+  static Insertable<ReviewRecord> custom({
+    Expression<String>? conceptId,
+    Expression<int>? errorCount,
+    Expression<int>? successCount,
+    Expression<int>? nextReviewDay,
+    Expression<int>? lastReviewDay,
+    Expression<int>? rowid,
+  }) {
+    return RawValuesInsertable({
+      if (conceptId != null) 'concept_id': conceptId,
+      if (errorCount != null) 'error_count': errorCount,
+      if (successCount != null) 'success_count': successCount,
+      if (nextReviewDay != null) 'next_review_day': nextReviewDay,
+      if (lastReviewDay != null) 'last_review_day': lastReviewDay,
+      if (rowid != null) 'rowid': rowid,
+    });
+  }
+
+  ReviewRecordsCompanion copyWith({
+    Value<String>? conceptId,
+    Value<int>? errorCount,
+    Value<int>? successCount,
+    Value<int>? nextReviewDay,
+    Value<int>? lastReviewDay,
+    Value<int>? rowid,
+  }) {
+    return ReviewRecordsCompanion(
+      conceptId: conceptId ?? this.conceptId,
+      errorCount: errorCount ?? this.errorCount,
+      successCount: successCount ?? this.successCount,
+      nextReviewDay: nextReviewDay ?? this.nextReviewDay,
+      lastReviewDay: lastReviewDay ?? this.lastReviewDay,
+      rowid: rowid ?? this.rowid,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (conceptId.present) {
+      map['concept_id'] = Variable<String>(conceptId.value);
+    }
+    if (errorCount.present) {
+      map['error_count'] = Variable<int>(errorCount.value);
+    }
+    if (successCount.present) {
+      map['success_count'] = Variable<int>(successCount.value);
+    }
+    if (nextReviewDay.present) {
+      map['next_review_day'] = Variable<int>(nextReviewDay.value);
+    }
+    if (lastReviewDay.present) {
+      map['last_review_day'] = Variable<int>(lastReviewDay.value);
+    }
+    if (rowid.present) {
+      map['rowid'] = Variable<int>(rowid.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('ReviewRecordsCompanion(')
+          ..write('conceptId: $conceptId, ')
+          ..write('errorCount: $errorCount, ')
+          ..write('successCount: $successCount, ')
+          ..write('nextReviewDay: $nextReviewDay, ')
+          ..write('lastReviewDay: $lastReviewDay, ')
+          ..write('rowid: $rowid')
+          ..write(')'))
+        .toString();
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(e);
   $AppDatabaseManager get managers => $AppDatabaseManager(this);
@@ -1925,6 +2654,9 @@ abstract class _$AppDatabase extends GeneratedDatabase {
   late final $ActivityCompletionsTable activityCompletions =
       $ActivityCompletionsTable(this);
   late final $ActivityStatesTable activityStates = $ActivityStatesTable(this);
+  late final $ExecutionHistoriesTable executionHistories =
+      $ExecutionHistoriesTable(this);
+  late final $ReviewRecordsTable reviewRecords = $ReviewRecordsTable(this);
   @override
   Iterable<TableInfo<Table, Object?>> get allTables =>
       allSchemaEntities.whereType<TableInfo<Table, Object?>>();
@@ -1936,6 +2668,8 @@ abstract class _$AppDatabase extends GeneratedDatabase {
     codeSnippets,
     activityCompletions,
     activityStates,
+    executionHistories,
+    reviewRecords,
   ];
 }
 
@@ -3063,6 +3797,423 @@ typedef $$ActivityStatesTableProcessedTableManager =
       ActivityState,
       PrefetchHooks Function()
     >;
+typedef $$ExecutionHistoriesTableCreateCompanionBuilder =
+    ExecutionHistoriesCompanion Function({
+      Value<int> id,
+      required String code,
+      required String output,
+      required String status,
+      required DateTime executedAt,
+    });
+typedef $$ExecutionHistoriesTableUpdateCompanionBuilder =
+    ExecutionHistoriesCompanion Function({
+      Value<int> id,
+      Value<String> code,
+      Value<String> output,
+      Value<String> status,
+      Value<DateTime> executedAt,
+    });
+
+class $$ExecutionHistoriesTableFilterComposer
+    extends Composer<_$AppDatabase, $ExecutionHistoriesTable> {
+  $$ExecutionHistoriesTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get output => $composableBuilder(
+    column: $table.output,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<DateTime> get executedAt => $composableBuilder(
+    column: $table.executedAt,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ExecutionHistoriesTableOrderingComposer
+    extends Composer<_$AppDatabase, $ExecutionHistoriesTable> {
+  $$ExecutionHistoriesTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+    column: $table.id,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get code => $composableBuilder(
+    column: $table.code,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get output => $composableBuilder(
+    column: $table.output,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<String> get status => $composableBuilder(
+    column: $table.status,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<DateTime> get executedAt => $composableBuilder(
+    column: $table.executedAt,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ExecutionHistoriesTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ExecutionHistoriesTable> {
+  $$ExecutionHistoriesTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get code =>
+      $composableBuilder(column: $table.code, builder: (column) => column);
+
+  GeneratedColumn<String> get output =>
+      $composableBuilder(column: $table.output, builder: (column) => column);
+
+  GeneratedColumn<String> get status =>
+      $composableBuilder(column: $table.status, builder: (column) => column);
+
+  GeneratedColumn<DateTime> get executedAt => $composableBuilder(
+    column: $table.executedAt,
+    builder: (column) => column,
+  );
+}
+
+class $$ExecutionHistoriesTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ExecutionHistoriesTable,
+          ExecutionHistory,
+          $$ExecutionHistoriesTableFilterComposer,
+          $$ExecutionHistoriesTableOrderingComposer,
+          $$ExecutionHistoriesTableAnnotationComposer,
+          $$ExecutionHistoriesTableCreateCompanionBuilder,
+          $$ExecutionHistoriesTableUpdateCompanionBuilder,
+          (
+            ExecutionHistory,
+            BaseReferences<
+              _$AppDatabase,
+              $ExecutionHistoriesTable,
+              ExecutionHistory
+            >,
+          ),
+          ExecutionHistory,
+          PrefetchHooks Function()
+        > {
+  $$ExecutionHistoriesTableTableManager(
+    _$AppDatabase db,
+    $ExecutionHistoriesTable table,
+  ) : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ExecutionHistoriesTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ExecutionHistoriesTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ExecutionHistoriesTableAnnotationComposer(
+                $db: db,
+                $table: table,
+              ),
+          updateCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                Value<String> code = const Value.absent(),
+                Value<String> output = const Value.absent(),
+                Value<String> status = const Value.absent(),
+                Value<DateTime> executedAt = const Value.absent(),
+              }) => ExecutionHistoriesCompanion(
+                id: id,
+                code: code,
+                output: output,
+                status: status,
+                executedAt: executedAt,
+              ),
+          createCompanionCallback:
+              ({
+                Value<int> id = const Value.absent(),
+                required String code,
+                required String output,
+                required String status,
+                required DateTime executedAt,
+              }) => ExecutionHistoriesCompanion.insert(
+                id: id,
+                code: code,
+                output: output,
+                status: status,
+                executedAt: executedAt,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ExecutionHistoriesTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ExecutionHistoriesTable,
+      ExecutionHistory,
+      $$ExecutionHistoriesTableFilterComposer,
+      $$ExecutionHistoriesTableOrderingComposer,
+      $$ExecutionHistoriesTableAnnotationComposer,
+      $$ExecutionHistoriesTableCreateCompanionBuilder,
+      $$ExecutionHistoriesTableUpdateCompanionBuilder,
+      (
+        ExecutionHistory,
+        BaseReferences<
+          _$AppDatabase,
+          $ExecutionHistoriesTable,
+          ExecutionHistory
+        >,
+      ),
+      ExecutionHistory,
+      PrefetchHooks Function()
+    >;
+typedef $$ReviewRecordsTableCreateCompanionBuilder =
+    ReviewRecordsCompanion Function({
+      required String conceptId,
+      Value<int> errorCount,
+      Value<int> successCount,
+      required int nextReviewDay,
+      required int lastReviewDay,
+      Value<int> rowid,
+    });
+typedef $$ReviewRecordsTableUpdateCompanionBuilder =
+    ReviewRecordsCompanion Function({
+      Value<String> conceptId,
+      Value<int> errorCount,
+      Value<int> successCount,
+      Value<int> nextReviewDay,
+      Value<int> lastReviewDay,
+      Value<int> rowid,
+    });
+
+class $$ReviewRecordsTableFilterComposer
+    extends Composer<_$AppDatabase, $ReviewRecordsTable> {
+  $$ReviewRecordsTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<String> get conceptId => $composableBuilder(
+    column: $table.conceptId,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get errorCount => $composableBuilder(
+    column: $table.errorCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get successCount => $composableBuilder(
+    column: $table.successCount,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get nextReviewDay => $composableBuilder(
+    column: $table.nextReviewDay,
+    builder: (column) => ColumnFilters(column),
+  );
+
+  ColumnFilters<int> get lastReviewDay => $composableBuilder(
+    column: $table.lastReviewDay,
+    builder: (column) => ColumnFilters(column),
+  );
+}
+
+class $$ReviewRecordsTableOrderingComposer
+    extends Composer<_$AppDatabase, $ReviewRecordsTable> {
+  $$ReviewRecordsTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<String> get conceptId => $composableBuilder(
+    column: $table.conceptId,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get errorCount => $composableBuilder(
+    column: $table.errorCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get successCount => $composableBuilder(
+    column: $table.successCount,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get nextReviewDay => $composableBuilder(
+    column: $table.nextReviewDay,
+    builder: (column) => ColumnOrderings(column),
+  );
+
+  ColumnOrderings<int> get lastReviewDay => $composableBuilder(
+    column: $table.lastReviewDay,
+    builder: (column) => ColumnOrderings(column),
+  );
+}
+
+class $$ReviewRecordsTableAnnotationComposer
+    extends Composer<_$AppDatabase, $ReviewRecordsTable> {
+  $$ReviewRecordsTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<String> get conceptId =>
+      $composableBuilder(column: $table.conceptId, builder: (column) => column);
+
+  GeneratedColumn<int> get errorCount => $composableBuilder(
+    column: $table.errorCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get successCount => $composableBuilder(
+    column: $table.successCount,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get nextReviewDay => $composableBuilder(
+    column: $table.nextReviewDay,
+    builder: (column) => column,
+  );
+
+  GeneratedColumn<int> get lastReviewDay => $composableBuilder(
+    column: $table.lastReviewDay,
+    builder: (column) => column,
+  );
+}
+
+class $$ReviewRecordsTableTableManager
+    extends
+        RootTableManager<
+          _$AppDatabase,
+          $ReviewRecordsTable,
+          ReviewRecord,
+          $$ReviewRecordsTableFilterComposer,
+          $$ReviewRecordsTableOrderingComposer,
+          $$ReviewRecordsTableAnnotationComposer,
+          $$ReviewRecordsTableCreateCompanionBuilder,
+          $$ReviewRecordsTableUpdateCompanionBuilder,
+          (
+            ReviewRecord,
+            BaseReferences<_$AppDatabase, $ReviewRecordsTable, ReviewRecord>,
+          ),
+          ReviewRecord,
+          PrefetchHooks Function()
+        > {
+  $$ReviewRecordsTableTableManager(_$AppDatabase db, $ReviewRecordsTable table)
+    : super(
+        TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$ReviewRecordsTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$ReviewRecordsTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$ReviewRecordsTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback:
+              ({
+                Value<String> conceptId = const Value.absent(),
+                Value<int> errorCount = const Value.absent(),
+                Value<int> successCount = const Value.absent(),
+                Value<int> nextReviewDay = const Value.absent(),
+                Value<int> lastReviewDay = const Value.absent(),
+                Value<int> rowid = const Value.absent(),
+              }) => ReviewRecordsCompanion(
+                conceptId: conceptId,
+                errorCount: errorCount,
+                successCount: successCount,
+                nextReviewDay: nextReviewDay,
+                lastReviewDay: lastReviewDay,
+                rowid: rowid,
+              ),
+          createCompanionCallback:
+              ({
+                required String conceptId,
+                Value<int> errorCount = const Value.absent(),
+                Value<int> successCount = const Value.absent(),
+                required int nextReviewDay,
+                required int lastReviewDay,
+                Value<int> rowid = const Value.absent(),
+              }) => ReviewRecordsCompanion.insert(
+                conceptId: conceptId,
+                errorCount: errorCount,
+                successCount: successCount,
+                nextReviewDay: nextReviewDay,
+                lastReviewDay: lastReviewDay,
+                rowid: rowid,
+              ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (e.readTable(table), BaseReferences(db, table, e)))
+              .toList(),
+          prefetchHooksCallback: null,
+        ),
+      );
+}
+
+typedef $$ReviewRecordsTableProcessedTableManager =
+    ProcessedTableManager<
+      _$AppDatabase,
+      $ReviewRecordsTable,
+      ReviewRecord,
+      $$ReviewRecordsTableFilterComposer,
+      $$ReviewRecordsTableOrderingComposer,
+      $$ReviewRecordsTableAnnotationComposer,
+      $$ReviewRecordsTableCreateCompanionBuilder,
+      $$ReviewRecordsTableUpdateCompanionBuilder,
+      (
+        ReviewRecord,
+        BaseReferences<_$AppDatabase, $ReviewRecordsTable, ReviewRecord>,
+      ),
+      ReviewRecord,
+      PrefetchHooks Function()
+    >;
 
 class $AppDatabaseManager {
   final _$AppDatabase _db;
@@ -3079,4 +4230,8 @@ class $AppDatabaseManager {
       $$ActivityCompletionsTableTableManager(_db, _db.activityCompletions);
   $$ActivityStatesTableTableManager get activityStates =>
       $$ActivityStatesTableTableManager(_db, _db.activityStates);
+  $$ExecutionHistoriesTableTableManager get executionHistories =>
+      $$ExecutionHistoriesTableTableManager(_db, _db.executionHistories);
+  $$ReviewRecordsTableTableManager get reviewRecords =>
+      $$ReviewRecordsTableTableManager(_db, _db.reviewRecords);
 }

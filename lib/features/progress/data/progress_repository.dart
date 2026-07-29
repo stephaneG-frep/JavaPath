@@ -6,7 +6,7 @@ import '../domain/progress_models.dart';
 
 abstract interface class ProgressRepository {
   Stream<UserProgress> watchProgress();
-  Future<bool> completeLesson(String lessonId, int xp);
+  Future<bool> completeLesson(String lessonId, int xp, int minutes);
   Future<bool> completeActivity({
     required String activityId,
     required String activityType,
@@ -17,12 +17,17 @@ abstract interface class ProgressRepository {
     String activityType,
   );
   Future<void> recordAttempt(String activityId, String activityType);
+  Future<void> recordCorrectAnswer();
   Future<void> revealHint(
     String activityId,
     String activityType,
     int hintsUsed,
   );
   Future<void> viewSolution(String activityId, String activityType);
+  Stream<Set<String>> watchCompletedActivityIds(String activityType);
+  Stream<List<ConceptReview>> watchReviews();
+  Future<void> recordReviewError(String conceptId);
+  Future<void> recordReviewSuccess(String conceptId);
 }
 
 class DriftProgressRepository implements ProgressRepository {
@@ -41,13 +46,20 @@ class DriftProgressRepository implements ProgressRepository {
         currentStreak: values['current_streak'] ?? 0,
         completedChallenges: values['completed_challenges'] ?? 0,
         completedPredictions: values['completed_predictions'] ?? 0,
+        completedQuizQuestions: values['completed_quiz_questions'] ?? 0,
+        bestStreak: values['best_streak'] ?? 0,
+        streakProtections: values['streak_protections'] ?? 1,
+        learningMinutes: values['learning_minutes'] ?? 0,
+        totalAttempts: values['total_attempts'] ?? 0,
+        correctAnswers: values['correct_answers'] ?? 0,
+        startedDay: values['started_day'] ?? 0,
       );
     });
   }
 
   @override
-  Future<bool> completeLesson(String lessonId, int xp) =>
-      _database.completeLesson(lessonId, xp);
+  Future<bool> completeLesson(String lessonId, int xp, int minutes) =>
+      _database.completeLesson(lessonId, xp, minutes);
 
   @override
   Future<bool> completeActivity({
@@ -80,6 +92,9 @@ class DriftProgressRepository implements ProgressRepository {
       _database.recordAttempt(activityId, activityType);
 
   @override
+  Future<void> recordCorrectAnswer() => _database.recordCorrectAnswer();
+
+  @override
   Future<void> revealHint(
     String activityId,
     String activityType,
@@ -90,6 +105,34 @@ class DriftProgressRepository implements ProgressRepository {
   @override
   Future<void> viewSolution(String activityId, String activityType) =>
       _database.viewSolution(activityId, activityType);
+
+  @override
+  Stream<Set<String>> watchCompletedActivityIds(String activityType) =>
+      _database.watchCompletedActivityIds(activityType);
+
+  @override
+  Stream<List<ConceptReview>> watchReviews() {
+    return _database.watchReviewRecords().map(
+          (rows) => rows
+              .map(
+                (row) => ConceptReview(
+                  conceptId: row.conceptId,
+                  errorCount: row.errorCount,
+                  successCount: row.successCount,
+                  nextReviewDay: row.nextReviewDay,
+                ),
+              )
+              .toList(),
+        );
+  }
+
+  @override
+  Future<void> recordReviewError(String conceptId) =>
+      _database.recordReviewError(conceptId);
+
+  @override
+  Future<void> recordReviewSuccess(String conceptId) =>
+      _database.recordReviewSuccess(conceptId);
 }
 
 final progressRepositoryProvider = Provider<ProgressRepository>(
@@ -98,4 +141,15 @@ final progressRepositoryProvider = Provider<ProgressRepository>(
 
 final userProgressProvider = StreamProvider<UserProgress>(
   (ref) => ref.watch(progressRepositoryProvider).watchProgress(),
+);
+
+final completedActivityIdsProvider =
+    StreamProvider.family<Set<String>, String>((ref, activityType) {
+  return ref
+      .watch(progressRepositoryProvider)
+      .watchCompletedActivityIds(activityType);
+});
+
+final conceptReviewsProvider = StreamProvider<List<ConceptReview>>(
+  (ref) => ref.watch(progressRepositoryProvider).watchReviews(),
 );

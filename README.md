@@ -17,12 +17,15 @@ Cette base comprend :
 - 10 exercices validés localement avec attribution d’XP ;
 - 5 Debug Challenges et 5 exercices de prédiction ;
 - indices progressifs avec réduction transparente de l’XP ;
+- 3 projets Java découpés en 17 missions guidées ;
+- playground avec coloration Java, snippets, favoris et historique ;
+- badges, séries protégées, statistiques et révisions espacées ;
 - stockage Drift de la progression, des sessions et des futurs snippets ;
 - modèles de domaine pour les futures phases ;
 - tests du calcul de niveau, de la persistance XP et de l’onboarding.
 
-Les projets, le playground et les services IA ne sont pas encore implémentés.
-Leurs emplacements sont visibles et explicitement signalés dans l’interface.
+L’exécution Java distante et les services IA ne sont pas encore implémentés.
+Le playground indique clairement son mode de démonstration local.
 
 ## Architecture
 

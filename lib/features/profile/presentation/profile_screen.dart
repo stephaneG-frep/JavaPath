@@ -107,6 +107,34 @@ class ProfileScreen extends ConsumerWidget {
               trailing: const Icon(Icons.chevron_right_rounded),
             ),
           ),
+          const SizedBox(height: 16),
+          Card(
+            clipBehavior: Clip.antiAlias,
+            child: Column(
+              children: [
+                ListTile(
+                  onTap: () => context.push('/achievements'),
+                  leading: const Icon(Icons.emoji_events_outlined),
+                  title: const Text('Badges'),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  onTap: () => context.push('/statistics'),
+                  leading: const Icon(Icons.bar_chart_rounded),
+                  title: const Text('Statistiques'),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                ),
+                const Divider(height: 1),
+                ListTile(
+                  onTap: () => context.push('/reviews'),
+                  leading: const Icon(Icons.refresh_rounded),
+                  title: const Text('Révisions intelligentes'),
+                  trailing: const Icon(Icons.chevron_right_rounded),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
