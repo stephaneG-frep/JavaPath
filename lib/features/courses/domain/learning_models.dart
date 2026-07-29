@@ -21,6 +21,7 @@ class LearningModule {
     required this.description,
     required this.projectTitle,
     required this.lessons,
+    this.projectId,
   });
 
   final String id;
@@ -28,6 +29,7 @@ class LearningModule {
   final String title;
   final String description;
   final String projectTitle;
+  final String? projectId;
   final List<Lesson> lessons;
 
   factory LearningModule.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class LearningModule {
       title: json['title'] as String,
       description: json['description'] as String,
       projectTitle: json['projectTitle'] as String,
+      projectId: json['projectId'] as String?,
       lessons: (json['lessons'] as List<dynamic>)
           .map((item) => Lesson.fromJson(item as Map<String, dynamic>))
           .toList(),

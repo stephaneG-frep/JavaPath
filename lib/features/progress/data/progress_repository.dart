@@ -25,6 +25,7 @@ abstract interface class ProgressRepository {
   );
   Future<void> viewSolution(String activityId, String activityType);
   Stream<Set<String>> watchCompletedActivityIds(String activityType);
+  Stream<Set<String>> watchCompletedLessonIds();
   Stream<List<ConceptReview>> watchReviews();
   Future<void> recordReviewError(String conceptId);
   Future<void> recordReviewSuccess(String conceptId);
@@ -111,6 +112,12 @@ class DriftProgressRepository implements ProgressRepository {
       _database.watchCompletedActivityIds(activityType);
 
   @override
+  Stream<Set<String>> watchCompletedLessonIds() =>
+      _database.watchCompletedLessons().map(
+            (rows) => rows.map((row) => row.lessonId).toSet(),
+          );
+
+  @override
   Stream<List<ConceptReview>> watchReviews() {
     return _database.watchReviewRecords().map(
           (rows) => rows
@@ -152,4 +159,8 @@ final completedActivityIdsProvider =
 
 final conceptReviewsProvider = StreamProvider<List<ConceptReview>>(
   (ref) => ref.watch(progressRepositoryProvider).watchReviews(),
+);
+
+final completedLessonIdsProvider = StreamProvider<Set<String>>(
+  (ref) => ref.watch(progressRepositoryProvider).watchCompletedLessonIds(),
 );

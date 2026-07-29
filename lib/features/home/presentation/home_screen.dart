@@ -14,6 +14,8 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final progress = ref.watch(userProgressProvider);
     final path = ref.watch(learningPathProvider);
+    final completedLessons =
+        ref.watch(completedLessonIdsProvider).valueOrNull ?? const <String>{};
     return Scaffold(
       body: SafeArea(
         child: RefreshIndicator(
@@ -62,14 +64,23 @@ class HomeScreen extends ConsumerWidget {
               AsyncValueView(
                 value: path,
                 data: (learningPath) {
-                  final lesson = learningPath.modules.first.lessons.first;
+                  final lessons = learningPath.modules
+                      .expand((module) => module.lessons)
+                      .toList();
+                  final lesson = lessons.firstWhere(
+                    (item) => !completedLessons.contains(item.id),
+                    orElse: () => lessons.last,
+                  );
+                  final isCompleted = completedLessons.contains(lesson.id);
                   return Card(
                     child: Padding(
                       padding: const EdgeInsets.all(20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('PROCHAINE ÉTAPE'),
+                          Text(isCompleted
+                              ? 'PARCOURS ACTUEL TERMINÉ'
+                              : 'PROCHAINE ÉTAPE'),
                           const SizedBox(height: 8),
                           Text(lesson.title,
                               style: Theme.of(context).textTheme.titleLarge
@@ -89,7 +100,9 @@ class HomeScreen extends ConsumerWidget {
                                 onPressed: () =>
                                     context.push('/lesson/${lesson.id}'),
                                 icon: const Icon(Icons.play_arrow_rounded),
-                                label: const Text('Commencer'),
+                                label: Text(
+                                  isCompleted ? 'Relire' : 'Commencer',
+                                ),
                               ),
                             ],
                           ),
@@ -146,6 +159,11 @@ class HomeScreen extends ConsumerWidget {
                     label: 'Badges',
                     icon: Icons.emoji_events_outlined,
                     onTap: () => context.push('/achievements'),
+                  ),
+                  _Shortcut(
+                    label: 'Java Mentor',
+                    icon: Icons.psychology_alt_rounded,
+                    onTap: () => context.push('/mentor'),
                   ),
                 ],
               ),

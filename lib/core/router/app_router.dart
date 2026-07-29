@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../features/courses/presentation/learning_path_screen.dart';
 import '../../features/courses/presentation/lesson_screen.dart';
 import '../../features/achievements/presentation/achievements_screen.dart';
+import '../../features/ai_mentor/presentation/ai_mentor_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/help/presentation/help_screen.dart';
 import '../../features/help/presentation/java_setup_screen.dart';
@@ -175,6 +176,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         path: '/reviews',
         parentNavigatorKey: _rootNavigatorKey,
         builder: (context, state) => const ReviewScreen(),
+      ),
+      GoRoute(
+        path: '/mentor',
+        parentNavigatorKey: _rootNavigatorKey,
+        builder: (context, state) => const AiMentorScreen(),
       ),
     ],
   );

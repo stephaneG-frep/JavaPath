@@ -14,8 +14,19 @@ class AssetCourseRepository implements CourseRepository {
 
   @override
   Future<LearningPath> loadPath() async {
-    final source = await rootBundle.loadString('assets/content/java_path_fr.json');
-    return LearningPath.fromJson(jsonDecode(source) as Map<String, dynamic>);
+    final sources = await Future.wait([
+      rootBundle.loadString('assets/content/java_path_fr.json'),
+      rootBundle.loadString('assets/content/java_oop_fr.json'),
+    ]);
+    final modules = <LearningModule>[];
+    for (final source in sources) {
+      modules.addAll(
+        LearningPath.fromJson(
+          jsonDecode(source) as Map<String, dynamic>,
+        ).modules,
+      );
+    }
+    return LearningPath(modules: modules);
   }
 }
 

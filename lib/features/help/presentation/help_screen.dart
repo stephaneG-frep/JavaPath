@@ -165,7 +165,8 @@ class HelpScreen extends StatelessWidget {
             icon: Icons.construction_rounded,
             title: 'Fonctionnalités à venir',
             children: [
-              'Le mentor IA sera ajouté dans une prochaine phase.',
+              'Java Mentor est actuellement un guide local, pas une intelligence artificielle connectée.',
+              'Une future IA devra respecter les mêmes règles pédagogiques et protéger les données.',
               'Le playground permet déjà d’écrire et sauvegarder du code, mais il n’exécute pas encore Java.',
               'JavaPath ne prétend pas compiler un programme tant que le futur service sécurisé n’est pas disponible.',
             ],

@@ -88,6 +88,14 @@ abstract final class AchievementService {
         current: progress.completedLessons,
         target: 10,
       ),
+      AchievementStatus(
+        id: 'object-master',
+        title: 'Object Master',
+        description: 'Terminer le niveau Programmation orientée objet.',
+        iconKey: 'object',
+        current: progress.completedLessons,
+        target: 27,
+      ),
     ];
   }
 }

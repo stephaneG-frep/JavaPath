@@ -1,0 +1,185 @@
+{
+  "locale": "fr",
+  "quizQuestions": [
+    {
+      "id": "oop-quiz-01",
+      "conceptId": "Classes et objets",
+      "prompt": "Quelle phrase décrit correctement une classe ?",
+      "choices": ["Une valeur numérique", "Un modèle permettant de créer des objets", "Une erreur Java", "Un fichier compilé uniquement"],
+      "correctChoiceIndex": 1,
+      "explanation": "Une classe définit la structure et les comportements communs aux objets créés à partir d’elle."
+    },
+    {
+      "id": "oop-quiz-02",
+      "conceptId": "Classes et objets",
+      "prompt": "Quel mot-clé crée généralement un objet Java ?",
+      "choices": ["class", "object", "new", "create"],
+      "correctChoiceIndex": 2,
+      "explanation": "new réserve l’objet et appelle son constructeur."
+    },
+    {
+      "id": "oop-quiz-03",
+      "conceptId": "Constructeurs",
+      "prompt": "Quelle propriété distingue un constructeur d’une méthode ordinaire ?",
+      "choices": ["Il est toujours private", "Il porte le nom de la classe et n’a pas de type de retour", "Il renvoie toujours void", "Il ne prend jamais de paramètre"],
+      "correctChoiceIndex": 1,
+      "explanation": "Un constructeur porte exactement le nom de la classe et ne déclare aucun type de retour."
+    },
+    {
+      "id": "oop-quiz-04",
+      "conceptId": "Encapsulation",
+      "prompt": "Pourquoi déclare-t-on souvent les attributs private ?",
+      "choices": ["Pour accélérer toutes les boucles", "Pour contrôler l’accès et protéger l’état", "Pour supprimer les constructeurs", "Pour éviter les objets"],
+      "correctChoiceIndex": 1,
+      "explanation": "private empêche les modifications directes non contrôlées et protège les règles de la classe."
+    },
+    {
+      "id": "oop-quiz-05",
+      "conceptId": "Héritage",
+      "prompt": "Quel mot-clé indique qu’une classe hérite d’une autre ?",
+      "choices": ["implements", "inherits", "extends", "superclass"],
+      "correctChoiceIndex": 2,
+      "explanation": "class EBook extends Book exprime que EBook est une spécialisation de Book."
+    },
+    {
+      "id": "oop-quiz-06",
+      "conceptId": "Héritage",
+      "prompt": "À quoi sert super(...) dans un constructeur ?",
+      "choices": ["À détruire l’objet parent", "À appeler un constructeur de la classe parente", "À rendre la classe publique", "À créer une interface"],
+      "correctChoiceIndex": 1,
+      "explanation": "super(...) confie à la classe parente l’initialisation de sa partie de l’objet."
+    },
+    {
+      "id": "oop-quiz-07",
+      "conceptId": "Polymorphisme",
+      "prompt": "Avec Book book = new EBook(...), quelle méthode redéfinie est appelée ?",
+      "choices": ["Toujours celle de Book", "Celle de l’objet réel EBook", "Les deux automatiquement", "Aucune"],
+      "correctChoiceIndex": 1,
+      "explanation": "Le polymorphisme choisit à l’exécution la méthode de la classe réelle de l’objet."
+    },
+    {
+      "id": "oop-quiz-08",
+      "conceptId": "Redéfinition",
+      "prompt": "Que vérifie l’annotation @Override ?",
+      "choices": ["Qu’une méthode parente est réellement redéfinie", "Que la classe est abstraite", "Que le constructeur est vide", "Que l’attribut est public"],
+      "correctChoiceIndex": 0,
+      "explanation": "@Override permet au compilateur de détecter une signature incorrecte ou une faute de frappe."
+    },
+    {
+      "id": "oop-quiz-09",
+      "conceptId": "Interfaces",
+      "prompt": "Quel mot-clé une classe utilise-t-elle pour respecter une interface ?",
+      "choices": ["extends toujours", "implements", "interface", "override"],
+      "correctChoiceIndex": 1,
+      "explanation": "Une classe utilise implements et fournit les méthodes demandées par l’interface."
+    },
+    {
+      "id": "oop-quiz-10",
+      "conceptId": "Enum",
+      "prompt": "Quel avantage principal offre une enum ?",
+      "choices": ["Accepter n’importe quel texte", "Limiter une valeur à un ensemble connu", "Remplacer toutes les classes", "Créer automatiquement une base de données"],
+      "correctChoiceIndex": 1,
+      "explanation": "Une enum représente un ensemble fini de constantes vérifiées par le compilateur."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "oop-exercise-01",
+      "conceptId": "Classes et objets",
+      "type": "completeCode",
+      "prompt": "Complète le mot-clé qui crée l’objet :\nBook book = ___ Book();",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Il déclenche le constructeur.", "Le mot-clé commence par n."],
+      "solution": "new",
+      "acceptedAnswers": ["new", "new Book()", "new Book();"],
+      "explanation": "new crée l’objet puis appelle le constructeur Book()."
+    },
+    {
+      "id": "oop-exercise-02",
+      "conceptId": "Constructeurs",
+      "type": "findError",
+      "prompt": "Pourquoi ceci n’est-il pas un constructeur ?\nvoid Book(String title) { this.title = title; }",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Un constructeur ne renvoie rien.", "Même void ne doit pas apparaître."],
+      "solution": "Il faut retirer void.",
+      "acceptedAnswers": ["void", "retirer void", "il faut retirer void"],
+      "explanation": "Avec void, Java voit une méthode ordinaire. Un constructeur ne déclare aucun type de retour."
+    },
+    {
+      "id": "oop-exercise-03",
+      "conceptId": "this",
+      "type": "completeCode",
+      "prompt": "Complète l’affectation du constructeur :\nBook(String title) {\n  ___.title = title;\n}",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Il faut désigner l’objet courant.", "Le mot-clé contient quatre lettres."],
+      "solution": "this",
+      "acceptedAnswers": ["this", "this.title", "this.title = title;"],
+      "explanation": "this.title désigne l’attribut, tandis que title seul désigne le paramètre."
+    },
+    {
+      "id": "oop-exercise-04",
+      "conceptId": "Encapsulation",
+      "type": "multipleChoice",
+      "prompt": "Quelle déclaration protège le mieux l’attribut balance ?",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["Le reste du programme ne doit pas le modifier directement.", "Choisis la visibilité la plus restrictive."],
+      "choices": ["public double balance;", "protected double balance;", "private double balance;", "double public balance;"],
+      "solution": "private double balance;",
+      "acceptedAnswers": ["private double balance;"],
+      "explanation": "private limite l’accès direct à la classe, qui peut exposer des méthodes contrôlées."
+    },
+    {
+      "id": "oop-exercise-05",
+      "conceptId": "Héritage",
+      "type": "completeCode",
+      "prompt": "Complète la relation d’héritage :\nclass EBook ___ Book { }",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["EBook est un Book.", "Le mot-clé commence par ext."],
+      "solution": "extends",
+      "acceptedAnswers": ["extends", "extends Book", "class EBook extends Book"],
+      "explanation": "extends déclare EBook comme sous-classe de Book."
+    },
+    {
+      "id": "oop-exercise-06",
+      "conceptId": "Surcharge et redéfinition",
+      "type": "multipleChoice",
+      "prompt": "Quelle situation est une surcharge ?",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Observe les paramètres.", "La surcharge garde le nom mais change la liste des paramètres."],
+      "choices": ["Deux méthodes find(String) identiques", "find(String) et find(String, String)", "Une méthode marquée private", "Une classe abstract"],
+      "solution": "find(String) et find(String, String)",
+      "acceptedAnswers": ["find(String) et find(String, String)"],
+      "explanation": "Les deux méthodes ont le même nom mais des listes de paramètres différentes."
+    },
+    {
+      "id": "oop-exercise-07",
+      "conceptId": "Interfaces",
+      "type": "completeCode",
+      "prompt": "Complète le contrat :\nclass Book ___ Borrowable { }",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Book promet de respecter l’interface.", "Le mot-clé commence par imp."],
+      "solution": "implements",
+      "acceptedAnswers": ["implements", "implements Borrowable"],
+      "explanation": "implements indique que Book fournit les méthodes définies par Borrowable."
+    },
+    {
+      "id": "oop-exercise-08",
+      "conceptId": "Enum",
+      "type": "predictOutput",
+      "prompt": "Que va afficher ce code ?\nenum Status { AVAILABLE, BORROWED }\nStatus status = Status.AVAILABLE;\nSystem.out.println(status);",
+      "difficulty": "Débutant",
+      "xpReward": 30,
+      "hints": ["println affiche le nom de la constante.", "La constante sélectionnée est AVAILABLE."],
+      "solution": "AVAILABLE",
+      "acceptedAnswers": ["available"],
+      "explanation": "Par défaut, l’affichage d’une constante enum utilise son nom exact : AVAILABLE."
+    }
+  ]
+}

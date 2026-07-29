@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/widgets/async_value_view.dart';
 import '../data/course_repository.dart';
 import '../domain/learning_models.dart';
+import '../domain/lesson_unlock_policy.dart';
 import '../../progress/data/progress_repository.dart';
 
 class LearningPathScreen extends ConsumerWidget {
@@ -14,6 +15,8 @@ class LearningPathScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final path = ref.watch(learningPathProvider);
     final xp = ref.watch(userProgressProvider).valueOrNull?.xp ?? 0;
+    final completed =
+        ref.watch(completedLessonIdsProvider).valueOrNull ?? const <String>{};
     return Scaffold(
       appBar: AppBar(
         title: const Text('Parcours Java'),
@@ -29,22 +32,40 @@ class LearningPathScreen extends ConsumerWidget {
       ),
       body: AsyncValueView<LearningPath>(
         value: path,
-        data: (value) => ListView.builder(
-          padding: const EdgeInsets.all(20),
-          itemCount: value.modules.length,
-          itemBuilder: (context, index) {
-            final module = value.modules[index];
-            return _ModuleCard(module: module);
-          },
-        ),
+        data: (value) {
+          final lessons =
+              value.modules.expand((module) => module.lessons).toList();
+          final unlocked = LessonUnlockPolicy.unlockedIds(
+            lessons: lessons,
+            completedIds: completed,
+          );
+          return ListView.builder(
+            padding: const EdgeInsets.all(20),
+            itemCount: value.modules.length,
+            itemBuilder: (context, index) {
+              final module = value.modules[index];
+              return _ModuleCard(
+                module: module,
+                completed: completed,
+                unlocked: unlocked,
+              );
+            },
+          );
+        },
       ),
     );
   }
 }
 
 class _ModuleCard extends StatelessWidget {
-  const _ModuleCard({required this.module});
+  const _ModuleCard({
+    required this.module,
+    required this.completed,
+    required this.unlocked,
+  });
   final LearningModule module;
+  final Set<String> completed;
+  final Set<String> unlocked;
 
   @override
   Widget build(BuildContext context) {
@@ -81,15 +102,31 @@ class _ModuleCard extends StatelessWidget {
                 lesson: module.lessons[index],
                 position: index + 1,
                 isLast: index == module.lessons.length - 1,
+                isCompleted: completed.contains(module.lessons[index].id),
+                isUnlocked: unlocked.contains(module.lessons[index].id) ||
+                    completed.contains(module.lessons[index].id),
               ),
             const Divider(height: 28),
-            Row(
-              children: [
-                const Icon(Icons.rocket_launch_rounded, size: 20),
-                const SizedBox(width: 8),
-                Expanded(child: Text('Projet : ${module.projectTitle}')),
-                const Icon(Icons.lock_outline_rounded),
-              ],
+            InkWell(
+              borderRadius: BorderRadius.circular(12),
+              onTap: module.projectId == null
+                  ? null
+                  : () => context.push('/project/${module.projectId}'),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: [
+                    const Icon(Icons.rocket_launch_rounded, size: 20),
+                    const SizedBox(width: 8),
+                    Expanded(child: Text('Projet : ${module.projectTitle}')),
+                    Icon(
+                      module.projectId == null
+                          ? Icons.lock_outline_rounded
+                          : Icons.chevron_right_rounded,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         ),
@@ -103,24 +140,34 @@ class _LessonTile extends StatelessWidget {
     required this.lesson,
     required this.position,
     required this.isLast,
+    required this.isCompleted,
+    required this.isUnlocked,
   });
   final Lesson lesson;
   final int position;
   final bool isLast;
+  final bool isCompleted;
+  final bool isUnlocked;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(14),
-      onTap: () => context.push('/lesson/${lesson.id}'),
+      onTap: isUnlocked ? () => context.push('/lesson/${lesson.id}') : null,
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8),
         child: Row(
           children: [
             CircleAvatar(
               radius: 17,
-              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-              child: Text('$position'),
+              backgroundColor: isCompleted
+                  ? Colors.green.withValues(alpha: 0.18)
+                  : Theme.of(context).colorScheme.surfaceContainerHighest,
+              child: isCompleted
+                  ? const Icon(Icons.check_rounded, size: 18)
+                  : isUnlocked
+                      ? Text('$position')
+                      : const Icon(Icons.lock_outline_rounded, size: 17),
             ),
             const SizedBox(width: 12),
             Expanded(
@@ -133,7 +180,11 @@ class _LessonTile extends StatelessWidget {
                 ],
               ),
             ),
-            const Icon(Icons.chevron_right_rounded),
+            Icon(
+              isUnlocked
+                  ? Icons.chevron_right_rounded
+                  : Icons.lock_outline_rounded,
+            ),
           ],
         ),
       ),

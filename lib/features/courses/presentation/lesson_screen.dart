@@ -19,13 +19,18 @@ class LessonScreen extends ConsumerWidget {
         body: const Center(child: CircularProgressIndicator()),
       );
     }
+    final isCompleted =
+        ref.watch(completedLessonIdsProvider).valueOrNull?.contains(lesson.id) ??
+            false;
     return Scaffold(
       appBar: AppBar(title: Text(lesson.title)),
       body: _LessonContent(lesson: lesson),
       bottomNavigationBar: SafeArea(
         minimum: const EdgeInsets.all(16),
         child: FilledButton.icon(
-          onPressed: () async {
+          onPressed: isCompleted
+              ? null
+              : () async {
             final earned = await ref
                 .read(progressRepositoryProvider)
                 .completeLesson(
@@ -45,8 +50,14 @@ class LessonScreen extends ConsumerWidget {
               );
             }
           },
-          icon: const Icon(Icons.check_circle_outline_rounded),
-          label: const Text('Terminer la leçon'),
+          icon: Icon(
+            isCompleted
+                ? Icons.check_circle_rounded
+                : Icons.check_circle_outline_rounded,
+          ),
+          label: Text(
+            isCompleted ? 'Leçon terminée' : 'Terminer la leçon',
+          ),
         ),
       ),
     );

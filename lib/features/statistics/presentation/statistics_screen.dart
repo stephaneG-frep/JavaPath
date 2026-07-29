@@ -110,19 +110,19 @@ class _StatisticsContent extends StatelessWidget {
         _ActivityProgress(
           label: 'Leçons',
           value: progress.completedLessons,
-          target: 10,
+          target: 27,
           icon: Icons.menu_book_rounded,
         ),
         _ActivityProgress(
           label: 'Questions de quiz',
           value: progress.completedQuizQuestions,
-          target: 20,
+          target: 30,
           icon: Icons.quiz_rounded,
         ),
         _ActivityProgress(
           label: 'Exercices',
           value: progress.completedExercises,
-          target: 10,
+          target: 18,
           icon: Icons.edit_note_rounded,
         ),
         _ActivityProgress(

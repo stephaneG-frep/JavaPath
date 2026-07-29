@@ -14,10 +14,22 @@ class AssetPracticeRepository implements PracticeRepository {
 
   @override
   Future<PracticeCatalog> loadCatalog() async {
-    final source =
-        await rootBundle.loadString('assets/content/practice_fr.json');
-    return PracticeCatalog.fromJson(
-      jsonDecode(source) as Map<String, dynamic>,
+    final sources = await Future.wait([
+      rootBundle.loadString('assets/content/practice_fr.json'),
+      rootBundle.loadString('assets/content/practice_oop_fr.json'),
+    ]);
+    final questions = <QuizQuestion>[];
+    final exercises = <Exercise>[];
+    for (final source in sources) {
+      final catalog = PracticeCatalog.fromJson(
+        jsonDecode(source) as Map<String, dynamic>,
+      );
+      questions.addAll(catalog.quizQuestions);
+      exercises.addAll(catalog.exercises);
+    }
+    return PracticeCatalog(
+      quizQuestions: questions,
+      exercises: exercises,
     );
   }
 }

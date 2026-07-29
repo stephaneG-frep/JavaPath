@@ -1,0 +1,325 @@
+{
+  "locale": "fr",
+  "version": 1,
+  "modules": [
+    {
+      "id": "poo-bases",
+      "level": 2,
+      "title": "Classes et objets",
+      "description": "Apprends à regrouper des données et des comportements dans des objets cohérents.",
+      "projectTitle": "Gestionnaire de bibliothèque",
+      "projectId": "bibliotheque",
+      "lessons": [
+        {
+          "id": "classes-objets",
+          "moduleId": "poo-bases",
+          "title": "Classes et objets",
+          "description": "Comprends la différence entre un modèle et les objets créés à partir de lui.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 18,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Pourquoi la POO ?", "content": "La programmation orientée objet aide à représenter les éléments d’un problème. Un livre possède un titre et peut être emprunté ; une classe permet de réunir ces informations et actions."},
+            {"title": "Classe et objet", "content": "Une classe est un modèle. Un objet est une instance concrète créée à partir de ce modèle. La classe Book peut produire plusieurs objets représentant des livres différents."},
+            {"title": "À retenir", "content": "Le mot-clé new crée un objet. Chaque objet possède son propre état, même si tous sont construits depuis la même classe."}
+          ],
+          "codeExamples": [
+            {"title": "Créer deux objets", "code": "class Book {\n}\n\nBook premier = new Book();\nBook second = new Book();", "explanation": "premier et second référencent deux objets distincts de type Book. La classe décrit leur structure commune."}
+          ]
+        },
+        {
+          "id": "attributs",
+          "moduleId": "poo-bases",
+          "title": "Les attributs",
+          "description": "Décris l’état conservé par chaque objet.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 16,
+          "xpReward": 15,
+          "sections": [
+            {"title": "L’état d’un objet", "content": "Un attribut est une variable déclarée dans une classe. Il mémorise une caractéristique de l’objet, comme le titre d’un livre ou le solde d’un compte."},
+            {"title": "Une valeur par objet", "content": "Deux objets Book possèdent chacun leur propre valeur de title. Modifier l’un ne modifie pas automatiquement l’autre."},
+            {"title": "Erreur fréquente", "content": "Évite les attributs sans signification ou dupliqués. Chaque attribut doit représenter une donnée utile à la responsabilité de la classe."}
+          ],
+          "codeExamples": [
+            {"title": "Décrire un livre", "code": "class Book {\n  String title;\n  String author;\n  int pageCount;\n}", "explanation": "Chaque Book conservera un titre, un auteur et un nombre de pages. Les types empêchent d’affecter une valeur incompatible."}
+          ]
+        },
+        {
+          "id": "methodes-objet",
+          "moduleId": "poo-bases",
+          "title": "Les méthodes d’objet",
+          "description": "Ajoute des comportements qui utilisent l’état de l’objet.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 18,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Un comportement nommé", "content": "Une méthode représente une action que l’objet sait effectuer. Elle peut lire ou modifier les attributs de l’objet sur lequel elle est appelée."},
+            {"title": "Appeler une méthode", "content": "La notation objet.methode() demande à cet objet précis d’exécuter la méthode. Le point relie la référence à son comportement."},
+            {"title": "Responsabilité", "content": "Place un comportement dans la classe qui possède les données nécessaires. Cela limite la dispersion de la logique."}
+          ],
+          "codeExamples": [
+            {"title": "Décrire le livre", "code": "class Book {\n  String title;\n\n  void describe() {\n    System.out.println(\"Titre : \" + title);\n  }\n}\n\nbook.describe();", "explanation": "describe utilise l’attribut title de l’objet book. Un autre livre afficherait son propre titre."}
+          ]
+        },
+        {
+          "id": "constructeurs",
+          "moduleId": "poo-bases",
+          "title": "Les constructeurs",
+          "description": "Garantis qu’un objet possède ses données essentielles dès sa création.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 20,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Initialiser correctement", "content": "Un constructeur est exécuté par new. Il prépare l’objet et reçoit souvent les valeurs indispensables à un état valide."},
+            {"title": "Syntaxe particulière", "content": "Le constructeur porte exactement le nom de la classe et ne déclare aucun type de retour, pas même void."},
+            {"title": "Erreur fréquente", "content": "Écrire void Book() crée une méthode ordinaire, pas un constructeur. Java pourrait alors utiliser un autre constructeur que celui attendu."}
+          ],
+          "codeExamples": [
+            {"title": "Construire un livre valide", "code": "class Book {\n  String title;\n\n  Book(String initialTitle) {\n    title = initialTitle;\n  }\n}\n\nBook book = new Book(\"Dune\");", "explanation": "new appelle Book(\"Dune\"). Le paramètre initialTitle sert à donner sa première valeur à l’attribut title."}
+          ]
+        },
+        {
+          "id": "mot-cle-this",
+          "moduleId": "poo-bases",
+          "title": "Le mot-clé this",
+          "description": "Référence l’objet courant et évite les ambiguïtés de noms.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 15,
+          "xpReward": 15,
+          "sections": [
+            {"title": "L’objet courant", "content": "Dans une méthode ou un constructeur, this représente l’objet sur lequel le code est en train de s’exécuter."},
+            {"title": "Lever une ambiguïté", "content": "Quand un paramètre et un attribut portent le même nom, this.title désigne l’attribut tandis que title seul désigne le paramètre."},
+            {"title": "Pourquoi garder le même nom ?", "content": "Un constructeur Book(String title) est naturel à lire. this permet de conserver ce nom clair sans confusion."}
+          ],
+          "codeExamples": [
+            {"title": "Attribut ou paramètre", "code": "class Book {\n  String title;\n\n  Book(String title) {\n    this.title = title;\n  }\n}", "explanation": "La valeur du paramètre situé à droite est affectée à l’attribut de l’objet situé à gauche."}
+          ]
+        },
+        {
+          "id": "encapsulation",
+          "moduleId": "poo-bases",
+          "title": "L’encapsulation",
+          "description": "Protège l’état interne et expose seulement les opérations utiles.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 20,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Protéger les invariants", "content": "Un invariant est une règle qui doit toujours rester vraie. Un solde ne doit peut-être jamais devenir négatif ; l’encapsulation permet de contrôler les modifications."},
+            {"title": "Cacher l’implémentation", "content": "Le reste du programme utilise des méthodes publiques sans dépendre des détails internes. La classe peut évoluer plus facilement."},
+            {"title": "Le pourquoi", "content": "L’encapsulation ne sert pas seulement à interdire. Elle crée une frontière claire entre ce que la classe promet et la manière dont elle le réalise."}
+          ],
+          "codeExamples": [
+            {"title": "Contrôler un dépôt", "code": "class Account {\n  private double balance;\n\n  public void deposit(double amount) {\n    if (amount > 0) {\n      balance += amount;\n    }\n  }\n}", "explanation": "balance ne peut pas être modifié directement de l’extérieur. deposit vérifie la valeur avant de changer l’état."}
+          ]
+        },
+        {
+          "id": "visibilite",
+          "moduleId": "poo-bases",
+          "title": "public, private et protected",
+          "description": "Contrôle précisément les endroits qui peuvent utiliser un élément.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 20,
+          "xpReward": 15,
+          "sections": [
+            {"title": "public et private", "content": "public rend un élément accessible partout où la classe est visible. private limite l’accès à la classe qui le déclare."},
+            {"title": "protected", "content": "protected autorise l’accès dans le même package et dans les sous-classes. Il est surtout utile lorsqu’une hiérarchie d’héritage partage une donnée."},
+            {"title": "Accès par défaut", "content": "Sans modificateur, l’accès est limité au package. Choisis volontairement la visibilité la plus restrictive qui permet le fonctionnement."}
+          ],
+          "codeExamples": [
+            {"title": "Une interface publique minimale", "code": "public class User {\n  private String password;\n\n  public boolean checkPassword(String attempt) {\n    return password.equals(attempt);\n  }\n}", "explanation": "Le mot de passe reste caché. La classe expose seulement l’opération contrôlée nécessaire à la vérification."}
+          ]
+        },
+        {
+          "id": "getters-setters",
+          "moduleId": "poo-bases",
+          "title": "Getters et setters",
+          "description": "Lis ou modifie une propriété à travers une méthode contrôlée.",
+          "difficulty": "debutant",
+          "estimatedMinutes": 18,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Getter", "content": "Un getter renvoie la valeur d’un attribut privé. Son nom commence généralement par get, ou is pour un boolean."},
+            {"title": "Setter", "content": "Un setter reçoit une nouvelle valeur et peut la valider. Il n’est pas obligatoire : un objet peut volontairement être non modifiable."},
+            {"title": "Erreur fréquente", "content": "Générer automatiquement un setter pour chaque attribut détruit parfois l’encapsulation. Expose seulement les modifications qui ont un sens métier."}
+          ],
+          "codeExamples": [
+            {"title": "Valider un nombre de pages", "code": "public int getPageCount() {\n  return pageCount;\n}\n\npublic void setPageCount(int pageCount) {\n  if (pageCount <= 0) {\n    throw new IllegalArgumentException(\"Nombre invalide\");\n  }\n  this.pageCount = pageCount;\n}", "explanation": "Le getter lit la valeur. Le setter refuse un état invalide avant d’affecter le nouvel attribut."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "poo-heritage",
+      "level": 2,
+      "title": "Héritage et polymorphisme",
+      "description": "Réutilise un contrat commun sans perdre les comportements spécifiques.",
+      "projectTitle": "Gestionnaire de bibliothèque",
+      "projectId": "bibliotheque",
+      "lessons": [
+        {
+          "id": "heritage",
+          "moduleId": "poo-heritage",
+          "title": "L’héritage",
+          "description": "Crée une classe spécialisée à partir d’une classe plus générale.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 22,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Relation est-un", "content": "L’héritage convient lorsqu’un type est réellement une spécialisation d’un autre : un EBook est un Book. Le mot-clé extends exprime cette relation."},
+            {"title": "Éléments hérités", "content": "La sous-classe reçoit les membres accessibles de la classe parente. Les constructeurs ne sont pas hérités."},
+            {"title": "Éviter les abus", "content": "N’utilise pas l’héritage seulement pour réutiliser quelques lignes. Une composition est souvent préférable lorsque la relation est plutôt possède-un."}
+          ],
+          "codeExamples": [
+            {"title": "Spécialiser Book", "code": "class Book {\n  protected String title;\n}\n\nclass EBook extends Book {\n  private double fileSizeMb;\n}", "explanation": "EBook possède le titre hérité de Book et ajoute une taille de fichier qui lui est spécifique."}
+          ]
+        },
+        {
+          "id": "super",
+          "moduleId": "poo-heritage",
+          "title": "Le mot-clé super",
+          "description": "Accède au constructeur ou au comportement de la classe parente.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 18,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Construire la partie parente", "content": "super(...) appelle un constructeur de la classe parente. Cet appel doit être la première instruction du constructeur enfant."},
+            {"title": "Réutiliser une méthode", "content": "super.methode() appelle explicitement la version définie dans la classe parente, même si la sous-classe la redéfinit."},
+            {"title": "Pourquoi ?", "content": "La classe parente reste responsable d’initialiser son propre état. La sous-classe ajoute ensuite ses données particulières."}
+          ],
+          "codeExamples": [
+            {"title": "Construire un livre numérique", "code": "class EBook extends Book {\n  private double fileSizeMb;\n\n  EBook(String title, double fileSizeMb) {\n    super(title);\n    this.fileSizeMb = fileSizeMb;\n  }\n}", "explanation": "super(title) initialise la partie Book. Le constructeur EBook initialise ensuite son attribut supplémentaire."}
+          ]
+        },
+        {
+          "id": "surcharge",
+          "moduleId": "poo-heritage",
+          "title": "La surcharge",
+          "description": "Utilise un même nom avec plusieurs listes de paramètres.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 17,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Même nom, paramètres différents", "content": "Deux méthodes sont surchargées si elles portent le même nom mais n’acceptent pas la même liste de paramètres."},
+            {"title": "Choix à la compilation", "content": "Java choisit la version compatible avec les arguments fournis. Changer seulement le type de retour ne suffit pas à créer une surcharge."},
+            {"title": "Usage raisonnable", "content": "La surcharge convient quand les méthodes représentent la même intention avec différentes formes d’entrée."}
+          ],
+          "codeExamples": [
+            {"title": "Plusieurs recherches", "code": "Book find(String title) {\n  // recherche par titre\n}\n\nBook find(String title, String author) {\n  // recherche plus précise\n}", "explanation": "Un appel avec un argument utilise la première méthode ; un appel avec deux arguments utilise la seconde."}
+          ]
+        },
+        {
+          "id": "redefinition",
+          "moduleId": "poo-heritage",
+          "title": "La redéfinition",
+          "description": "Remplace un comportement hérité par une version spécialisée.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 20,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Même signature", "content": "Une sous-classe redéfinit une méthode en conservant sa signature et en fournissant une nouvelle implémentation."},
+            {"title": "@Override", "content": "L’annotation @Override demande au compilateur de vérifier qu’une méthode parente correspond réellement. Elle détecte notamment les fautes de frappe."},
+            {"title": "Surcharge ou redéfinition ?", "content": "La surcharge change les paramètres. La redéfinition conserve la signature dans une sous-classe."}
+          ],
+          "codeExamples": [
+            {"title": "Une description spécialisée", "code": "@Override\npublic String describe() {\n  return super.describe() + \" (livre numérique)\";\n}", "explanation": "La sous-classe conserve la description générale puis lui ajoute une information spécifique."}
+          ]
+        },
+        {
+          "id": "polymorphisme",
+          "moduleId": "poo-heritage",
+          "title": "Le polymorphisme",
+          "description": "Manipule plusieurs formes d’objets à travers un type commun.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 24,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Une référence générale", "content": "Une variable de type Book peut référencer un Book ou une sous-classe comme EBook. Le code peut ainsi travailler avec plusieurs formes."},
+            {"title": "Méthode choisie à l’exécution", "content": "Lorsqu’une méthode est redéfinie, Java appelle la version correspondant à l’objet réel, pas seulement au type déclaré de la variable."},
+            {"title": "Le bénéfice", "content": "Le polymorphisme permet d’ajouter de nouveaux types sans multiplier les conditions qui vérifient manuellement chaque classe."}
+          ],
+          "codeExamples": [
+            {"title": "Une liste polymorphe", "code": "List<Book> books = List.of(\n  new Book(\"Dune\"),\n  new EBook(\"Java\", 4.2)\n);\n\nfor (Book book : books) {\n  System.out.println(book.describe());\n}", "explanation": "Chaque objet répond à describe avec sa propre implémentation, même si la boucle utilise le type Book."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "poo-contrats",
+      "level": 2,
+      "title": "Abstraction et organisation",
+      "description": "Définis des contrats clairs et organise le code en packages.",
+      "projectTitle": "Gestionnaire de bibliothèque",
+      "projectId": "bibliotheque",
+      "lessons": [
+        {
+          "id": "classes-abstraites",
+          "moduleId": "poo-contrats",
+          "title": "Les classes abstraites",
+          "description": "Partage un socle commun qui n’a pas vocation à être instancié seul.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 22,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Un modèle incomplet", "content": "Une classe abstract peut contenir des attributs, constructeurs et méthodes, mais new ne peut pas l’instancier directement."},
+            {"title": "Méthode abstraite", "content": "Une méthode abstract déclare une signature sans corps. Les sous-classes concrètes doivent fournir l’implémentation."},
+            {"title": "Quand l’utiliser ?", "content": "Utilise une classe abstraite lorsque les sous-types partagent à la fois un état, du code et un contrat commun."}
+          ],
+          "codeExamples": [
+            {"title": "Un document abstrait", "code": "abstract class Document {\n  protected String title;\n\n  abstract String format();\n\n  String label() {\n    return title + \" - \" + format();\n  }\n}", "explanation": "Document partage title et label, mais laisse chaque sous-classe décider de son format."}
+          ]
+        },
+        {
+          "id": "interfaces",
+          "moduleId": "poo-contrats",
+          "title": "Les interfaces",
+          "description": "Définis une capacité que différentes classes peuvent promettre.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 22,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Un contrat", "content": "Une interface décrit des méthodes qu’une classe s’engage à fournir. Elle exprime une capacité plutôt qu’une famille d’objets."},
+            {"title": "implements", "content": "Une classe utilise implements puis définit les méthodes du contrat. Elle peut implémenter plusieurs interfaces."},
+            {"title": "Découplage", "content": "Le code qui dépend de l’interface ignore la classe concrète. Il devient plus facile à tester et à faire évoluer."}
+          ],
+          "codeExamples": [
+            {"title": "Une capacité empruntable", "code": "interface Borrowable {\n  void borrow();\n  void returnItem();\n}\n\nclass Book implements Borrowable {\n  public void borrow() { /* ... */ }\n  public void returnItem() { /* ... */ }\n}", "explanation": "Book promet les deux opérations de Borrowable. D’autres objets peuvent respecter le même contrat sans hériter de Book."}
+          ]
+        },
+        {
+          "id": "enums",
+          "moduleId": "poo-contrats",
+          "title": "Les enum",
+          "description": "Représente un ensemble fini de valeurs valides.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 18,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Éviter les chaînes libres", "content": "Une enum limite une variable à des constantes connues. Elle évite les fautes comme \"DISPONNIBLE\" et \"disponible\"."},
+            {"title": "Un vrai type", "content": "Une enum Java est un type qui peut posséder des attributs, un constructeur privé et des méthodes."},
+            {"title": "Usage", "content": "Les états, catégories et niveaux finis sont de bons candidats pour une enum."}
+          ],
+          "codeExamples": [
+            {"title": "État d’un livre", "code": "enum BookStatus {\n  AVAILABLE,\n  BORROWED,\n  LOST\n}\n\nBookStatus status = BookStatus.AVAILABLE;", "explanation": "status ne peut recevoir qu’une constante déclarée dans BookStatus, ce que le compilateur vérifie."}
+          ]
+        },
+        {
+          "id": "packages",
+          "moduleId": "poo-contrats",
+          "title": "Les packages",
+          "description": "Range les classes dans des espaces de noms cohérents.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 20,
+          "xpReward": 15,
+          "sections": [
+            {"title": "Organiser le projet", "content": "Un package regroupe des classes liées et évite les conflits de noms. Son nom suit généralement le nom de domaine inversé d’une organisation."},
+            {"title": "package et import", "content": "La déclaration package se place au début du fichier. import permet ensuite d’utiliser une classe d’un autre package par son nom court."},
+            {"title": "Lien avec les dossiers", "content": "La structure des dossiers doit correspondre au package : com.javapath.library mène aux dossiers com/javapath/library."}
+          ],
+          "codeExamples": [
+            {"title": "Séparer modèle et service", "code": "package com.javapath.library.model;\n\npublic class Book {\n}\n\n// Dans un autre fichier :\nimport com.javapath.library.model.Book;", "explanation": "Book appartient au package model. Un fichier extérieur l’importe avant de pouvoir utiliser son nom court."}
+          ]
+        }
+      ]
+    }
+  ]
+}

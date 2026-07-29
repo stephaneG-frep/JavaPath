@@ -107,6 +107,7 @@ class _BadgeCard extends StatelessWidget {
       'project' => Icons.rocket_launch_rounded,
       'streak' => Icons.local_fire_department_rounded,
       'xp' => Icons.bolt_rounded,
+      'object' => Icons.account_tree_rounded,
       _ => Icons.school_rounded,
     };
   }
