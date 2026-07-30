@@ -32,10 +32,7 @@ class ExecutionHistoryScreen extends ConsumerWidget {
                 clipBehavior: Clip.antiAlias,
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(14),
-                  onTap: () => context.push(
-                    '/playground',
-                    extra: entry.code,
-                  ),
+                  onTap: () => context.push('/playground', extra: entry.code),
                   leading: const CircleAvatar(
                     child: Icon(Icons.history_rounded),
                   ),

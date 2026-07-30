@@ -34,8 +34,9 @@ class AssetChallengeRepository implements ChallengeRepository {
 
   @override
   Future<ChallengeCatalog> loadCatalog() async {
-    final source =
-        await rootBundle.loadString('assets/content/challenges_fr.json');
+    final source = await rootBundle.loadString(
+      'assets/content/challenges_fr.json',
+    );
     return ChallengeCatalog.fromJson(
       jsonDecode(source) as Map<String, dynamic>,
     );
@@ -52,10 +53,7 @@ final challengeCatalogProvider = FutureProvider<ChallengeCatalog>(
 
 final challengeProvider = Provider.family<Challenge?, String>((ref, id) {
   final catalog = ref.watch(challengeCatalogProvider).valueOrNull;
-  final activities = [
-    ...?catalog?.debugChallenges,
-    ...?catalog?.predictions,
-  ];
+  final activities = [...?catalog?.debugChallenges, ...?catalog?.predictions];
   for (final challenge in activities) {
     if (challenge.id == id) return challenge;
   }

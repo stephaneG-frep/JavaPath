@@ -45,10 +45,7 @@ class ChallengeListScreen extends ConsumerWidget {
 }
 
 class _ChallengeList extends StatelessWidget {
-  const _ChallengeList({
-    required this.challenges,
-    required this.emptyMessage,
-  });
+  const _ChallengeList({required this.challenges, required this.emptyMessage});
 
   final List<Challenge> challenges;
   final String emptyMessage;

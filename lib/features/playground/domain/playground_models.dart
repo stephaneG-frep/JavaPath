@@ -30,7 +30,12 @@ class ExecutionHistoryEntry {
   final DateTime executedAt;
 }
 
-enum JavaExecutionStatus { success, compilationError, runtimeError, unavailable }
+enum JavaExecutionStatus {
+  success,
+  compilationError,
+  runtimeError,
+  unavailable,
+}
 
 class JavaExecutionResult {
   const JavaExecutionResult({

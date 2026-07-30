@@ -17,6 +17,19 @@ class JavaPathApp extends ConsumerWidget {
       theme: AppTheme.light,
       darkTheme: AppTheme.dark,
       themeMode: settings.themeMode,
+      builder: (context, child) {
+        final mediaQuery = MediaQuery.of(context);
+        final systemScale = mediaQuery.textScaler.scale(1);
+        final effectiveScale = (systemScale * settings.textScale)
+            .clamp(0.8, 2.0)
+            .toDouble();
+        return MediaQuery(
+          data: mediaQuery.copyWith(
+            textScaler: TextScaler.linear(effectiveScale),
+          ),
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       routerConfig: ref.watch(appRouterProvider),
     );
   }

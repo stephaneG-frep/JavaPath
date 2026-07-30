@@ -1,0 +1,186 @@
+{
+  "locale": "fr",
+  "quizQuestions": [
+    {
+      "id": "advanced-quiz-01",
+      "conceptId": "Threads",
+      "prompt": "Quelle méthode démarre réellement un nouveau thread ?",
+      "choices": ["run()", "start()", "main()", "executeNow()"],
+      "correctChoiceIndex": 1,
+      "explanation": "start demande à la JVM de créer un nouveau chemin d’exécution qui appellera ensuite run."
+    },
+    {
+      "id": "advanced-quiz-02",
+      "conceptId": "Concurrence",
+      "prompt": "Qu’est-ce qu’une race condition ?",
+      "choices": ["Une boucle très rapide", "Un résultat dépendant de l’ordre imprévisible des threads", "Une erreur de syntaxe", "Un type de collection"],
+      "correctChoiceIndex": 1,
+      "explanation": "Une course critique apparaît lorsque plusieurs opérations concurrentes sur un état partagé peuvent s’entrelacer."
+    },
+    {
+      "id": "advanced-quiz-03",
+      "conceptId": "ExecutorService",
+      "prompt": "Pourquoi appeler shutdown sur un ExecutorService ?",
+      "choices": ["Pour accepter davantage de tâches", "Pour demander l’arrêt propre du pool", "Pour vider la mémoire immédiatement", "Pour redémarrer main"],
+      "correctChoiceIndex": 1,
+      "explanation": "shutdown refuse les nouvelles tâches et laisse terminer celles déjà soumises."
+    },
+    {
+      "id": "advanced-quiz-04",
+      "conceptId": "CompletableFuture",
+      "prompt": "Quelle méthode transforme le résultat réussi d’un CompletableFuture ?",
+      "choices": ["thenApply", "shutdown", "synchronized", "getClass"],
+      "correctChoiceIndex": 0,
+      "explanation": "thenApply reçoit la valeur produite et renvoie une nouvelle valeur dans la chaîne."
+    },
+    {
+      "id": "advanced-quiz-05",
+      "conceptId": "Synchronisation",
+      "prompt": "Que garantit synchronized avec le même verrou ?",
+      "choices": ["Un seul thread à la fois dans la section", "La suppression de tous les threads", "Un ordre alphabétique", "Une connexion réseau"],
+      "correctChoiceIndex": 0,
+      "explanation": "Le verrou assure l’exclusion mutuelle et la visibilité des modifications."
+    },
+    {
+      "id": "advanced-quiz-06",
+      "conceptId": "Annotations",
+      "prompt": "À quoi sert @Retention(RUNTIME) ?",
+      "choices": ["À supprimer l’annotation", "À rendre l’annotation lisible pendant l’exécution", "À accélérer une boucle", "À ouvrir une socket"],
+      "correctChoiceIndex": 1,
+      "explanation": "La politique RUNTIME conserve l’annotation pour qu’elle soit inspectée notamment par réflexion."
+    },
+    {
+      "id": "advanced-quiz-07",
+      "conceptId": "Réflexion",
+      "prompt": "Quel objet représente la structure d’un type Java à l’exécution ?",
+      "choices": ["Class<?>", "ThreadLocal uniquement", "Path", "Collector"],
+      "correctChoiceIndex": 0,
+      "explanation": "Class contient les métadonnées permettant d’inspecter méthodes, champs et annotations."
+    },
+    {
+      "id": "advanced-quiz-08",
+      "conceptId": "Sockets",
+      "prompt": "Que désigne le port d’une connexion réseau ?",
+      "choices": ["La version de Java", "Le service sur une machine", "La taille du fichier", "Le nombre de threads"],
+      "correctChoiceIndex": 1,
+      "explanation": "L’adresse identifie la machine et le port identifie le service destinataire."
+    },
+    {
+      "id": "advanced-quiz-09",
+      "conceptId": "Garbage Collector",
+      "prompt": "Quand un objet devient-il éligible au Garbage Collector ?",
+      "choices": ["Dès sa création", "Lorsqu’il n’est plus accessible depuis les racines", "Après chaque println", "Uniquement après System.gc()"],
+      "correctChoiceIndex": 1,
+      "explanation": "Le GC peut récupérer un objet qui n’est plus atteignable ; le moment exact n’est pas garanti."
+    },
+    {
+      "id": "advanced-quiz-10",
+      "conceptId": "Performances",
+      "prompt": "Quelle est la première étape d’une optimisation sérieuse ?",
+      "choices": ["Réécrire tout le code", "Mesurer et localiser le problème", "Ajouter des threads partout", "Appeler System.gc()"],
+      "correctChoiceIndex": 1,
+      "explanation": "Une mesure et un profilage identifient le véritable goulot d’étranglement."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "advanced-exercise-01",
+      "conceptId": "Threads",
+      "type": "completeCode",
+      "prompt": "Complète pour démarrer un nouveau thread :\nThread worker = new Thread(task);\nworker.___();",
+      "difficulty": "Avancé",
+      "xpReward": 40,
+      "hints": ["run() exécuterait dans le thread courant.", "La méthode commence par sta."],
+      "solution": "start",
+      "acceptedAnswers": ["start", "start()", "worker.start();"],
+      "explanation": "start crée le nouveau chemin d’exécution puis y appelle la méthode run de la tâche."
+    },
+    {
+      "id": "advanced-exercise-02",
+      "conceptId": "ExecutorService",
+      "type": "completeCode",
+      "prompt": "Complète l’arrêt propre :\nExecutorService executor = Executors.newFixedThreadPool(2);\n// tâches\nexecutor.___();",
+      "difficulty": "Avancé",
+      "xpReward": 40,
+      "hints": ["Il faut refuser les nouvelles tâches.", "La méthode signifie arrêt en anglais."],
+      "solution": "shutdown",
+      "acceptedAnswers": ["shutdown", "shutdown()", "executor.shutdown();"],
+      "explanation": "shutdown laisse finir les tâches soumises tout en amorçant l’arrêt du pool."
+    },
+    {
+      "id": "advanced-exercise-03",
+      "conceptId": "CompletableFuture",
+      "type": "multipleChoice",
+      "prompt": "Quelle chaîne transforme un score asynchrone en texte ?",
+      "difficulty": "Avancé",
+      "xpReward": 40,
+      "hints": ["La transformation reçoit le résultat réussi.", "La méthode commence par then."],
+      "choices": ["future.thenApply(score -> \"Score : \" + score)", "future.shutdown()", "future.synchronized()", "future.getClass(score)"],
+      "solution": "future.thenApply(score -> \"Score : \" + score)",
+      "acceptedAnswers": ["future.thenApply(score -> \"Score : \" + score)", "thenApply"],
+      "explanation": "thenApply crée une nouvelle étape qui transforme le score reçu en String."
+    },
+    {
+      "id": "advanced-exercise-04",
+      "conceptId": "Synchronisation",
+      "type": "completeCode",
+      "prompt": "Complète la méthode protégée :\npublic ___ void increment() {\n  value++;\n}",
+      "difficulty": "Avancé",
+      "xpReward": 40,
+      "hints": ["Un seul thread doit entrer à la fois.", "Le mot-clé commence par sync."],
+      "solution": "synchronized",
+      "acceptedAnswers": ["synchronized", "public synchronized void increment()"],
+      "explanation": "synchronized utilise le verrou de l’objet pour protéger l’incrément partagé."
+    },
+    {
+      "id": "advanced-exercise-05",
+      "conceptId": "Annotations",
+      "type": "multipleChoice",
+      "prompt": "Quelle rétention permet de lire une annotation par réflexion ?",
+      "difficulty": "Avancé",
+      "xpReward": 40,
+      "hints": ["L’information doit survivre jusqu’à l’exécution.", "Choisis RUNTIME."],
+      "choices": ["RetentionPolicy.SOURCE", "RetentionPolicy.CLASS uniquement", "RetentionPolicy.RUNTIME", "RetentionPolicy.NONE"],
+      "solution": "RetentionPolicy.RUNTIME",
+      "acceptedAnswers": ["RetentionPolicy.RUNTIME", "RUNTIME"],
+      "explanation": "RUNTIME conserve l’annotation dans la classe chargée afin que la réflexion puisse la lire."
+    },
+    {
+      "id": "advanced-exercise-06",
+      "conceptId": "Réflexion",
+      "type": "completeCode",
+      "prompt": "Complète pour obtenir la classe réelle :\nClass<?> type = task.___();",
+      "difficulty": "Avancé",
+      "xpReward": 40,
+      "hints": ["La méthode existe sur Object.", "Son nom signifie obtenir la classe."],
+      "solution": "getClass",
+      "acceptedAnswers": ["getClass", "getClass()", "task.getClass();"],
+      "explanation": "getClass renvoie l’objet Class décrivant le type réel de task."
+    },
+    {
+      "id": "advanced-exercise-07",
+      "conceptId": "Mémoire",
+      "type": "predictOutput",
+      "prompt": "Que va afficher ce code ?\nList<String> a = new ArrayList<>();\nList<String> b = a;\nb.add(\"Java\");\nSystem.out.println(a.size());",
+      "difficulty": "Avancé",
+      "xpReward": 40,
+      "hints": ["a et b ne désignent pas deux listes.", "L’ajout est visible par les deux références."],
+      "solution": "1",
+      "acceptedAnswers": ["1"],
+      "explanation": "a et b pointent vers la même ArrayList, qui contient un seul élément."
+    },
+    {
+      "id": "advanced-exercise-08",
+      "conceptId": "Garbage Collector",
+      "type": "multipleChoice",
+      "prompt": "Quelle affirmation sur System.gc() est correcte ?",
+      "difficulty": "Avancé",
+      "xpReward": 40,
+      "hints": ["La JVM garde le contrôle.", "L’appel ne garantit pas une collecte immédiate."],
+      "choices": ["Il détruit immédiatement tous les objets", "Il constitue seulement une suggestion à la JVM", "Il ferme les sockets", "Il remplace try-with-resources"],
+      "solution": "Il constitue seulement une suggestion à la JVM",
+      "acceptedAnswers": ["Il constitue seulement une suggestion à la JVM", "suggestion"],
+      "explanation": "La JVM décide si et quand elle effectue une collecte ; le programme ne doit pas dépendre de cet appel."
+    }
+  ]
+}

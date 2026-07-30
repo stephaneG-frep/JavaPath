@@ -19,6 +19,9 @@ class AssetCourseRepository implements CourseRepository {
       rootBundle.loadString('assets/content/java_oop_fr.json'),
       rootBundle.loadString('assets/content/java_intermediate_fr.json'),
       rootBundle.loadString('assets/content/java_modern_fr.json'),
+      rootBundle.loadString('assets/content/java_advanced_fr.json'),
+      rootBundle.loadString('assets/content/java_professional_fr.json'),
+      rootBundle.loadString('assets/content/java_backend_fr.json'),
     ]);
     final modules = <LearningModule>[];
     for (final source in sources) {

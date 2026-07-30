@@ -8,6 +8,7 @@
       "title": "Premiers pas en Java",
       "description": "Comprendre Java et écrire ses premiers programmes sans prérequis.",
       "projectTitle": "Jeu du nombre mystère",
+      "projectId": "nombre-mystere",
       "lessons": [
         {
           "id": "introduction-java",
@@ -137,6 +138,7 @@
       "title": "Décisions et répétitions",
       "description": "Faire réagir un programme et répéter automatiquement des instructions.",
       "projectTitle": "Convertisseur de température",
+      "projectId": "convertisseur-temperature",
       "lessons": [
         {
           "id": "types-primitifs-string",
@@ -266,6 +268,7 @@
       "title": "Structurer ses données et son code",
       "description": "Regrouper des valeurs et éviter de répéter la même logique.",
       "projectTitle": "Gestionnaire de notes",
+      "projectId": "gestionnaire-notes",
       "lessons": [
         {
           "id": "tableaux",

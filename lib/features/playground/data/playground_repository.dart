@@ -21,18 +21,18 @@ class DriftPlaygroundRepository implements PlaygroundRepository {
   @override
   Stream<List<SavedCodeSnippet>> watchSnippets() {
     return _database.watchCodeSnippets().map(
-          (rows) => rows
-              .map(
-                (row) => SavedCodeSnippet(
-                  id: row.id,
-                  title: row.title,
-                  code: row.code,
-                  updatedAt: row.updatedAt,
-                  isFavorite: row.isFavorite,
-                ),
-              )
-              .toList(),
-        );
+      (rows) => rows
+          .map(
+            (row) => SavedCodeSnippet(
+              id: row.id,
+              title: row.title,
+              code: row.code,
+              updatedAt: row.updatedAt,
+              isFavorite: row.isFavorite,
+            ),
+          )
+          .toList(),
+    );
   }
 
   @override
@@ -46,18 +46,18 @@ class DriftPlaygroundRepository implements PlaygroundRepository {
   @override
   Stream<List<ExecutionHistoryEntry>> watchHistory() {
     return _database.watchExecutionHistory().map(
-          (rows) => rows
-              .map(
-                (row) => ExecutionHistoryEntry(
-                  id: row.id,
-                  code: row.code,
-                  output: row.output,
-                  status: row.status,
-                  executedAt: row.executedAt,
-                ),
-              )
-              .toList(),
-        );
+      (rows) => rows
+          .map(
+            (row) => ExecutionHistoryEntry(
+              id: row.id,
+              code: row.code,
+              output: row.output,
+              status: row.status,
+              executedAt: row.executedAt,
+            ),
+          )
+          .toList(),
+    );
   }
 
   @override

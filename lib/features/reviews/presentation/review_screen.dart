@@ -72,11 +72,7 @@ class _ReviewContent extends StatelessWidget {
                           style: const TextStyle(fontWeight: FontWeight.w800),
                         ),
                       ),
-                      Chip(
-                        label: Text(
-                          item.isDue ? 'À revoir' : 'Planifiée',
-                        ),
-                      ),
+                      Chip(label: Text(item.isDue ? 'À revoir' : 'Planifiée')),
                     ],
                   ),
                   const SizedBox(height: 8),

@@ -1,0 +1,80 @@
+{
+  "locale": "fr",
+  "projects": [
+    {
+      "id": "api-rest-spring",
+      "title": "API REST Spring Boot",
+      "description": "Crée une API de gestion de livres avec validation, persistence, erreurs cohérentes et tests.",
+      "difficulty": "Avancé",
+      "estimatedHours": 12,
+      "concepts": ["HTTP", "Spring Boot", "JPA", "Validation", "Tests"],
+      "xpReward": 300,
+      "missions": [
+        {
+          "id": "bootstrap-api",
+          "order": 1,
+          "title": "Initialiser Spring Boot",
+          "instructions": "Crée un projet avec les dépendances Web, Validation, Data JPA, base de test et Test. Place la classe principale dans le package racine.",
+          "successCriteria": ["L’application démarre.", "Les dépendances ont un rôle justifié.", "Aucun secret n’est présent dans le dépôt."],
+          "starterCode": "@SpringBootApplication\npublic class BookApiApplication {\n  public static void main(String[] args) {\n    SpringApplication.run(BookApiApplication.class, args);\n  }\n}"
+        },
+        {
+          "id": "book-entity",
+          "order": 2,
+          "title": "Créer l’entité Book",
+          "instructions": "Crée BookEntity avec id généré, title, author et available. Garde un constructeur protégé pour JPA et des opérations métier explicites.",
+          "successCriteria": ["@Entity et @Id sont présents.", "Les champs ne sont pas publics.", "Le livre est disponible à sa création."],
+          "starterCode": "@Entity\n@Table(name = \"books\")\npublic class BookEntity {\n  @Id\n  @GeneratedValue(strategy = GenerationType.IDENTITY)\n  private Long id;\n  private String title;\n  private String author;\n  private boolean available = true;\n\n  protected BookEntity() {}\n}"
+        },
+        {
+          "id": "book-repository",
+          "order": 3,
+          "title": "Créer le repository",
+          "instructions": "Étends JpaRepository et ajoute une recherche insensible à la casse sur le titre.",
+          "successCriteria": ["L’identifiant générique est Long.", "La méthode de recherche renvoie une liste.", "Aucune requête SQL n’est concaténée."],
+          "starterCode": "public interface BookRepository\n    extends JpaRepository<BookEntity, Long> {\n  List<BookEntity> findByTitleContainingIgnoreCase(String title);\n}"
+        },
+        {
+          "id": "book-dtos",
+          "order": 4,
+          "title": "Définir les DTO et validations",
+          "instructions": "Crée CreateBookRequest et BookResponse. Valide title et author, puis écris un mapping explicite depuis l’entité.",
+          "successCriteria": ["Les entrées utilisent @NotBlank.", "La taille du titre est limitée.", "La réponse n’expose pas directement l’entité."],
+          "starterCode": "public record CreateBookRequest(\n    @NotBlank @Size(max = 200) String title,\n    @NotBlank @Size(max = 120) String author\n) {}\n\npublic record BookResponse(\n    long id, String title, String author, boolean available\n) {}"
+        },
+        {
+          "id": "book-service",
+          "order": 5,
+          "title": "Implémenter le service",
+          "instructions": "Ajoute create, findAll, findById et delete. Utilise des transactions adaptées et une exception BookNotFoundException.",
+          "successCriteria": ["Le repository est injecté par constructeur.", "La recherche absente lève l’exception métier.", "Les méthodes renvoient des DTO."],
+          "starterCode": "@Service\npublic class BookService {\n  private final BookRepository repository;\n\n  public BookService(BookRepository repository) {\n    this.repository = repository;\n  }\n\n  @Transactional(readOnly = true)\n  public BookResponse findById(long id) {\n    return repository.findById(id)\n        .map(BookMapper::toResponse)\n        .orElseThrow(() -> new BookNotFoundException(id));\n  }\n}"
+        },
+        {
+          "id": "book-controller",
+          "order": 6,
+          "title": "Exposer les routes REST",
+          "instructions": "Crée les routes GET collection, GET détail, POST et DELETE. Retourne 201 avec Location après création et 204 après suppression.",
+          "successCriteria": ["@Valid contrôle le corps POST.", "Les statuts HTTP sont adaptés.", "Le contrôleur ne contient pas de règle métier."],
+          "starterCode": "@PostMapping\npublic ResponseEntity<BookResponse> create(\n    @Valid @RequestBody CreateBookRequest request\n) {\n  BookResponse created = service.create(request);\n  URI location = URI.create(\"/books/\" + created.id());\n  return ResponseEntity.created(location).body(created);\n}"
+        },
+        {
+          "id": "api-errors",
+          "order": 7,
+          "title": "Uniformiser les erreurs",
+          "instructions": "Crée ApiError et un @RestControllerAdvice pour les ressources absentes et les erreurs de validation.",
+          "successCriteria": ["Une absence renvoie 404.", "Une validation renvoie 400 avec les champs concernés.", "Aucune stack trace n’est exposée."],
+          "starterCode": "@RestControllerAdvice\npublic class ApiExceptionHandler {\n  @ExceptionHandler(BookNotFoundException.class)\n  ResponseEntity<ApiError> notFound(BookNotFoundException error) {\n    return ResponseEntity.status(404)\n        .body(new ApiError(\"BOOK_NOT_FOUND\", error.getMessage()));\n  }\n}"
+        },
+        {
+          "id": "api-tests",
+          "order": 8,
+          "title": "Tester et documenter l’API",
+          "instructions": "Ajoute des tests de service et de contrôleur pour création, lecture, absence et validation. Documente les routes et la configuration de démarrage.",
+          "successCriteria": ["Les tests couvrent succès et erreurs.", "La base de test est isolée.", "Le README explique les commandes.", "La vérification complète réussit."],
+          "starterCode": "@Test\nvoid retourne404QuandLeLivreEstAbsent() throws Exception {\n  when(service.findById(99L))\n      .thenThrow(new BookNotFoundException(99L));\n\n  mockMvc.perform(get(\"/books/99\"))\n      .andExpect(status().isNotFound())\n      .andExpect(jsonPath(\"$.code\").value(\"BOOK_NOT_FOUND\"));\n}"
+        }
+      ]
+    }
+  ]
+}

@@ -28,10 +28,10 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
     if (correct) {
       await repository.recordCorrectAnswer();
       await repository.completeActivity(
-            activityId: question.id,
-            activityType: 'quiz',
-            xp: 5,
-          );
+        activityId: question.id,
+        activityType: 'quiz',
+        xp: 5,
+      );
       await repository.recordReviewSuccess(question.conceptId);
       _correctAnswers++;
     } else {
@@ -134,13 +134,11 @@ class _QuestionView extends StatelessWidget {
                 Text(
                   question.prompt,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.w800,
-                      ),
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
                 const SizedBox(height: 24),
-                for (var index = 0;
-                    index < question.choices.length;
-                    index++)
+                for (var index = 0; index < question.choices.length; index++)
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Card(
@@ -187,8 +185,8 @@ class _QuestionView extends StatelessWidget {
                 onPressed: validated
                     ? onNext
                     : selected == null
-                        ? null
-                        : onValidate,
+                    ? null
+                    : onValidate,
                 child: Text(validated ? 'Question suivante' : 'Valider'),
               ),
             ),
@@ -242,9 +240,12 @@ class _QuizResult extends StatelessWidget {
           children: [
             const Icon(Icons.emoji_events_rounded, size: 80),
             const SizedBox(height: 20),
-            Text('Quiz terminé',
-                style: Theme.of(context).textTheme.headlineMedium
-                    ?.copyWith(fontWeight: FontWeight.w800)),
+            Text(
+              'Quiz terminé',
+              style: Theme.of(
+                context,
+              ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
+            ),
             const SizedBox(height: 10),
             Text('$correct bonnes réponses sur $total'),
             const SizedBox(height: 24),

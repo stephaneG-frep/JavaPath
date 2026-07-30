@@ -20,8 +20,11 @@ class LessonScreen extends ConsumerWidget {
       );
     }
     final isCompleted =
-        ref.watch(completedLessonIdsProvider).valueOrNull?.contains(lesson.id) ??
-            false;
+        ref
+            .watch(completedLessonIdsProvider)
+            .valueOrNull
+            ?.contains(lesson.id) ??
+        false;
     return Scaffold(
       appBar: AppBar(title: Text(lesson.title)),
       body: _LessonContent(lesson: lesson),
@@ -31,33 +34,31 @@ class LessonScreen extends ConsumerWidget {
           onPressed: isCompleted
               ? null
               : () async {
-            final earned = await ref
-                .read(progressRepositoryProvider)
-                .completeLesson(
-                  lesson.id,
-                  lesson.xpReward,
-                  lesson.estimatedMinutes,
-                );
-            if (context.mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(
-                    earned
-                        ? 'Leçon terminée : +${lesson.xpReward} XP'
-                        : 'Cette leçon était déjà terminée.',
-                  ),
-                ),
-              );
-            }
-          },
+                  final earned = await ref
+                      .read(progressRepositoryProvider)
+                      .completeLesson(
+                        lesson.id,
+                        lesson.xpReward,
+                        lesson.estimatedMinutes,
+                      );
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          earned
+                              ? 'Leçon terminée : +${lesson.xpReward} XP'
+                              : 'Cette leçon était déjà terminée.',
+                        ),
+                      ),
+                    );
+                  }
+                },
           icon: Icon(
             isCompleted
                 ? Icons.check_circle_rounded
                 : Icons.check_circle_outline_rounded,
           ),
-          label: Text(
-            isCompleted ? 'Leçon terminée' : 'Terminer la leçon',
-          ),
+          label: Text(isCompleted ? 'Leçon terminée' : 'Terminer la leçon'),
         ),
       ),
     );
@@ -95,27 +96,31 @@ class _LessonContent extends StatelessWidget {
         for (final section in lesson.sections) ...[
           Text(
             section.title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 8),
-          Text(section.content,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.5)),
+          Text(
+            section.content,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.5),
+          ),
           const SizedBox(height: 24),
         ],
         for (final example in lesson.codeExamples) ...[
           Text(
             example.title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 10),
           CodeBlock(code: example.code),
           const SizedBox(height: 10),
-          Text(example.explanation,
-              style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.5)),
+          Text(
+            example.explanation,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(height: 1.5),
+          ),
           const SizedBox(height: 24),
         ],
       ],

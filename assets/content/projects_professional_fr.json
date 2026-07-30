@@ -1,0 +1,72 @@
+{
+  "locale": "fr",
+  "projects": [
+    {
+      "id": "java-professionnelle",
+      "title": "Application Java professionnelle",
+      "description": "Structure un gestionnaire de tâches testable avec Maven, architecture en couches et qualité automatisée.",
+      "difficulty": "Avancé",
+      "estimatedHours": 8,
+      "concepts": ["Clean Code", "Architecture", "Maven", "JUnit", "Mockito"],
+      "xpReward": 200,
+      "missions": [
+        {
+          "id": "maven-structure",
+          "order": 1,
+          "title": "Initialiser le projet Maven",
+          "instructions": "Crée le pom.xml et la structure src/main/java et src/test/java. Configure Java 21 et JUnit Jupiter.",
+          "successCriteria": ["mvn test fonctionne.", "Le code principal et les tests sont séparés.", "JUnit possède la portée test."],
+          "starterCode": "<properties>\n  <maven.compiler.release>21</maven.compiler.release>\n  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>\n</properties>"
+        },
+        {
+          "id": "domain-task",
+          "order": 2,
+          "title": "Créer le domaine",
+          "instructions": "Crée Task avec id, title et completed. Refuse un titre vide et expose une méthode complete plutôt qu’un setter public.",
+          "successCriteria": ["Les attributs sont privés.", "Le constructeur protège le titre.", "complete exprime l’action métier."],
+          "starterCode": "public final class Task {\n  private final long id;\n  private final String title;\n  private boolean completed;\n\n  public void complete() {\n    completed = true;\n  }\n}"
+        },
+        {
+          "id": "repository-contract",
+          "order": 3,
+          "title": "Définir le contrat de stockage",
+          "instructions": "Crée TaskRepository dans le domaine avec save, findById et findAll. Utilise Optional pour la recherche.",
+          "successCriteria": ["Le domaine ne dépend d’aucune base.", "findById renvoie Optional<Task>.", "Les noms décrivent les opérations métier."],
+          "starterCode": "public interface TaskRepository {\n  Task save(Task task);\n  Optional<Task> findById(long id);\n  List<Task> findAll();\n}"
+        },
+        {
+          "id": "application-service",
+          "order": 4,
+          "title": "Écrire le service applicatif",
+          "instructions": "Crée TaskService et injecte TaskRepository par constructeur. Ajoute create et complete en conservant les règles hors du contrôleur.",
+          "successCriteria": ["La dépendance est injectée.", "Le service ne crée pas le dépôt.", "Une tâche absente produit une exception explicite."],
+          "starterCode": "public final class TaskService {\n  private final TaskRepository repository;\n\n  public TaskService(TaskRepository repository) {\n    this.repository = repository;\n  }\n}"
+        },
+        {
+          "id": "memory-adapter",
+          "order": 5,
+          "title": "Créer un adaptateur mémoire",
+          "instructions": "Implémente TaskRepository avec une HashMap. Cette version permettra de lancer l’application sans base de données.",
+          "successCriteria": ["La classe implémente le contrat.", "La Map reste privée.", "findAll ne permet pas de modifier directement le stockage."],
+          "starterCode": "public final class InMemoryTaskRepository\n    implements TaskRepository {\n  private final Map<Long, Task> tasks = new HashMap<>();\n}"
+        },
+        {
+          "id": "service-tests",
+          "order": 6,
+          "title": "Tester avec JUnit et Mockito",
+          "instructions": "Teste la création, le refus d’un titre vide et la complétion. Mocke TaskRepository uniquement pour isoler TaskService.",
+          "successCriteria": ["Les trois comportements sont couverts.", "assertThrows vérifie la règle invalide.", "verify contrôle la sauvegarde utile."],
+          "starterCode": "@Test\nvoid sauvegardeLaTacheCreee() {\n  TaskRepository repository = mock(TaskRepository.class);\n  TaskService service = new TaskService(repository);\n\n  Task task = service.create(\"Apprendre JUnit\");\n\n  verify(repository).save(task);\n}"
+        },
+        {
+          "id": "quality-delivery",
+          "order": 7,
+          "title": "Documenter et livrer",
+          "instructions": "Ajoute logs sans données sensibles, README de démarrage et historique Git propre. Exécute mvn verify avant le dernier commit.",
+          "successCriteria": ["Le README permet de lancer et tester.", "Aucun secret n’est journalisé.", "mvn verify réussit.", "Les commits représentent des changements cohérents."],
+          "starterCode": "# Task Manager\n\n## Prérequis\n- JDK 21\n- Maven Wrapper\n\n## Vérification\n```bash\n./mvnw verify\n```"
+        }
+      ]
+    }
+  ]
+}

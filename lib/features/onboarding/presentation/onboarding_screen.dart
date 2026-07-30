@@ -76,7 +76,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final canContinue =
-        _page < 3 || (_page == 3 && _level != null) || (_page == 4 && _goal != null);
+        _page < 3 ||
+        (_page == 3 && _level != null) ||
+        (_page == 4 && _goal != null);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -88,8 +90,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                   Text(
                     'JavaPath',
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w800,
-                        ),
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
                   const Spacer(),
                   Text('${_page + 1}/5'),
@@ -133,7 +135,9 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 height: 52,
                 child: FilledButton(
                   onPressed: canContinue ? _continue : null,
-                  child: Text(_page == 4 ? 'Commencer mon parcours' : 'Continuer'),
+                  child: Text(
+                    _page == 4 ? 'Commencer mon parcours' : 'Continuer',
+                  ),
                 ),
               ),
             ),
@@ -173,9 +177,9 @@ class _IntroSlide extends StatelessWidget {
           Text(
             title,
             textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 16),
           Text(
@@ -210,9 +214,9 @@ class _ChoicePage extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                fontWeight: FontWeight.w800,
-              ),
+          style: Theme.of(
+            context,
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
         ),
         const SizedBox(height: 8),
         Text(subtitle),

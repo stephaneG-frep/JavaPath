@@ -1,0 +1,352 @@
+{
+  "locale": "fr",
+  "version": 1,
+  "modules": [
+    {
+      "id": "backend-web",
+      "level": 7,
+      "title": "Fondations du Web",
+      "description": "Comprends les échanges HTTP et la conception d’une API REST.",
+      "projectTitle": "API REST Spring Boot",
+      "projectId": "api-rest-spring",
+      "lessons": [
+        {
+          "id": "http",
+          "moduleId": "backend-web",
+          "title": "HTTP",
+          "description": "Décompose une requête et une réponse échangées sur le Web.",
+          "difficulty": "avance",
+          "estimatedMinutes": 32,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Requête et réponse", "content": "Un client envoie une méthode, une adresse, des en-têtes et parfois un corps. Le serveur répond avec un statut, des en-têtes et éventuellement une représentation."},
+            {"title": "Méthodes HTTP", "content": "GET lit, POST crée généralement, PUT remplace, PATCH modifie partiellement et DELETE supprime. La méthode communique l’intention de l’opération."},
+            {"title": "Codes de statut", "content": "Les statuts 2xx indiquent un succès, 4xx un problème dans la requête et 5xx un échec du serveur. Choisir le bon statut fait partie du contrat de l’API."}
+          ],
+          "codeExamples": [
+            {"title": "Une réponse HTTP", "code": "HTTP/1.1 200 OK\nContent-Type: application/json\n\n{\n  \"id\": 42,\n  \"title\": \"Apprendre Java\"\n}", "explanation": "200 annonce le succès, Content-Type décrit le format et le corps JSON contient la représentation demandée."}
+          ]
+        },
+        {
+          "id": "rest",
+          "moduleId": "backend-web",
+          "title": "REST",
+          "description": "Conçois des ressources et opérations cohérentes.",
+          "difficulty": "avance",
+          "estimatedMinutes": 33,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Penser en ressources", "content": "Une URI représente une ressource : /books pour la collection et /books/42 pour un élément. Les verbes restent dans la méthode HTTP plutôt que dans l’URI."},
+            {"title": "Sans état de session implicite", "content": "Chaque requête doit contenir les informations nécessaires à son traitement. Le serveur peut ainsi traiter deux appels indépendamment."},
+            {"title": "Idempotence", "content": "Répéter un GET, PUT ou DELETE doit viser le même état final. POST n’est généralement pas idempotent car deux appels peuvent créer deux ressources."}
+          ],
+          "codeExamples": [
+            {"title": "Routes d’une ressource", "code": "GET    /books\nGET    /books/42\nPOST   /books\nPUT    /books/42\nDELETE /books/42", "explanation": "L’URI nomme la ressource et la méthode décrit l’action. Ce contrat reste prévisible pour le client."}
+          ]
+        },
+        {
+          "id": "json",
+          "moduleId": "backend-web",
+          "title": "JSON",
+          "description": "Échange des objets structurés entre client et serveur.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 27,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Types JSON", "content": "JSON possède objets, tableaux, chaînes, nombres, booléens et null. Il ne contient pas directement de type date ni de commentaire."},
+            {"title": "Sérialisation contrôlée", "content": "Le serveur transforme un DTO Java en JSON. N’expose pas automatiquement toutes les entités de persistence, car leur structure interne n’est pas le contrat public."},
+            {"title": "Compatibilité", "content": "Ajouter un champ facultatif est souvent compatible ; renommer ou supprimer un champ peut casser les clients. Valide les entrées et documente le format."}
+          ],
+          "codeExamples": [
+            {"title": "DTO de création", "code": "public record CreateBookRequest(\n    String title,\n    String author\n) {}", "explanation": "Le DTO décrit uniquement les données acceptées par l’API. Spring peut le désérialiser depuis un objet JSON correspondant."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend-data",
+      "level": 7,
+      "title": "SQL et JDBC",
+      "description": "Stocke et recherche des données relationnelles depuis Java.",
+      "projectTitle": "API REST Spring Boot",
+      "projectId": "api-rest-spring",
+      "lessons": [
+        {
+          "id": "sql",
+          "moduleId": "backend-data",
+          "title": "Bases de SQL",
+          "description": "Interroge et modifie des tables relationnelles.",
+          "difficulty": "avance",
+          "estimatedMinutes": 34,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Tables et lignes", "content": "Une table décrit des colonnes typées et contient des lignes. Une clé primaire identifie chaque ligne de manière unique."},
+            {"title": "Lire et modifier", "content": "SELECT lit, INSERT ajoute, UPDATE modifie et DELETE supprime. WHERE limite les lignes concernées et doit être vérifié avec attention."},
+            {"title": "Relations", "content": "Une clé étrangère relie une ligne à une autre table. Les jointures reconstruisent une vue combinée sans dupliquer toutes les données."}
+          ],
+          "codeExamples": [
+            {"title": "Rechercher les livres disponibles", "code": "SELECT id, title, author\nFROM books\nWHERE available = TRUE\nORDER BY title;", "explanation": "La requête sélectionne seulement trois colonnes, filtre les lignes disponibles puis trie le résultat par titre."}
+          ]
+        },
+        {
+          "id": "jdbc",
+          "moduleId": "backend-data",
+          "title": "JDBC",
+          "description": "Exécute une requête SQL avec l’API standard Java.",
+          "difficulty": "avance",
+          "estimatedMinutes": 36,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Connexion, requête, résultat", "content": "JDBC définit Connection, PreparedStatement et ResultSet. Le pilote propre à la base réalise leur implémentation."},
+            {"title": "PreparedStatement", "content": "Les paramètres ? séparent le SQL des valeurs. Cette pratique gère les conversions et protège contre l’injection SQL."},
+            {"title": "Fermer les ressources", "content": "Connection, statement et result set consomment des ressources limitées. try-with-resources garantit leur fermeture même en cas d’exception."}
+          ],
+          "codeExamples": [
+            {"title": "Requête paramétrée", "code": "String sql = \"SELECT id, title FROM books WHERE id = ?\";\ntry (PreparedStatement statement = connection.prepareStatement(sql)) {\n  statement.setLong(1, id);\n  try (ResultSet rows = statement.executeQuery()) {\n    // mapper la ligne éventuelle\n  }\n}", "explanation": "La valeur id n’est jamais concaténée au SQL. Les deux ressources sont fermées automatiquement."}
+          ]
+        },
+        {
+          "id": "connexion-base",
+          "moduleId": "backend-data",
+          "title": "Connexion à une base",
+          "description": "Configure un accès fiable sans exposer les identifiants.",
+          "difficulty": "avance",
+          "estimatedMinutes": 31,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Configuration externe", "content": "URL, utilisateur et mot de passe changent selon l’environnement. Ils doivent provenir de variables ou d’un gestionnaire de secrets, jamais du dépôt Git."},
+            {"title": "Pool de connexions", "content": "Ouvrir une connexion physique pour chaque requête coûte cher. Un pool conserve un nombre limité de connexions réutilisables."},
+            {"title": "Transactions", "content": "Une transaction regroupe plusieurs opérations en un ensemble atomique : toutes réussissent ou toutes sont annulées. Elle protège une règle qui traverse plusieurs écritures."}
+          ],
+          "codeExamples": [
+            {"title": "Configuration par environnement", "code": "DB_URL=jdbc:postgresql://localhost:5432/javapath\nDB_USER=javapath_app\nDB_PASSWORD=change-me", "explanation": "Ces valeurs illustrent les noms de variables. Le véritable mot de passe reste hors du code et hors de Git."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend-spring",
+      "level": 7,
+      "title": "Spring Boot",
+      "description": "Structure une API avec injection de dépendances et couches explicites.",
+      "projectTitle": "API REST Spring Boot",
+      "projectId": "api-rest-spring",
+      "lessons": [
+        {
+          "id": "introduction-spring",
+          "moduleId": "backend-spring",
+          "title": "Introduction à Spring",
+          "description": "Comprends le conteneur qui construit et relie les objets.",
+          "difficulty": "avance",
+          "estimatedMinutes": 32,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Un conteneur d’objets", "content": "Spring crée des objets appelés beans, gère leur cycle de vie et injecte leurs dépendances. Le code se concentre sur les contrats et comportements."},
+            {"title": "Stéréotypes", "content": "@Component marque un composant générique, @Service une logique applicative et @Repository un accès aux données. Ces annotations rendent les rôles visibles."},
+            {"title": "Configuration explicite", "content": "@Bean permet de construire un objet dont la classe n’est pas annotée ou qui nécessite une configuration particulière."}
+          ],
+          "codeExamples": [
+            {"title": "Déclarer un service", "code": "@Service\npublic class BookService {\n  private final BookRepository repository;\n\n  public BookService(BookRepository repository) {\n    this.repository = repository;\n  }\n}", "explanation": "Spring découvre BookService et fournit un BookRepository compatible à son constructeur."}
+          ]
+        },
+        {
+          "id": "spring-boot",
+          "moduleId": "backend-spring",
+          "title": "Spring Boot",
+          "description": "Démarre une application Spring avec des conventions utiles.",
+          "difficulty": "avance",
+          "estimatedMinutes": 31,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Configuration automatique", "content": "Spring Boot configure des composants selon les dépendances et propriétés présentes. Les starters regroupent des dépendances cohérentes pour le Web, les données ou les tests."},
+            {"title": "Point d’entrée", "content": "@SpringBootApplication combine configuration, détection des composants et configuration automatique. SpringApplication.run démarre le contexte."},
+            {"title": "Propriétés par environnement", "content": "application.properties ou YAML contient la configuration non secrète. Les profils et variables d’environnement adaptent le déploiement."}
+          ],
+          "codeExamples": [
+            {"title": "Démarrer l’application", "code": "@SpringBootApplication\npublic class ApiApplication {\n  public static void main(String[] args) {\n    SpringApplication.run(ApiApplication.class, args);\n  }\n}", "explanation": "La classe placée à la racine du package permet à Spring de découvrir les composants enfants."}
+          ]
+        },
+        {
+          "id": "controleurs",
+          "moduleId": "backend-spring",
+          "title": "Contrôleurs REST",
+          "description": "Traduis HTTP en appels applicatifs et réponses adaptées.",
+          "difficulty": "avance",
+          "estimatedMinutes": 34,
+          "xpReward": 40,
+          "sections": [
+            {"title": "@RestController", "content": "Un contrôleur REST reçoit la requête et sérialise sa valeur de retour. @RequestMapping définit le chemin commun de la ressource."},
+            {"title": "Entrées explicites", "content": "@PathVariable lit un segment d’URI, @RequestParam un paramètre de requête et @RequestBody le corps JSON."},
+            {"title": "Réponse HTTP", "content": "ResponseEntity permet de choisir statut, en-têtes et corps. Après une création, 201 Created et un en-tête Location décrivent correctement le résultat."}
+          ],
+          "codeExamples": [
+            {"title": "Lire un livre", "code": "@GetMapping(\"/{id}\")\npublic BookResponse findById(@PathVariable long id) {\n  return service.findById(id);\n}", "explanation": "Spring convertit le segment id en long. Le contrôleur délègue la recherche au service et renvoie un DTO."}
+          ]
+        },
+        {
+          "id": "services-spring",
+          "moduleId": "backend-spring",
+          "title": "Services applicatifs",
+          "description": "Centralise les cas d’utilisation et frontières transactionnelles.",
+          "difficulty": "avance",
+          "estimatedMinutes": 31,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Orchestrer un cas d’utilisation", "content": "Le service charge les données, applique les règles et demande leur sauvegarde. Le contrôleur ne porte pas ces décisions."},
+            {"title": "Transactions", "content": "@Transactional délimite une unité de travail. Une exception non gérée provoque généralement l’annulation des modifications de la transaction."},
+            {"title": "DTO et domaine", "content": "Le service peut traduire les commandes entrantes vers le domaine et renvoyer une vue de sortie. Cela évite d’exposer directement la persistence."}
+          ],
+          "codeExamples": [
+            {"title": "Créer dans une transaction", "code": "@Transactional\npublic BookResponse create(CreateBookCommand command) {\n  Book book = Book.create(command.title(), command.author());\n  return BookResponse.from(repository.save(book));\n}", "explanation": "Le domaine construit une valeur valide, le dépôt la sauvegarde et la réponse est explicitement mappée."}
+          ]
+        },
+        {
+          "id": "repositories-spring",
+          "moduleId": "backend-spring",
+          "title": "Repositories",
+          "description": "Isole les opérations de persistence derrière un contrat.",
+          "difficulty": "avance",
+          "estimatedMinutes": 30,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Une collection métier", "content": "Un repository donne l’impression de manipuler une collection d’objets sans exposer les détails SQL dans le service."},
+            {"title": "Spring Data", "content": "JpaRepository fournit des opérations courantes et peut dériver certaines requêtes depuis le nom d’une méthode."},
+            {"title": "Requêtes maîtrisées", "content": "Une méthode dérivée trop longue devient difficile à lire. Utilise alors une requête explicite, une spécification ou un repository dédié."}
+          ],
+          "codeExamples": [
+            {"title": "Repository Spring Data", "code": "public interface BookJpaRepository\n    extends JpaRepository<BookEntity, Long> {\n  List<BookEntity> findByAvailableTrueOrderByTitle();\n}", "explanation": "Spring Data fournit l’implémentation. Le nom décrit un filtre sur available et un tri par title."}
+          ]
+        },
+        {
+          "id": "dependency-injection",
+          "moduleId": "backend-spring",
+          "title": "Injection de dépendances",
+          "description": "Relie les composants par constructeur et rends-les testables.",
+          "difficulty": "avance",
+          "estimatedMinutes": 29,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Recevoir plutôt que créer", "content": "Une classe reçoit ses collaborateurs au lieu d’appeler new sur une infrastructure. Le conteneur construit le graphe d’objets."},
+            {"title": "Injection par constructeur", "content": "Le constructeur rend les dépendances obligatoires et permet des champs final. Il facilite aussi un test sans démarrer Spring."},
+            {"title": "Plusieurs implémentations", "content": "Si plusieurs beans respectent le même contrat, @Qualifier ou @Primary lève l’ambiguïté. Cette décision doit rester explicite."}
+          ],
+          "codeExamples": [
+            {"title": "Service testable sans Spring", "code": "BookRepository fake = new InMemoryBookRepository();\nBookService service = new BookService(fake);", "explanation": "Le constructeur permet d’utiliser une implémentation mémoire dans un test sans contexte Spring ni base réelle."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend-persistence-security",
+      "level": 7,
+      "title": "Persistence et sécurité",
+      "description": "Mappe les données, valide les entrées et protège les opérations.",
+      "projectTitle": "API REST Spring Boot",
+      "projectId": "api-rest-spring",
+      "lessons": [
+        {
+          "id": "jpa",
+          "moduleId": "backend-persistence-security",
+          "title": "JPA",
+          "description": "Mappe des objets Java vers des données relationnelles.",
+          "difficulty": "avance",
+          "estimatedMinutes": 35,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Une spécification", "content": "JPA définit des annotations et contrats pour la persistence d’entités. Elle ne constitue pas elle-même le moteur qui exécute les requêtes."},
+            {"title": "Entité et identité", "content": "@Entity marque une classe persistée et @Id son identifiant. L’entité doit respecter les contraintes de l’outil, notamment un constructeur accessible."},
+            {"title": "Relations prudentes", "content": "@ManyToOne et @OneToMany représentent des relations, mais peuvent charger trop de données ou créer des cycles JSON. Les DTO gardent l’API indépendante."}
+          ],
+          "codeExamples": [
+            {"title": "Une entité minimale", "code": "@Entity\n@Table(name = \"books\")\nclass BookEntity {\n  @Id\n  @GeneratedValue(strategy = GenerationType.IDENTITY)\n  private Long id;\n\n  private String title;\n\n  protected BookEntity() {}\n}", "explanation": "L’entité correspond à la table books. L’identifiant est généré et le constructeur protégé est réservé à JPA."}
+          ]
+        },
+        {
+          "id": "hibernate",
+          "moduleId": "backend-persistence-security",
+          "title": "Hibernate",
+          "description": "Comprends l’implémentation JPA, son contexte et ses requêtes.",
+          "difficulty": "avance",
+          "estimatedMinutes": 35,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Implémentation de JPA", "content": "Hibernate est un ORM qui implémente JPA. Il traduit les opérations sur les entités en SQL pour la base configurée."},
+            {"title": "Contexte de persistence", "content": "Dans une transaction, Hibernate suit les entités chargées. Une modification peut être détectée et synchronisée au commit sans save explicite supplémentaire."},
+            {"title": "N+1 et chargement", "content": "Lire une liste puis charger une relation pour chaque ligne peut produire N+1 requêtes. Observe le SQL et choisis jointure ou projection selon le besoin."}
+          ],
+          "codeExamples": [
+            {"title": "Mise à jour suivie", "code": "@Transactional\npublic void rename(long id, String title) {\n  BookEntity entity = repository.findById(id)\n      .orElseThrow(BookNotFoundException::new);\n  entity.rename(title);\n}", "explanation": "L’entité gérée est suivie dans la transaction. Hibernate synchronise son nouvel état lors du commit."}
+          ]
+        },
+        {
+          "id": "validation",
+          "moduleId": "backend-persistence-security",
+          "title": "Validation des entrées",
+          "description": "Refuse tôt les requêtes mal formées avec des messages utiles.",
+          "difficulty": "avance",
+          "estimatedMinutes": 30,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Validation de forme", "content": "@NotBlank, @Size et @Email vérifient la structure d’un DTO. @Valid déclenche cette validation à la frontière HTTP."},
+            {"title": "Règle métier distincte", "content": "Une annotation ne remplace pas une règle du domaine comme l’unicité d’un ISBN. Le domaine doit rester valide même s’il est appelé hors HTTP."},
+            {"title": "Messages exploitables", "content": "La réponse indique le champ, la règle et un message sans révéler d’information interne. Le client peut alors corriger précisément sa requête."}
+          ],
+          "codeExamples": [
+            {"title": "DTO validé", "code": "public record CreateBookRequest(\n    @NotBlank\n    @Size(max = 200)\n    String title,\n\n    @NotBlank\n    String author\n) {}", "explanation": "Le titre doit contenir du texte et rester sous la limite. Le contrôleur recevra ce DTO avec @Valid."}
+          ]
+        },
+        {
+          "id": "gestion-erreurs-api",
+          "moduleId": "backend-persistence-security",
+          "title": "Gestion des erreurs API",
+          "description": "Transforme les exceptions en réponses HTTP cohérentes.",
+          "difficulty": "avance",
+          "estimatedMinutes": 32,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Une forme commune", "content": "Toutes les erreurs devraient partager des champs prévisibles : code, message, statut, chemin et éventuellement erreurs de validation."},
+            {"title": "@RestControllerAdvice", "content": "Un advice centralise les correspondances entre exceptions et réponses. Les contrôleurs restent concentrés sur le scénario de succès."},
+            {"title": "Ne pas exposer la stack trace", "content": "La réponse publique ne contient ni SQL, ni chemin serveur, ni stack trace. Ces détails vont dans des logs internes protégés."}
+          ],
+          "codeExamples": [
+            {"title": "Mapper une absence", "code": "@ExceptionHandler(BookNotFoundException.class)\nResponseEntity<ApiError> handleNotFound(\n    BookNotFoundException error\n) {\n  return ResponseEntity.status(404)\n      .body(new ApiError(\"BOOK_NOT_FOUND\", error.getMessage()));\n}", "explanation": "L’exception métier devient une réponse 404 stable avec un code que le client peut interpréter."}
+          ]
+        },
+        {
+          "id": "authentification-intro",
+          "moduleId": "backend-persistence-security",
+          "title": "Introduction à l’authentification",
+          "description": "Distingue identité, permissions et protection des secrets.",
+          "difficulty": "avance",
+          "estimatedMinutes": 34,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Authentification et autorisation", "content": "L’authentification vérifie qui appelle. L’autorisation décide ensuite si cette identité peut réaliser l’action demandée."},
+            {"title": "Mots de passe hachés", "content": "Un mot de passe n’est jamais stocké en clair ni chiffré de façon réversible. Un algorithme de hachage adapté avec sel vérifie la valeur sans la conserver."},
+            {"title": "Tokens et HTTPS", "content": "Un token est un secret temporaire à protéger. HTTPS chiffre le transport ; expiration, rotation et validation de signature limitent les risques."}
+          ],
+          "codeExamples": [
+            {"title": "Autoriser selon un rôle", "code": "@PreAuthorize(\"hasRole('ADMIN')\")\n@DeleteMapping(\"/{id}\")\npublic ResponseEntity<Void> delete(@PathVariable long id) {\n  service.delete(id);\n  return ResponseEntity.noContent().build();\n}", "explanation": "L’identité doit posséder le rôle ADMIN avant l’appel. La véritable configuration de sécurité reste centralisée."}
+          ]
+        },
+        {
+          "id": "creer-api-rest",
+          "moduleId": "backend-persistence-security",
+          "title": "Construire une API REST",
+          "description": "Assemble contrat HTTP, métier, persistence et tests.",
+          "difficulty": "avance",
+          "estimatedMinutes": 38,
+          "xpReward": 40,
+          "sections": [
+            {"title": "Partir du contrat", "content": "Définis ressources, routes, statuts et représentations avant l’implémentation. Les scénarios d’erreur font partie du même contrat."},
+            {"title": "Traverser les couches", "content": "Le contrôleur valide et traduit, le service orchestre, le domaine décide et le repository persiste. Chaque frontière possède des tests adaptés."},
+            {"title": "Livrer avec confiance", "content": "Tests unitaires, tests d’intégration, migrations de base, configuration externe, logs et documentation OpenAPI complètent le code métier."}
+          ],
+          "codeExamples": [
+            {"title": "Flux complet", "code": "POST /books\n  -> CreateBookRequest validé\n  -> BookService.create\n  -> BookRepository.save\n  -> BookResponse\n  -> 201 Created + Location", "explanation": "Le flux part du contrat HTTP, traverse les responsabilités puis revient avec une représentation et un statut précis."}
+          ]
+        }
+      ]
+    }
+  ]
+}

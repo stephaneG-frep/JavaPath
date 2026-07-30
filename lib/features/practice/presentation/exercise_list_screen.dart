@@ -33,8 +33,9 @@ class ExerciseListScreen extends ConsumerWidget {
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(fontWeight: FontWeight.w700),
                 ),
-                subtitle:
-                    Text('${exercise.difficulty} • +${exercise.xpReward} XP'),
+                subtitle: Text(
+                  '${exercise.difficulty} • +${exercise.xpReward} XP',
+                ),
                 trailing: const Icon(Icons.chevron_right_rounded),
               ),
             );

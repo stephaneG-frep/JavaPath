@@ -1,0 +1,187 @@
+{
+  "locale": "fr",
+  "quizQuestions": [
+    {
+      "id": "backend-quiz-01",
+      "conceptId": "HTTP",
+      "prompt": "Quel statut convient après la création réussie d’une ressource ?",
+      "choices": ["200 uniquement dans tous les cas", "201 Created", "404 Not Found", "500 Internal Server Error"],
+      "correctChoiceIndex": 1,
+      "explanation": "201 Created indique explicitement qu’une nouvelle ressource a été créée."
+    },
+    {
+      "id": "backend-quiz-02",
+      "conceptId": "REST",
+      "prompt": "Quelle route respecte le mieux une conception REST pour lire le livre 42 ?",
+      "choices": ["GET /getBook?id=42", "POST /read-book-42", "GET /books/42", "DELETE /books"],
+      "correctChoiceIndex": 2,
+      "explanation": "L’URI nomme la ressource et GET indique l’intention de lecture."
+    },
+    {
+      "id": "backend-quiz-03",
+      "conceptId": "JDBC",
+      "prompt": "Pourquoi utiliser PreparedStatement ?",
+      "choices": ["Pour concaténer les entrées au SQL", "Pour paramétrer les valeurs et éviter l’injection", "Pour remplacer la base", "Pour créer un contrôleur"],
+      "correctChoiceIndex": 1,
+      "explanation": "PreparedStatement sépare la structure SQL des valeurs reçues."
+    },
+    {
+      "id": "backend-quiz-04",
+      "conceptId": "Spring",
+      "prompt": "Quel est le rôle principal du conteneur Spring ?",
+      "choices": ["Écrire automatiquement toutes les règles métier", "Construire et relier les beans", "Remplacer HTTP", "Compiler le bytecode"],
+      "correctChoiceIndex": 1,
+      "explanation": "Le conteneur gère la création, le cycle de vie et les dépendances des composants."
+    },
+    {
+      "id": "backend-quiz-05",
+      "conceptId": "Contrôleurs",
+      "prompt": "Où doit se trouver une règle métier complexe ?",
+      "choices": ["Dans chaque contrôleur", "Dans le service ou domaine", "Dans @PathVariable", "Dans le fichier JSON"],
+      "correctChoiceIndex": 1,
+      "explanation": "Le contrôleur traduit HTTP ; la logique métier reste dans une couche réutilisable."
+    },
+    {
+      "id": "backend-quiz-06",
+      "conceptId": "Injection de dépendances",
+      "prompt": "Quel style d’injection rend les dépendances obligatoires et testables ?",
+      "choices": ["Injection par constructeur", "Variable globale publique", "new caché dans chaque méthode", "Champ statique modifiable"],
+      "correctChoiceIndex": 0,
+      "explanation": "Le constructeur rend le contrat explicite et permet de fournir une implémentation de test."
+    },
+    {
+      "id": "backend-quiz-07",
+      "conceptId": "JPA",
+      "prompt": "Quelle annotation identifie la clé d’une entité ?",
+      "choices": ["@EntityKey", "@Id", "@Primary", "@ColumnOnly"],
+      "correctChoiceIndex": 1,
+      "explanation": "@Id marque l’attribut qui identifie l’entité de manière unique."
+    },
+    {
+      "id": "backend-quiz-08",
+      "conceptId": "Validation",
+      "prompt": "Que vérifie @NotBlank sur une String ?",
+      "choices": ["Qu’elle n’est ni null, ni vide, ni composée seulement d’espaces", "Qu’elle existe en base", "Qu’elle est chiffrée", "Qu’elle contient un nombre"],
+      "correctChoiceIndex": 0,
+      "explanation": "@NotBlank refuse null et les textes sans caractère significatif."
+    },
+    {
+      "id": "backend-quiz-09",
+      "conceptId": "Erreurs API",
+      "prompt": "Que ne doit jamais contenir une réponse d’erreur publique ?",
+      "choices": ["Un code stable", "Un message utile", "La stack trace et le SQL interne", "Le statut HTTP"],
+      "correctChoiceIndex": 2,
+      "explanation": "Les détails internes facilitent les attaques et n’appartiennent pas au contrat public."
+    },
+    {
+      "id": "backend-quiz-10",
+      "conceptId": "Authentification",
+      "prompt": "Quelle différence est correcte ?",
+      "choices": ["Authentification et autorisation sont identiques", "L’authentification vérifie l’identité, l’autorisation vérifie les droits", "L’autorisation crée les mots de passe", "L’authentification remplace HTTPS"],
+      "correctChoiceIndex": 1,
+      "explanation": "On établit d’abord l’identité, puis on contrôle ce qu’elle est autorisée à faire."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "backend-exercise-01",
+      "conceptId": "HTTP",
+      "type": "multipleChoice",
+      "prompt": "Quel statut renvoyer lorsqu’un livre demandé n’existe pas ?",
+      "difficulty": "Avancé",
+      "xpReward": 50,
+      "hints": ["Le problème concerne une ressource absente.", "Le code commence par 4."],
+      "choices": ["201", "204", "404", "500"],
+      "solution": "404",
+      "acceptedAnswers": ["404", "404 Not Found"],
+      "explanation": "404 Not Found indique que le serveur est joignable mais que la ressource demandée est absente."
+    },
+    {
+      "id": "backend-exercise-02",
+      "conceptId": "REST",
+      "type": "multipleChoice",
+      "prompt": "Quelle opération supprime proprement le livre 42 ?",
+      "difficulty": "Avancé",
+      "xpReward": 50,
+      "hints": ["L’URI désigne le livre.", "La méthode HTTP exprime la suppression."],
+      "choices": ["GET /deleteBook/42", "POST /books/delete/42", "DELETE /books/42", "PUT /remove"],
+      "solution": "DELETE /books/42",
+      "acceptedAnswers": ["DELETE /books/42", "delete /books/42"],
+      "explanation": "DELETE porte l’intention et /books/42 identifie la ressource concernée."
+    },
+    {
+      "id": "backend-exercise-03",
+      "conceptId": "JDBC",
+      "type": "completeCode",
+      "prompt": "Complète la requête paramétrée :\nPreparedStatement statement = connection.___(\"SELECT * FROM books WHERE id = ?\");",
+      "difficulty": "Avancé",
+      "xpReward": 50,
+      "hints": ["Il faut préparer le SQL.", "La méthode commence par prepare."],
+      "solution": "prepareStatement",
+      "acceptedAnswers": ["prepareStatement", "prepareStatement(\"SELECT * FROM books WHERE id = ?\")"],
+      "explanation": "prepareStatement crée une requête dont les valeurs seront fournies séparément."
+    },
+    {
+      "id": "backend-exercise-04",
+      "conceptId": "Spring Boot",
+      "type": "completeCode",
+      "prompt": "Complète l’annotation de la classe principale :\n___\npublic class ApiApplication { }",
+      "difficulty": "Avancé",
+      "xpReward": 50,
+      "hints": ["Elle combine la configuration et la détection des composants.", "Son nom commence par @SpringBoot."],
+      "solution": "@SpringBootApplication",
+      "acceptedAnswers": ["@SpringBootApplication", "SpringBootApplication"],
+      "explanation": "@SpringBootApplication active les conventions principales nécessaires au démarrage."
+    },
+    {
+      "id": "backend-exercise-05",
+      "conceptId": "Contrôleurs",
+      "type": "completeCode",
+      "prompt": "Complète la route de lecture :\n___(\"/{id}\")\npublic BookResponse find(@PathVariable long id) { ... }",
+      "difficulty": "Avancé",
+      "xpReward": 50,
+      "hints": ["La requête lit une ressource.", "L’annotation commence par @Get."],
+      "solution": "@GetMapping",
+      "acceptedAnswers": ["@GetMapping", "@GetMapping(\"/{id}\")", "GetMapping"],
+      "explanation": "@GetMapping associe une requête HTTP GET au chemin indiqué."
+    },
+    {
+      "id": "backend-exercise-06",
+      "conceptId": "JPA",
+      "type": "completeCode",
+      "prompt": "Complète l’identifiant de l’entité :\n___\n@GeneratedValue\nprivate Long id;",
+      "difficulty": "Avancé",
+      "xpReward": 50,
+      "hints": ["L’annotation désigne la clé de l’entité.", "Elle contient seulement deux lettres après @."],
+      "solution": "@Id",
+      "acceptedAnswers": ["@Id", "Id"],
+      "explanation": "@Id indique à JPA quel attribut représente l’identité persistante."
+    },
+    {
+      "id": "backend-exercise-07",
+      "conceptId": "Validation",
+      "type": "multipleChoice",
+      "prompt": "Quelle annotation convient à un titre obligatoire sans espaces seuls ?",
+      "difficulty": "Avancé",
+      "xpReward": 50,
+      "hints": ["@NotNull accepterait une chaîne vide.", "L’annotation vérifie un texte non blanc."],
+      "choices": ["@NotBlank", "@Positive", "@Past", "@Email"],
+      "solution": "@NotBlank",
+      "acceptedAnswers": ["@NotBlank", "NotBlank"],
+      "explanation": "@NotBlank exige au moins un caractère qui n’est pas un espace."
+    },
+    {
+      "id": "backend-exercise-08",
+      "conceptId": "Sécurité",
+      "type": "multipleChoice",
+      "prompt": "Comment stocker un mot de passe utilisateur ?",
+      "difficulty": "Avancé",
+      "xpReward": 50,
+      "hints": ["Le texte clair est interdit.", "Utilise un hachage lent conçu pour les mots de passe avec un sel."],
+      "choices": ["En clair dans SQL", "Dans les logs", "Avec un hachage adapté et salé", "Avec Base64"],
+      "solution": "Avec un hachage adapté et salé",
+      "acceptedAnswers": ["Avec un hachage adapté et salé", "hachage salé", "hash salé"],
+      "explanation": "Un algorithme dédié permet la vérification sans conserver le secret original ; Base64 n’est pas un chiffrement."
+    }
+  ]
+}

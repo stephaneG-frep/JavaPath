@@ -39,13 +39,8 @@ class SnippetListScreen extends ConsumerWidget {
                 clipBehavior: Clip.antiAlias,
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(14),
-                  onTap: () => context.push(
-                    '/playground',
-                    extra: snippet.code,
-                  ),
-                  leading: const CircleAvatar(
-                    child: Icon(Icons.code_rounded),
-                  ),
+                  onTap: () => context.push('/playground', extra: snippet.code),
+                  leading: const CircleAvatar(child: Icon(Icons.code_rounded)),
                   title: Text(
                     snippet.title,
                     style: const TextStyle(fontWeight: FontWeight.w800),

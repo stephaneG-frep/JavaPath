@@ -104,6 +104,38 @@ abstract final class AchievementService {
         current: progress.completedLessons,
         target: 41,
       ),
+      AchievementStatus(
+        id: 'modern-java',
+        title: 'Modern Java',
+        description: 'Terminer le niveau Java moderne.',
+        iconKey: 'modern',
+        current: progress.completedLessons,
+        target: 52,
+      ),
+      AchievementStatus(
+        id: 'java-expert',
+        title: 'Java Expert',
+        description: 'Terminer le niveau Java avancé.',
+        iconKey: 'expert',
+        current: progress.completedLessons,
+        target: 65,
+      ),
+      AchievementStatus(
+        id: 'java-professional',
+        title: 'Java Professional',
+        description: 'Terminer le niveau Java professionnel.',
+        iconKey: 'professional',
+        current: progress.completedLessons,
+        target: 80,
+      ),
+      AchievementStatus(
+        id: 'java-master',
+        title: 'Java Master',
+        description: 'Terminer les sept niveaux du parcours.',
+        iconKey: 'master',
+        current: progress.completedLessons,
+        target: 98,
+      ),
     ];
   }
 }

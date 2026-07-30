@@ -43,10 +43,10 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
 
     await repository.recordCorrectAnswer();
     final earned = await repository.completeActivity(
-          activityId: exercise.id,
-          activityType: 'exercise',
-          xp: exercise.xpReward,
-        );
+      activityId: exercise.id,
+      activityType: 'exercise',
+      xp: exercise.xpReward,
+    );
     await repository.recordReviewSuccess(exercise.conceptId);
     if (!mounted) return;
     setState(() {
@@ -82,9 +82,9 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
           Text(
             exercise.prompt,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                  height: 1.4,
-                ),
+              fontWeight: FontWeight.w800,
+              height: 1.4,
+            ),
           ),
           const SizedBox(height: 24),
           if (exercise.choices.isNotEmpty)
@@ -97,7 +97,9 @@ class _ExerciseScreenState extends ConsumerState<ExerciseScreen> {
                       ? Theme.of(context).colorScheme.primaryContainer
                       : null,
                   child: ListTile(
-                    onTap: _correct ? null : () => setState(() => _choice = choice),
+                    onTap: _correct
+                        ? null
+                        : () => setState(() => _choice = choice),
                     leading: Icon(
                       _choice == choice
                           ? Icons.radio_button_checked

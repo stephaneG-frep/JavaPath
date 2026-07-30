@@ -1,0 +1,257 @@
+{
+  "locale": "fr",
+  "version": 1,
+  "modules": [
+    {
+      "id": "advanced-concurrency",
+      "level": 5,
+      "title": "Concurrence",
+      "description": "Exécute plusieurs tâches sans perdre le contrôle des données partagées.",
+      "projectTitle": "Application Java multitâche",
+      "projectId": "java-multitache",
+      "lessons": [
+        {
+          "id": "threads",
+          "moduleId": "advanced-concurrency",
+          "title": "Threads",
+          "description": "Comprends comment plusieurs chemins d’exécution coexistent dans un programme.",
+          "difficulty": "avance",
+          "estimatedMinutes": 30,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Un chemin d’exécution", "content": "Un thread est une suite d’instructions exécutée indépendamment. Le thread principal démarre main, puis le programme peut lancer d’autres tâches en parallèle ou en concurrence."},
+            {"title": "Runnable et start", "content": "Runnable décrit le travail. new Thread(task).start() demande à la JVM de démarrer un nouveau thread ; appeler run() directement resterait dans le thread courant."},
+            {"title": "Un ordre non garanti", "content": "Le système décide quand chaque thread travaille. Le résultat ne doit jamais dépendre d’un ordre d’affichage observé une seule fois."}
+          ],
+          "codeExamples": [
+            {"title": "Lancer une tâche", "code": "Runnable task = () ->\n    System.out.println(Thread.currentThread().getName());\n\nThread worker = new Thread(task, \"worker-1\");\nworker.start();", "explanation": "start crée un chemin d’exécution distinct. La lambda est exécutée par le thread nommé worker-1."}
+          ]
+        },
+        {
+          "id": "concurrence",
+          "moduleId": "advanced-concurrency",
+          "title": "Problèmes de concurrence",
+          "description": "Identifie les courses critiques et les résultats imprévisibles.",
+          "difficulty": "avance",
+          "estimatedMinutes": 31,
+          "xpReward": 30,
+          "sections": [
+            {"title": "État partagé", "content": "Deux threads entrent en concurrence lorsqu’ils lisent et modifient la même donnée. Une opération simple en apparence peut contenir plusieurs étapes invisibles."},
+            {"title": "Race condition", "content": "Une course critique apparaît quand le résultat dépend de l’ordre imprévisible des opérations. Deux incréments simultanés peuvent perdre une mise à jour."},
+            {"title": "Réduire le partage", "content": "Les objets immuables, les variables locales et le découpage en tâches indépendantes réduisent les risques avant même d’ajouter des verrous."}
+          ],
+          "codeExamples": [
+            {"title": "Un incrément non atomique", "code": "class Counter {\n  int value = 0;\n\n  void increment() {\n    value++;\n  }\n}", "explanation": "value++ lit, calcule puis écrit. Deux threads peuvent lire la même ancienne valeur et n’enregistrer qu’un seul incrément."}
+          ]
+        },
+        {
+          "id": "executor-service",
+          "moduleId": "advanced-concurrency",
+          "title": "ExecutorService",
+          "description": "Confie les tâches à un pool de threads géré proprement.",
+          "difficulty": "avance",
+          "estimatedMinutes": 32,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Séparer tâche et thread", "content": "ExecutorService reçoit des tâches et choisit les threads qui les exécutent. Le code métier ne crée plus un thread pour chaque travail."},
+            {"title": "Un pool limité", "content": "newFixedThreadPool fixe le nombre de tâches simultanées. Les autres attendent dans une file, ce qui protège les ressources."},
+            {"title": "Toujours arrêter l’exécuteur", "content": "shutdown refuse les nouvelles tâches et laisse finir celles déjà soumises. Sans arrêt, les threads peuvent maintenir l’application en vie."}
+          ],
+          "codeExamples": [
+            {"title": "Pool de deux travailleurs", "code": "ExecutorService executor =\n    Executors.newFixedThreadPool(2);\ntry {\n  executor.submit(() -> process(\"A\"));\n  executor.submit(() -> process(\"B\"));\n} finally {\n  executor.shutdown();\n}", "explanation": "Les deux tâches sont confiées au pool. finally garantit la demande d’arrêt même si la soumission échoue."}
+          ]
+        },
+        {
+          "id": "completable-future",
+          "moduleId": "advanced-concurrency",
+          "title": "CompletableFuture",
+          "description": "Compose des opérations asynchrones et leurs résultats.",
+          "difficulty": "avance",
+          "estimatedMinutes": 34,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Une valeur disponible plus tard", "content": "CompletableFuture<T> représente un calcul asynchrone qui fournira un T, ou une erreur, dans le futur."},
+            {"title": "Composer sans bloquer", "content": "thenApply transforme le résultat et thenCompose enchaîne une autre opération asynchrone. La chaîne décrit le flux des données."},
+            {"title": "Traiter les échecs", "content": "exceptionally peut fournir une valeur de secours. join attend le résultat mais enveloppe les erreurs ; évite de bloquer inutilement au milieu du pipeline."}
+          ],
+          "codeExamples": [
+            {"title": "Calculer puis formater", "code": "CompletableFuture<String> future =\n    CompletableFuture.supplyAsync(() -> loadScore())\n        .thenApply(score -> \"Score : \" + score)\n        .exceptionally(error -> \"Score indisponible\");\n\nSystem.out.println(future.join());", "explanation": "Le score est chargé hors du flux principal, transformé en texte, puis une valeur de secours couvre un éventuel échec."}
+          ]
+        },
+        {
+          "id": "synchronisation",
+          "moduleId": "advanced-concurrency",
+          "title": "Synchronisation",
+          "description": "Protège une section critique sans bloquer plus que nécessaire.",
+          "difficulty": "avance",
+          "estimatedMinutes": 33,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Exclusion mutuelle", "content": "synchronized garantit qu’un seul thread à la fois entre dans une section protégée par le même verrou."},
+            {"title": "Visibilité mémoire", "content": "La synchronisation ne protège pas seulement l’ordre des écritures : elle rend aussi les modifications visibles aux autres threads qui utilisent le verrou."},
+            {"title": "Verrou court et ciblé", "content": "Une section trop large diminue le parallélisme et peut créer des blocages. Protège uniquement l’état réellement partagé."}
+          ],
+          "codeExamples": [
+            {"title": "Compteur protégé", "code": "class Counter {\n  private int value;\n\n  public synchronized void increment() {\n    value++;\n  }\n\n  public synchronized int get() {\n    return value;\n  }\n}", "explanation": "Les deux méthodes utilisent le verrou de l’objet Counter. Les incréments ne peuvent plus s’écraser."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced-runtime",
+      "level": 5,
+      "title": "Métaprogrammation et échanges",
+      "description": "Inspecte le code à l’exécution et échange des données avec d’autres systèmes.",
+      "projectTitle": "Application Java multitâche",
+      "projectId": "java-multitache",
+      "lessons": [
+        {
+          "id": "annotations",
+          "moduleId": "advanced-runtime",
+          "title": "Annotations",
+          "description": "Ajoute des métadonnées structurées au code.",
+          "difficulty": "avance",
+          "estimatedMinutes": 27,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Une information pour les outils", "content": "Une annotation décrit un élément sans modifier directement sa logique. Le compilateur, un framework ou ton programme peut ensuite lire cette métadonnée."},
+            {"title": "Annotations connues", "content": "@Override vérifie une redéfinition, @Deprecated signale une API à éviter et @SuppressWarnings désactive précisément un avertissement justifié."},
+            {"title": "Créer une annotation", "content": "@interface déclare le type. @Target limite les éléments autorisés et @Retention définit jusqu’à quel moment l’information reste disponible."}
+          ],
+          "codeExamples": [
+            {"title": "Marquer une tâche", "code": "@Retention(RetentionPolicy.RUNTIME)\n@Target(ElementType.METHOD)\n@interface ScheduledTask {\n  int priority() default 1;\n}", "explanation": "L’annotation peut être placée sur une méthode et reste accessible par réflexion pendant l’exécution."}
+          ]
+        },
+        {
+          "id": "reflection",
+          "moduleId": "advanced-runtime",
+          "title": "Réflexion",
+          "description": "Inspecte dynamiquement les classes, méthodes et annotations.",
+          "difficulty": "avance",
+          "estimatedMinutes": 32,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Le code observe sa structure", "content": "La réflexion permet d’obtenir la classe réelle d’un objet, ses méthodes et ses annotations. Les frameworks l’utilisent pour découvrir automatiquement des composants."},
+            {"title": "Class et Method", "content": "getClass renvoie un objet Class. getDeclaredMethods liste les méthodes déclarées, y compris celles qui ne sont pas publiques."},
+            {"title": "Un outil à encadrer", "content": "La réflexion contourne une partie des vérifications habituelles, coûte plus cher et complique les refactorings. Utilise-la aux frontières techniques, pas pour la logique ordinaire."}
+          ],
+          "codeExamples": [
+            {"title": "Lister les méthodes", "code": "Class<?> type = task.getClass();\nfor (Method method : type.getDeclaredMethods()) {\n  System.out.println(method.getName());\n}", "explanation": "Class<?> représente un type inconnu à la compilation. Chaque Method fournit notamment son nom et ses annotations."}
+          ]
+        },
+        {
+          "id": "serialisation",
+          "moduleId": "advanced-runtime",
+          "title": "Sérialisation",
+          "description": "Transforme un état en données transportables ou persistantes.",
+          "difficulty": "avance",
+          "estimatedMinutes": 29,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Objet vers représentation", "content": "Sérialiser consiste à convertir l’état utile d’un objet en octets ou en texte. Désérialiser reconstruit une valeur depuis cette représentation."},
+            {"title": "Formats explicites", "content": "JSON est lisible et interopérable. La sérialisation native Serializable existe, mais elle est fragile pour les échanges durables et ne doit jamais accepter des données non fiables."},
+            {"title": "Faire évoluer le format", "content": "Un fichier peut survivre à plusieurs versions du programme. Prévois les champs absents, valide les entrées et versionne les formats importants."}
+          ],
+          "codeExamples": [
+            {"title": "Une représentation textuelle simple", "code": "record TaskData(String name, int progress) {}\n\nString line = task.name() + \";\" + task.progress();\nFiles.writeString(Path.of(\"task.txt\"), line);", "explanation": "L’exemple montre explicitement les données enregistrées. Dans un vrai projet, une bibliothèque JSON gère correctement l’échappement et la validation."}
+          ]
+        },
+        {
+          "id": "sockets",
+          "moduleId": "advanced-runtime",
+          "title": "Introduction aux sockets",
+          "description": "Comprends la connexion réseau entre un client et un serveur.",
+          "difficulty": "avance",
+          "estimatedMinutes": 31,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Adresse et port", "content": "Une socket TCP relie deux programmes. L’adresse identifie la machine et le port identifie le service qui attend la connexion."},
+            {"title": "Flux d’entrée et de sortie", "content": "Le client et le serveur échangent des octets via leurs streams. Ils doivent partager un protocole : ordre des messages, encodage et fin de chaque donnée."},
+            {"title": "Sécurité et ressources", "content": "Configure des délais, limite les tailles, ferme les sockets et ne fais jamais confiance aux données reçues. Pour une application moderne, une bibliothèque HTTP est souvent plus adaptée."}
+          ],
+          "codeExamples": [
+            {"title": "Connexion locale encadrée", "code": "try (Socket socket = new Socket()) {\n  socket.connect(\n      new InetSocketAddress(\"localhost\", 8080),\n      2_000\n  );\n  System.out.println(\"Connecté\");\n}", "explanation": "Le délai évite une attente infinie et try-with-resources ferme la socket. Aucun protocole applicatif n’est encore envoyé."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "advanced-jvm",
+      "level": 5,
+      "title": "JVM et performances",
+      "description": "Comprends la mémoire Java et mesure avant d’optimiser.",
+      "projectTitle": "Application Java multitâche",
+      "projectId": "java-multitache",
+      "lessons": [
+        {
+          "id": "gestion-memoire",
+          "moduleId": "advanced-jvm",
+          "title": "Gestion de la mémoire",
+          "description": "Distingue pile, tas, références et durée de vie des objets.",
+          "difficulty": "avance",
+          "estimatedMinutes": 30,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Pile et tas", "content": "Chaque thread possède une pile pour ses appels et variables locales. Les objets sont généralement placés dans le tas partagé et manipulés à travers des références."},
+            {"title": "Une référence n’est pas l’objet", "content": "Affecter une variable objet à une autre copie la référence. Les deux variables peuvent alors désigner la même instance et observer ses modifications."},
+            {"title": "Fuite logique", "content": "Java libère automatiquement les objets inaccessibles, mais une collection statique qui conserve inutilement des références peut faire croître la mémoire indéfiniment."}
+          ],
+          "codeExamples": [
+            {"title": "Deux références partagées", "code": "List<String> first = new ArrayList<>();\nList<String> second = first;\nsecond.add(\"Java\");\nSystem.out.println(first);", "explanation": "first et second pointent vers la même liste du tas. L’ajout via second est donc visible depuis first."}
+          ]
+        },
+        {
+          "id": "garbage-collector",
+          "moduleId": "advanced-jvm",
+          "title": "Garbage Collector",
+          "description": "Comprends comment la JVM récupère automatiquement la mémoire.",
+          "difficulty": "avance",
+          "estimatedMinutes": 29,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Objets accessibles", "content": "Le GC part de racines comme les variables actives et suit les références. Un objet qui n’est plus accessible peut être récupéré."},
+            {"title": "Pas de moment garanti", "content": "Rendre une référence null ne détruit pas immédiatement l’objet. System.gc() n’est qu’une suggestion et ne doit pas piloter la logique du programme."},
+            {"title": "Mémoire et ressources externes", "content": "Le GC gère la mémoire Java, pas la fermeture rapide d’un fichier ou d’une socket. Utilise try-with-resources pour ces ressources."}
+          ],
+          "codeExamples": [
+            {"title": "Une référence devient inaccessible", "code": "byte[] buffer = new byte[1024];\nbuffer = null;\n// Le tableau est éligible au GC,\n// mais sa récupération n’est pas immédiate.", "explanation": "Aucune référence ne permet plus d’atteindre le tableau. La JVM choisira elle-même quand récupérer sa mémoire."}
+          ]
+        },
+        {
+          "id": "jvm-avancee",
+          "moduleId": "advanced-jvm",
+          "title": "JVM, bytecode et JIT",
+          "description": "Observe les étapes qui transforment le bytecode en code exécuté.",
+          "difficulty": "avance",
+          "estimatedMinutes": 31,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Chargement et vérification", "content": "La JVM charge les classes à la demande, vérifie leur bytecode puis prépare leurs informations avant l’exécution."},
+            {"title": "Interpréteur et compilateur JIT", "content": "Le code peut commencer interprété. Le compilateur Just-In-Time repère les parties souvent exécutées et les transforme en code machine optimisé."},
+            {"title": "Échauffement", "content": "Les performances peuvent changer après plusieurs exécutions, car le JIT apprend quels chemins sont fréquents. Un test unique au chronomètre est donc trompeur."}
+          ],
+          "codeExamples": [
+            {"title": "Inspecter le bytecode", "code": "// Après compilation :\n// javac Main.java\n// javap -c Main", "explanation": "javap -c affiche les instructions bytecode de la classe. Cet outil aide à comprendre ce que produit le compilateur Java."}
+          ]
+        },
+        {
+          "id": "performances",
+          "moduleId": "advanced-jvm",
+          "title": "Mesurer les performances",
+          "description": "Optimise à partir de mesures fiables plutôt que d’intuitions.",
+          "difficulty": "avance",
+          "estimatedMinutes": 32,
+          "xpReward": 30,
+          "sections": [
+            {"title": "Définir ce qui compte", "content": "Temps de réponse, débit, mémoire et consommation CPU décrivent des problèmes différents. Commence par une exigence mesurable."},
+            {"title": "Profiler avant de modifier", "content": "Un profiler révèle les méthodes coûteuses, allocations et blocages. Optimiser une partie rarement exécutée augmente la complexité sans bénéfice réel."},
+            {"title": "Microbenchmarks prudents", "content": "Le JIT, le GC et les optimisations peuvent supprimer un calcul naïf. JMH fournit un cadre fiable pour les microbenchmarks Java."}
+          ],
+          "codeExamples": [
+            {"title": "Mesure indicative", "code": "long start = System.nanoTime();\nprocess(data);\nlong elapsed = System.nanoTime() - start;\nSystem.out.println(elapsed + \" ns\");", "explanation": "Cette mesure donne un ordre de grandeur local, pas un benchmark scientifique. Répète, échauffe et utilise JMH pour comparer sérieusement."}
+          ]
+        }
+      ]
+    }
+  ]
+}

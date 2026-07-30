@@ -32,9 +32,11 @@ class HomeScreen extends ConsumerWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Bonjour 👋',
-                            style: Theme.of(context).textTheme.headlineMedium
-                                ?.copyWith(fontWeight: FontWeight.w800)),
+                        Text(
+                          'Bonjour 👋',
+                          style: Theme.of(context).textTheme.headlineMedium
+                              ?.copyWith(fontWeight: FontWeight.w800),
+                        ),
                         const Text('Prêt à faire un pas de plus en Java ?'),
                       ],
                     ),
@@ -57,9 +59,12 @@ class HomeScreen extends ConsumerWidget {
                 data: (value) => _ProgressCard(progress: value),
               ),
               const SizedBox(height: 24),
-              Text('Continuer mon apprentissage',
-                  style: Theme.of(context).textTheme.titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w800)),
+              Text(
+                'Continuer mon apprentissage',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
               const SizedBox(height: 12),
               AsyncValueView(
                 value: path,
@@ -78,21 +83,27 @@ class HomeScreen extends ConsumerWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(isCompleted
-                              ? 'PARCOURS ACTUEL TERMINÉ'
-                              : 'PROCHAINE ÉTAPE'),
+                          Text(
+                            isCompleted
+                                ? 'PARCOURS ACTUEL TERMINÉ'
+                                : 'PROCHAINE ÉTAPE',
+                          ),
                           const SizedBox(height: 8),
-                          Text(lesson.title,
-                              style: Theme.of(context).textTheme.titleLarge
-                                  ?.copyWith(fontWeight: FontWeight.w700)),
+                          Text(
+                            lesson.title,
+                            style: Theme.of(context).textTheme.titleLarge
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
                           const SizedBox(height: 6),
                           Text(lesson.description),
                           const SizedBox(height: 16),
                           Row(
                             children: [
-                              Icon(Icons.schedule_rounded,
-                                  size: 18,
-                                  color: Theme.of(context).colorScheme.primary),
+                              Icon(
+                                Icons.schedule_rounded,
+                                size: 18,
+                                color: Theme.of(context).colorScheme.primary,
+                              ),
                               const SizedBox(width: 6),
                               Text('${lesson.estimatedMinutes} min'),
                               const Spacer(),
@@ -113,9 +124,12 @@ class HomeScreen extends ConsumerWidget {
                 },
               ),
               const SizedBox(height: 24),
-              Text('Raccourcis',
-                  style: Theme.of(context).textTheme.titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w800)),
+              Text(
+                'Raccourcis',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
               const SizedBox(height: 12),
               GridView.count(
                 shrinkWrap: true,
@@ -168,20 +182,25 @@ class HomeScreen extends ConsumerWidget {
                 ],
               ),
               const SizedBox(height: 24),
-              Text('Défi du jour',
-                  style: Theme.of(context).textTheme.titleLarge
-                      ?.copyWith(fontWeight: FontWeight.w800)),
+              Text(
+                'Défi du jour',
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+              ),
               const SizedBox(height: 12),
               Card(
                 color: Theme.of(context).colorScheme.secondaryContainer,
-                child: const ListTile(
-                  contentPadding: EdgeInsets.all(18),
-                  leading: Icon(Icons.bug_report_rounded, size: 36),
-                  title: Text('Trouve le bug'),
-                  subtitle: Text(
+                clipBehavior: Clip.antiAlias,
+                child: ListTile(
+                  onTap: () => context.push('/challenges'),
+                  contentPadding: const EdgeInsets.all(18),
+                  leading: const Icon(Icons.bug_report_rounded, size: 36),
+                  title: const Text('Trouve le bug'),
+                  subtitle: const Text(
                     'int age = "25";\nPourquoi Java refuse-t-il cette ligne ?',
                   ),
-                  trailing: Icon(Icons.lock_clock_rounded),
+                  trailing: const Icon(Icons.chevron_right_rounded),
                 ),
               ),
             ],
@@ -207,11 +226,15 @@ class _ProgressCard extends StatelessWidget {
             Row(
               children: [
                 const Icon(Icons.local_fire_department_rounded),
-                Text(' ${progress.currentStreak} jour',
-                    style: const TextStyle(fontWeight: FontWeight.w700)),
+                Text(
+                  ' ${progress.currentStreak} jour',
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
                 const Spacer(),
-                Text('Niveau ${progress.level}',
-                    style: const TextStyle(fontWeight: FontWeight.w800)),
+                Text(
+                  'Niveau ${progress.level}',
+                  style: const TextStyle(fontWeight: FontWeight.w800),
+                ),
               ],
             ),
             const SizedBox(height: 6),
@@ -277,9 +300,12 @@ class _ProgressStat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Text(value,
-            style: Theme.of(context).textTheme.titleLarge
-                ?.copyWith(fontWeight: FontWeight.w800)),
+        Text(
+          value,
+          style: Theme.of(
+            context,
+          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+        ),
         Text(label),
       ],
     );
@@ -309,8 +335,10 @@ class _Shortcut extends StatelessWidget {
               Icon(icon, color: Theme.of(context).colorScheme.primary),
               const SizedBox(width: 10),
               Expanded(
-                child: Text(label,
-                    style: const TextStyle(fontWeight: FontWeight.w700)),
+                child: Text(
+                  label,
+                  style: const TextStyle(fontWeight: FontWeight.w700),
+                ),
               ),
             ],
           ),

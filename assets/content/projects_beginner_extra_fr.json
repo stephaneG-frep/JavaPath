@@ -1,0 +1,107 @@
+{
+  "locale": "fr",
+  "projects": [
+    {
+      "id": "convertisseur-temperature",
+      "title": "Convertisseur de température",
+      "description": "Convertis des températures entre Celsius et Fahrenheit avec des méthodes claires.",
+      "difficulty": "Débutant",
+      "estimatedHours": 2,
+      "concepts": ["Variables", "Scanner", "Conditions", "Méthodes"],
+      "xpReward": 200,
+      "missions": [
+        {
+          "id": "menu",
+          "order": 1,
+          "title": "Afficher le menu",
+          "instructions": "Crée Main et propose deux conversions : Celsius vers Fahrenheit ou Fahrenheit vers Celsius.",
+          "successCriteria": ["La méthode main est correcte.", "Les deux choix sont lisibles.", "Une option Quitter est affichée."],
+          "starterCode": "public class Main {\n  public static void main(String[] args) {\n    System.out.println(\"1. Celsius vers Fahrenheit\");\n    System.out.println(\"2. Fahrenheit vers Celsius\");\n    System.out.println(\"0. Quitter\");\n  }\n}"
+        },
+        {
+          "id": "input",
+          "order": 2,
+          "title": "Lire la température",
+          "instructions": "Utilise Scanner pour lire le choix puis une température décimale.",
+          "successCriteria": ["Scanner lit System.in.", "La température utilise double.", "Les consignes précèdent les saisies."],
+          "starterCode": "Scanner scanner = new Scanner(System.in);\nSystem.out.print(\"Choix : \");\nint choice = scanner.nextInt();\nSystem.out.print(\"Température : \");\ndouble value = scanner.nextDouble();"
+        },
+        {
+          "id": "celsius-fahrenheit",
+          "order": 3,
+          "title": "Convertir vers Fahrenheit",
+          "instructions": "Crée celsiusToFahrenheit et applique la formule F = C × 9 / 5 + 32.",
+          "successCriteria": ["La méthode reçoit et renvoie double.", "9.0 évite une division entière ambiguë.", "La formule est isolée du menu."],
+          "starterCode": "static double celsiusToFahrenheit(double celsius) {\n  return celsius * 9.0 / 5.0 + 32.0;\n}"
+        },
+        {
+          "id": "fahrenheit-celsius",
+          "order": 4,
+          "title": "Convertir vers Celsius",
+          "instructions": "Crée fahrenheitToCelsius et applique la formule C = (F − 32) × 5 / 9.",
+          "successCriteria": ["Les parenthèses respectent la formule.", "La méthode renvoie double.", "Le nom décrit le sens de conversion."],
+          "starterCode": "static double fahrenheitToCelsius(double fahrenheit) {\n  return (fahrenheit - 32.0) * 5.0 / 9.0;\n}"
+        },
+        {
+          "id": "validation-output",
+          "order": 5,
+          "title": "Valider et afficher",
+          "instructions": "Traite les choix avec switch, affiche le résultat avec deux décimales et explique tout choix inconnu.",
+          "successCriteria": ["Les deux conversions sont appelées.", "Un choix invalide produit un message.", "Le Scanner est fermé."],
+          "starterCode": "switch (choice) {\n  case 1 -> System.out.printf(\"%.2f °F%n\", celsiusToFahrenheit(value));\n  case 2 -> System.out.printf(\"%.2f °C%n\", fahrenheitToCelsius(value));\n  case 0 -> System.out.println(\"À bientôt\");\n  default -> System.out.println(\"Choix inconnu\");\n}\nscanner.close();"
+        }
+      ]
+    },
+    {
+      "id": "gestionnaire-notes",
+      "title": "Gestionnaire de notes",
+      "description": "Saisis plusieurs notes, calcule leur moyenne et présente un bilan.",
+      "difficulty": "Débutant",
+      "estimatedHours": 3,
+      "concepts": ["Tableaux", "Boucles", "Méthodes", "Conditions"],
+      "xpReward": 200,
+      "missions": [
+        {
+          "id": "grades-array",
+          "order": 1,
+          "title": "Créer le tableau",
+          "instructions": "Crée un tableau double contenant cinq notes de démonstration comprises entre 0 et 20.",
+          "successCriteria": ["Le tableau utilise double[].", "Il contient cinq notes.", "Chaque valeur respecte l’intervalle 0 à 20."],
+          "starterCode": "double[] grades = {12.5, 18.0, 9.5, 14.0, 16.5};"
+        },
+        {
+          "id": "average",
+          "order": 2,
+          "title": "Calculer la moyenne",
+          "instructions": "Crée calculateAverage qui additionne les notes puis divise par leur nombre.",
+          "successCriteria": ["Une boucle parcourt toutes les notes.", "La méthode renvoie double.", "Le tableau vide est traité explicitement."],
+          "starterCode": "static double calculateAverage(double[] grades) {\n  if (grades.length == 0) return 0;\n  double total = 0;\n  for (double grade : grades) {\n    total += grade;\n  }\n  return total / grades.length;\n}"
+        },
+        {
+          "id": "minimum-maximum",
+          "order": 3,
+          "title": "Trouver les extrêmes",
+          "instructions": "Crée deux méthodes pour trouver la plus petite et la plus grande note.",
+          "successCriteria": ["Les méthodes partent du premier élément.", "Toutes les notes sont comparées.", "Les noms minimum et maximum sont explicites."],
+          "starterCode": "static double maximum(double[] grades) {\n  double max = grades[0];\n  for (double grade : grades) {\n    if (grade > max) max = grade;\n  }\n  return max;\n}"
+        },
+        {
+          "id": "passed-count",
+          "order": 4,
+          "title": "Compter les réussites",
+          "instructions": "Compte les notes supérieures ou égales à 10 et renvoie ce nombre.",
+          "successCriteria": ["Le compteur commence à zéro.", "La condition inclut exactement 10.", "La méthode renvoie int."],
+          "starterCode": "static int countPassed(double[] grades) {\n  int count = 0;\n  for (double grade : grades) {\n    if (grade >= 10) count++;\n  }\n  return count;\n}"
+        },
+        {
+          "id": "report",
+          "order": 5,
+          "title": "Présenter le bilan",
+          "instructions": "Affiche moyenne, minimum, maximum et nombre de réussites avec des libellés compréhensibles.",
+          "successCriteria": ["Chaque calcul est appelé.", "La moyenne utilise deux décimales.", "Le bilan distingue réussites et total."],
+          "starterCode": "System.out.printf(\"Moyenne : %.2f%n\", calculateAverage(grades));\nSystem.out.println(\"Minimum : \" + minimum(grades));\nSystem.out.println(\"Maximum : \" + maximum(grades));\nSystem.out.println(\"Réussites : \" + countPassed(grades) + \"/\" + grades.length);"
+        }
+      ]
+    }
+  ]
+}

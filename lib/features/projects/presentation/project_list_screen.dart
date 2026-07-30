@@ -14,11 +14,13 @@ class ProjectListScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final projects = ref.watch(projectsProvider);
     final completedMissions =
-        ref.watch(completedActivityIdsProvider('project_mission')).valueOrNull ??
-            const <String>{};
+        ref
+            .watch(completedActivityIdsProvider('project_mission'))
+            .valueOrNull ??
+        const <String>{};
     final completedProjects =
         ref.watch(completedActivityIdsProvider('project')).valueOrNull ??
-            const <String>{};
+        const <String>{};
     return Scaffold(
       appBar: AppBar(title: const Text('Projets Java')),
       body: AsyncValueView<List<LearningProject>>(

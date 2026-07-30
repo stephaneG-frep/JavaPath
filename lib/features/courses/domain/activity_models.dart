@@ -23,7 +23,11 @@ class Course {
 }
 
 class Quiz {
-  const Quiz({required this.id, required this.questionIds, required this.xpReward});
+  const Quiz({
+    required this.id,
+    required this.questionIds,
+    required this.xpReward,
+  });
   final String id;
   final List<String> questionIds;
   final int xpReward;
@@ -120,10 +124,7 @@ class Exercise {
 }
 
 class PracticeCatalog {
-  const PracticeCatalog({
-    required this.quizQuestions,
-    required this.exercises,
-  });
+  const PracticeCatalog({required this.quizQuestions, required this.exercises});
   final List<QuizQuestion> quizQuestions;
   final List<Exercise> exercises;
 
@@ -184,14 +185,16 @@ class Challenge {
       explanation: json['explanation'] as String,
       xpReward: json['xpReward'] as int,
       hints: List<String>.from(json['hints'] as List<dynamic>),
-      acceptedAnswers:
-          List<String>.from(json['acceptedAnswers'] as List<dynamic>),
+      acceptedAnswers: List<String>.from(
+        json['acceptedAnswers'] as List<dynamic>,
+      ),
       solution: json['solution'] as String,
       partialSolution: json['partialSolution'] as String,
       detailTitle: json['detailTitle'] as String,
       detail: json['detail'] as String,
-      choices:
-          List<String>.from((json['choices'] as List<dynamic>?) ?? const []),
+      choices: List<String>.from(
+        (json['choices'] as List<dynamic>?) ?? const [],
+      ),
     );
   }
 }
@@ -254,8 +257,9 @@ class ProjectMission {
       title: json['title'] as String,
       instructions: json['instructions'] as String,
       order: json['order'] as int,
-      successCriteria:
-          List<String>.from(json['successCriteria'] as List<dynamic>),
+      successCriteria: List<String>.from(
+        json['successCriteria'] as List<dynamic>,
+      ),
       starterCode: json['starterCode'] as String,
     );
   }

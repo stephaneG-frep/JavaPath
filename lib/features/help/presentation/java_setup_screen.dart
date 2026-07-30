@@ -143,7 +143,8 @@ class JavaSetupScreen extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           const CodeBlock(
-            code: 'public class Main {\n'
+            code:
+                'public class Main {\n'
                 '  public static void main(String[] args) {\n'
                 '    System.out.println("Bonjour Java !");\n'
                 '  }\n'
@@ -217,9 +218,9 @@ class _SectionTitle extends StatelessWidget {
         Expanded(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
           ),
         ),
       ],
@@ -246,9 +247,9 @@ class _CopyAddressCard extends StatelessWidget {
           onPressed: () async {
             await Clipboard.setData(ClipboardData(text: address));
             if (context.mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Adresse copiée')),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(const SnackBar(content: Text('Adresse copiée')));
             }
           },
           icon: const Icon(Icons.copy_rounded),
@@ -284,8 +285,10 @@ class _PlatformGuide extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('${index + 1}.',
-                      style: const TextStyle(fontWeight: FontWeight.w800)),
+                  Text(
+                    '${index + 1}.',
+                    style: const TextStyle(fontWeight: FontWeight.w800),
+                  ),
                   const SizedBox(width: 8),
                   Expanded(child: Text(steps[index])),
                 ],
@@ -351,10 +354,7 @@ class _RequirementCard extends StatelessWidget {
 }
 
 class _TroubleshootingTile extends StatelessWidget {
-  const _TroubleshootingTile({
-    required this.problem,
-    required this.solution,
-  });
+  const _TroubleshootingTile({required this.problem, required this.solution});
 
   final String problem;
   final String solution;

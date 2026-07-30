@@ -1,0 +1,291 @@
+{
+  "locale": "fr",
+  "version": 1,
+  "modules": [
+    {
+      "id": "professional-design",
+      "level": 6,
+      "title": "Conception logicielle",
+      "description": "Organise un code lisible, testable et capable d’évoluer.",
+      "projectTitle": "Application Java professionnelle",
+      "projectId": "java-professionnelle",
+      "lessons": [
+        {
+          "id": "clean-code",
+          "moduleId": "professional-design",
+          "title": "Clean Code",
+          "description": "Écris un code qui explique clairement son intention.",
+          "difficulty": "avance",
+          "estimatedMinutes": 30,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Le code est lu souvent", "content": "Un programme est généralement lu et modifié bien plus souvent qu’il n’est écrit. Des noms précis et des fonctions courtes réduisent le temps nécessaire pour comprendre une modification."},
+            {"title": "Une responsabilité par méthode", "content": "Une méthode devrait accomplir une intention cohérente à un seul niveau d’abstraction. Extraire les détails donne des noms aux étapes du raisonnement."},
+            {"title": "Commentaires utiles", "content": "Un commentaire explique une décision, une contrainte ou un risque. Il ne doit pas répéter un code confus qu’il serait préférable de clarifier."}
+          ],
+          "codeExamples": [
+            {"title": "Nommer l’intention", "code": "boolean canBorrow(User user) {\n  return user.isActive()\n      && user.borrowedBookCount() < MAX_BOOKS;\n}", "explanation": "Le nom canBorrow décrit la règle. Les deux conditions utilisent elles aussi le vocabulaire du domaine."}
+          ]
+        },
+        {
+          "id": "solid",
+          "moduleId": "professional-design",
+          "title": "Principes SOLID",
+          "description": "Utilise cinq repères pour limiter le couplage et faciliter les changements.",
+          "difficulty": "avance",
+          "estimatedMinutes": 35,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Cinq principes, pas cinq lois", "content": "SOLID regroupe responsabilité unique, ouverture/fermeture, substitution de Liskov, ségrégation des interfaces et inversion des dépendances. Ce sont des guides de conception."},
+            {"title": "Dépendre d’un contrat", "content": "Une classe métier qui dépend d’une interface peut être testée sans base de données réelle et changer d’implémentation sans réécrire sa logique."},
+            {"title": "Éviter la surconception", "content": "N’ajoute pas une interface à chaque classe par réflexe. Introduis une abstraction lorsqu’elle sépare réellement des responsabilités ou des variantes."}
+          ],
+          "codeExamples": [
+            {"title": "Inverser une dépendance", "code": "interface BookRepository {\n  void save(Book book);\n}\n\nclass BookService {\n  private final BookRepository repository;\n\n  BookService(BookRepository repository) {\n    this.repository = repository;\n  }\n}", "explanation": "BookService connaît un contrat métier, pas JDBC ou un fichier. L’implémentation est fournie au constructeur."}
+          ]
+        },
+        {
+          "id": "design-patterns",
+          "moduleId": "professional-design",
+          "title": "Design patterns",
+          "description": "Reconnais des solutions connues sans forcer leur utilisation.",
+          "difficulty": "avance",
+          "estimatedMinutes": 34,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Un vocabulaire partagé", "content": "Un pattern nomme une structure récurrente. Strategy, Factory et Observer permettent à une équipe de discuter d’une intention sans redécrire tout le mécanisme."},
+            {"title": "Strategy", "content": "Strategy place une variation derrière une interface. Par exemple, plusieurs politiques de réduction peuvent être choisies sans multiplier les conditions dans le service."},
+            {"title": "Le problème avant le pattern", "content": "Un pattern ajoute des classes et des relations. Utilise-le seulement lorsque le problème correspondant existe réellement et que le gain de flexibilité compense ce coût."}
+          ],
+          "codeExamples": [
+            {"title": "Une stratégie de prix", "code": "interface DiscountPolicy {\n  double apply(double price);\n}\n\nclass CheckoutService {\n  double total(double price, DiscountPolicy policy) {\n    return policy.apply(price);\n  }\n}", "explanation": "Le calcul principal ne connaît pas les détails de chaque réduction. Une lambda ou une classe peut fournir la stratégie."}
+          ]
+        },
+        {
+          "id": "architecture-couches",
+          "moduleId": "professional-design",
+          "title": "Architecture en couches",
+          "description": "Sépare présentation, métier et accès aux données.",
+          "difficulty": "avance",
+          "estimatedMinutes": 32,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Des responsabilités distinctes", "content": "La présentation traduit les entrées et sorties, le domaine porte les règles métier et l’infrastructure communique avec les systèmes externes."},
+            {"title": "Sens des dépendances", "content": "Le métier ne devrait pas dépendre d’un écran, d’un framework web ou d’une base précise. Les couches extérieures adaptent leurs technologies aux contrats internes."},
+            {"title": "Une taille adaptée", "content": "Une petite application n’a pas besoin de dizaines de modules. Commence par des packages clairs et sépare davantage lorsque la complexité le justifie."}
+          ],
+          "codeExamples": [
+            {"title": "Flux d’une création", "code": "// presentation\ncontroller.create(request);\n\n// domain/application\nbookService.create(command);\n\n// infrastructure via contrat\nbookRepository.save(book);", "explanation": "Chaque étape traduit vers le vocabulaire de la suivante. La règle de création reste indépendante du protocole et du stockage."}
+          ]
+        },
+        {
+          "id": "mvc",
+          "moduleId": "professional-design",
+          "title": "MVC",
+          "description": "Comprends la séparation entre modèle, vue et contrôleur.",
+          "difficulty": "avance",
+          "estimatedMinutes": 27,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Trois rôles", "content": "Le modèle représente les données et règles, la vue présente le résultat et le contrôleur traduit l’action utilisateur en appel applicatif."},
+            {"title": "Un contrôleur mince", "content": "Le contrôleur valide la forme de l’entrée et délègue. Les règles métier ne doivent pas être copiées dans chaque point d’entrée."},
+            {"title": "MVC selon le contexte", "content": "Dans une API REST, la vue est souvent la représentation JSON. Dans une interface graphique, elle correspond aux composants affichés."}
+          ],
+          "codeExamples": [
+            {"title": "Contrôleur qui délègue", "code": "class BookController {\n  private final BookService service;\n\n  BookView create(CreateBookRequest request) {\n    Book book = service.create(request.title());\n    return BookView.from(book);\n  }\n}", "explanation": "Le contrôleur transforme la requête et la réponse. BookService conserve la décision métier."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "professional-tooling",
+      "level": 6,
+      "title": "Outils du projet",
+      "description": "Versionne, construis et partage un projet Java reproductible.",
+      "projectTitle": "Application Java professionnelle",
+      "projectId": "java-professionnelle",
+      "lessons": [
+        {
+          "id": "git",
+          "moduleId": "professional-tooling",
+          "title": "Git",
+          "description": "Enregistre l’historique du projet par changements cohérents.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 30,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Un historique local", "content": "Git suit des versions du projet. Un commit représente un changement cohérent accompagné d’un message qui explique son intention."},
+            {"title": "Zone de travail et index", "content": "git status montre les changements. git add sélectionne ce qui entrera dans le prochain commit, puis git commit enregistre cet instant."},
+            {"title": "Branches et conflits", "content": "Une branche isole une suite de commits. Un conflit apparaît quand Git ne peut pas combiner automatiquement deux modifications ; il faut comprendre et choisir le résultat."}
+          ],
+          "codeExamples": [
+            {"title": "Un cycle de commit", "code": "git status\ngit add src/test/java/BookServiceTest.java\ngit commit -m \"test: couvre le refus des titres vides\"", "explanation": "Le commit cible un changement précis. Son message indique la nature et la raison fonctionnelle du test."}
+          ]
+        },
+        {
+          "id": "github",
+          "moduleId": "professional-tooling",
+          "title": "GitHub et revue de code",
+          "description": "Collabore autour d’un dépôt distant et d’une pull request.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 28,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Git n’est pas GitHub", "content": "Git est l’outil de versionnement. GitHub héberge des dépôts et ajoute pull requests, issues, automatisations et gestion des accès."},
+            {"title": "Pull request", "content": "Une pull request propose une branche, explique le changement et permet la revue avant intégration. Une bonne description indique le pourquoi et comment tester."},
+            {"title": "Revue constructive", "content": "La revue porte sur le code, jamais sur la personne. Les commentaires distinguent problème bloquant, suggestion et question."}
+          ],
+          "codeExamples": [
+            {"title": "Publier une branche", "code": "git switch -c feature/book-search\ngit push -u origin feature/book-search", "explanation": "La branche locale est créée puis publiée sur origin. Elle peut ensuite servir de source à une pull request."}
+          ]
+        },
+        {
+          "id": "maven",
+          "moduleId": "professional-tooling",
+          "title": "Maven",
+          "description": "Déclare les dépendances et automatise le cycle de construction.",
+          "difficulty": "avance",
+          "estimatedMinutes": 32,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Une construction reproductible", "content": "Le pom.xml décrit le projet, sa version, ses dépendances et ses plugins. Maven télécharge les bibliothèques au lieu de copier manuellement des fichiers JAR."},
+            {"title": "Cycle de vie", "content": "compile construit le code principal, test exécute les tests, package produit le JAR et verify lance les contrôles supplémentaires configurés."},
+            {"title": "Portées des dépendances", "content": "Une dépendance test comme JUnit ne doit pas être incluse dans l’application finale. La portée limite où elle est visible."}
+          ],
+          "codeExamples": [
+            {"title": "Dépendance de test", "code": "<dependency>\n  <groupId>org.junit.jupiter</groupId>\n  <artifactId>junit-jupiter</artifactId>\n  <version>5.11.4</version>\n  <scope>test</scope>\n</dependency>", "explanation": "Les coordonnées identifient l’artefact. La portée test le réserve à la compilation et l’exécution des tests."}
+          ]
+        },
+        {
+          "id": "gradle",
+          "moduleId": "professional-tooling",
+          "title": "Gradle",
+          "description": "Construis un projet avec un script déclaratif et extensible.",
+          "difficulty": "avance",
+          "estimatedMinutes": 31,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Tâches et plugins", "content": "Gradle organise la construction en tâches. Le plugin java fournit compilation, tests et création du JAR avec des conventions standard."},
+            {"title": "Dépendances", "content": "dependencies distingue implementation pour le code principal et testImplementation pour les outils de test."},
+            {"title": "Le wrapper", "content": "gradlew fixe la version de Gradle utilisée par l’équipe et la CI. Il évite de dépendre d’une installation globale différente sur chaque machine."}
+          ],
+          "codeExamples": [
+            {"title": "Projet Java minimal", "code": "plugins {\n  id 'java'\n}\n\nrepositories {\n  mavenCentral()\n}\n\ndependencies {\n  testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'\n}", "explanation": "Le plugin active les tâches Java, le dépôt indique où chercher et la dépendance reste limitée aux tests."}
+          ]
+        },
+        {
+          "id": "tests-unitaires",
+          "moduleId": "professional-tooling",
+          "title": "Tests unitaires",
+          "description": "Vérifie rapidement une règle isolée et protège les évolutions.",
+          "difficulty": "avance",
+          "estimatedMinutes": 31,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Tester un comportement", "content": "Un test utile décrit une entrée, l’action réalisée et le résultat observable. Il évite de dépendre des détails internes qui peuvent changer."},
+            {"title": "Arrange, Act, Assert", "content": "Prépare les données, exécute une seule intention, puis vérifie le résultat. Cette structure rend l’échec facile à comprendre."},
+            {"title": "Rapide et déterministe", "content": "Un test unitaire ne dépend pas du réseau, de l’heure réelle ou d’une base partagée. Les dépendances sont remplacées ou contrôlées."}
+          ],
+          "codeExamples": [
+            {"title": "Tester une règle", "code": "@Test\nvoid refuseUnTitreVide() {\n  BookService service = new BookService(repository);\n\n  assertThrows(\n      IllegalArgumentException.class,\n      () -> service.create(\" \")\n  );\n}", "explanation": "Le nom décrit le comportement attendu. Le test vérifie le contrat public sans inspecter les champs du service."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "professional-quality",
+      "level": 6,
+      "title": "Qualité et diagnostic",
+      "description": "Teste les collaborations, observe les erreurs et documente les contrats.",
+      "projectTitle": "Application Java professionnelle",
+      "projectId": "java-professionnelle",
+      "lessons": [
+        {
+          "id": "junit",
+          "moduleId": "professional-quality",
+          "title": "JUnit 5",
+          "description": "Structure les tests et leurs assertions avec JUnit Jupiter.",
+          "difficulty": "avance",
+          "estimatedMinutes": 30,
+          "xpReward": 35,
+          "sections": [
+            {"title": "@Test et assertions", "content": "@Test marque un scénario. assertEquals compare une valeur, assertTrue vérifie une condition et assertThrows vérifie une exception attendue."},
+            {"title": "Préparation commune", "content": "@BeforeEach prépare un nouvel état avant chaque test. Cela évite qu’un test dépende des modifications laissées par un autre."},
+            {"title": "Tests paramétrés", "content": "@ParameterizedTest exécute le même comportement avec plusieurs entrées. Il réduit la duplication pour les cas limites d’une même règle."}
+          ],
+          "codeExamples": [
+            {"title": "Plusieurs titres invalides", "code": "@ParameterizedTest\n@ValueSource(strings = {\"\", \" \", \"   \"})\nvoid refuseLesTitresVides(String title) {\n  assertThrows(\n      IllegalArgumentException.class,\n      () -> service.create(title)\n  );\n}", "explanation": "JUnit exécute le scénario une fois par chaîne. Chaque échec indique la valeur concernée."}
+          ]
+        },
+        {
+          "id": "mockito",
+          "moduleId": "professional-quality",
+          "title": "Mockito",
+          "description": "Isole un service en contrôlant ses collaborateurs.",
+          "difficulty": "avance",
+          "estimatedMinutes": 33,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Un faux collaborateur", "content": "Un mock implémente artificiellement une interface. Il permet de définir une réponse et de vérifier une interaction sans appeler la base réelle."},
+            {"title": "when et verify", "content": "when(...).thenReturn(...) prépare un résultat. verify confirme qu’une méthode importante a été appelée avec la bonne valeur."},
+            {"title": "Ne pas tout mocker", "content": "Les objets de valeur simples n’ont pas besoin de mock. Trop de vérifications d’appels rendent les tests fragiles et couplés à l’implémentation."}
+          ],
+          "codeExamples": [
+            {"title": "Vérifier la sauvegarde", "code": "BookRepository repository = mock(BookRepository.class);\nBookService service = new BookService(repository);\n\nBook created = service.create(\"Dune\");\n\nverify(repository).save(created);", "explanation": "Le test contrôle la frontière vers le dépôt tout en exécutant la vraie logique du service."}
+          ]
+        },
+        {
+          "id": "logging",
+          "moduleId": "professional-quality",
+          "title": "Logging",
+          "description": "Produis des événements exploitables sans exposer de données sensibles.",
+          "difficulty": "avance",
+          "estimatedMinutes": 28,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Des niveaux adaptés", "content": "ERROR indique un échec, WARN une situation anormale tolérée, INFO un événement métier notable et DEBUG un détail destiné au diagnostic."},
+            {"title": "Contexte structuré", "content": "Un log utile contient l’opération, un identifiant technique et le résultat. Les paramètres différés évitent de construire inutilement les messages."},
+            {"title": "Secrets interdits", "content": "Ne journalise jamais mot de passe, token, clé API ou donnée personnelle complète. Les logs sont souvent centralisés et accessibles longtemps."}
+          ],
+          "codeExamples": [
+            {"title": "Journaliser avec contexte", "code": "logger.info(\n    \"Livre créé id={} titleLength={}\",\n    book.id(),\n    book.title().length()\n);", "explanation": "Le log identifie l’objet sans recopier nécessairement son contenu. Les paramètres sont traités par le framework de logging."}
+          ]
+        },
+        {
+          "id": "debugging-pro",
+          "moduleId": "professional-quality",
+          "title": "Débogage professionnel",
+          "description": "Reproduis, isole et corrige une cause plutôt qu’un symptôme.",
+          "difficulty": "avance",
+          "estimatedMinutes": 30,
+          "xpReward": 35,
+          "sections": [
+            {"title": "Rendre le problème reproductible", "content": "Note l’entrée, l’environnement et la séquence exacte. Un test qui reproduit le bug transforme un incident flou en comportement vérifiable."},
+            {"title": "Lire les preuves", "content": "Commence par le type d’exception, le message et la première ligne de ton code dans la stack trace. Les logs et le débogueur complètent cette preuve."},
+            {"title": "Corriger la cause", "content": "Ajoute d’abord un test en échec, corrige la règle puis vérifie les cas voisins. Masquer l’exception ou ajouter null au hasard déplace souvent le problème."}
+          ],
+          "codeExamples": [
+            {"title": "Conserver la cause", "code": "try {\n  return repository.load(id);\n} catch (IOException error) {\n  throw new BookLoadException(\n      \"Chargement impossible pour id=\" + id,\n      error\n  );\n}", "explanation": "L’exception métier ajoute le contexte et conserve error comme cause pour ne pas perdre la stack trace originale."}
+          ]
+        },
+        {
+          "id": "documentation",
+          "moduleId": "professional-quality",
+          "title": "Documentation",
+          "description": "Documente le démarrage, les décisions et les contrats publics.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 27,
+          "xpReward": 35,
+          "sections": [
+            {"title": "README opérationnel", "content": "Le README explique le but, les prérequis, la commande de démarrage, les tests et la configuration nécessaire. Une nouvelle personne doit pouvoir vérifier le projet."},
+            {"title": "Javadoc pour le contrat", "content": "La Javadoc décrit ce qu’une API publique garantit, ses paramètres, son résultat et ses erreurs importantes. Elle ne répète pas chaque ligne."},
+            {"title": "Décisions d’architecture", "content": "Une courte ADR conserve le contexte, la décision et ses conséquences. Elle évite de redébattre une contrainte oubliée plusieurs mois plus tard."}
+          ],
+          "codeExamples": [
+            {"title": "Documenter un contrat", "code": "/**\n * Crée un livre disponible.\n *\n * @param title titre non vide\n * @return le livre créé\n * @throws IllegalArgumentException si le titre est vide\n */\nBook create(String title) { ... }", "explanation": "La documentation précise les garanties observables. L’implémentation interne peut évoluer sans la rendre fausse."}
+          ]
+        }
+      ]
+    }
+  ]
+}

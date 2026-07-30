@@ -19,7 +19,8 @@ class PlaygroundScreen extends ConsumerStatefulWidget {
 }
 
 class _PlaygroundScreenState extends ConsumerState<PlaygroundScreen> {
-  static const _example = 'public class Main {\n'
+  static const _example =
+      'public class Main {\n'
       '  public static void main(String[] args) {\n'
       '    System.out.println("Bonjour JavaPath !");\n'
       '  }\n'
@@ -47,8 +48,9 @@ class _PlaygroundScreenState extends ConsumerState<PlaygroundScreen> {
   Future<void> _run() async {
     FocusScope.of(context).unfocus();
     setState(() => _running = true);
-    final result =
-        await ref.read(javaExecutionServiceProvider).execute(_controller.fullText);
+    final result = await ref
+        .read(javaExecutionServiceProvider)
+        .execute(_controller.fullText);
     await ref
         .read(playgroundRepositoryProvider)
         .recordExecution(result, _controller.fullText);
@@ -61,9 +63,9 @@ class _PlaygroundScreenState extends ConsumerState<PlaygroundScreen> {
 
   Future<void> _save() async {
     if (_controller.fullText.trim().isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Le code est vide.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Le code est vide.')));
       return;
     }
     final titleController = TextEditingController(text: 'Mon programme Java');
@@ -82,10 +84,8 @@ class _PlaygroundScreenState extends ConsumerState<PlaygroundScreen> {
             child: const Text('Annuler'),
           ),
           FilledButton(
-            onPressed: () => Navigator.pop(
-              context,
-              titleController.text.trim(),
-            ),
+            onPressed: () =>
+                Navigator.pop(context, titleController.text.trim()),
             child: const Text('Sauvegarder'),
           ),
         ],
@@ -106,9 +106,9 @@ class _PlaygroundScreenState extends ConsumerState<PlaygroundScreen> {
   Future<void> _copy() async {
     await Clipboard.setData(ClipboardData(text: _controller.fullText));
     if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Code copié.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Code copié.')));
     }
   }
 
@@ -221,9 +221,9 @@ class _PlaygroundScreenState extends ConsumerState<PlaygroundScreen> {
           const SizedBox(height: 18),
           Text(
             'Console',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 8),
           Container(

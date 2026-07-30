@@ -109,6 +109,10 @@ class _BadgeCard extends StatelessWidget {
       'xp' => Icons.bolt_rounded,
       'object' => Icons.account_tree_rounded,
       'developer' => Icons.developer_mode_rounded,
+      'modern' => Icons.auto_awesome_rounded,
+      'expert' => Icons.psychology_rounded,
+      'professional' => Icons.workspace_premium_rounded,
+      'master' => Icons.diamond_rounded,
       _ => Icons.school_rounded,
     };
   }

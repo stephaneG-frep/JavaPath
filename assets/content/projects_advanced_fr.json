@@ -1,0 +1,64 @@
+{
+  "locale": "fr",
+  "projects": [
+    {
+      "id": "java-multitache",
+      "title": "Application Java multitâche",
+      "description": "Construis un processeur de tâches concurrent, limité et observable.",
+      "difficulty": "Avancé",
+      "estimatedHours": 6,
+      "concepts": ["ExecutorService", "CompletableFuture", "Synchronisation", "Performances"],
+      "xpReward": 200,
+      "missions": [
+        {
+          "id": "task-model",
+          "order": 1,
+          "title": "Modéliser une tâche",
+          "instructions": "Crée un record WorkItem avec id, label et durationMillis. Valide que la durée n’est pas négative dans un constructeur compact.",
+          "successCriteria": ["WorkItem est immuable.", "La durée négative lève IllegalArgumentException.", "Le message d’erreur explique la règle."],
+          "starterCode": "public record WorkItem(\n    int id,\n    String label,\n    long durationMillis\n) {\n  public WorkItem {\n    if (durationMillis < 0) {\n      throw new IllegalArgumentException(\"Durée négative\");\n    }\n  }\n}"
+        },
+        {
+          "id": "task-result",
+          "order": 2,
+          "title": "Décrire un résultat",
+          "instructions": "Crée un record WorkResult contenant l’identifiant, le succès, le message et la durée réelle d’exécution.",
+          "successCriteria": ["Le résultat indique clairement le succès.", "La durée utilise long.", "Aucun attribut public modifiable n’est ajouté."],
+          "starterCode": "public record WorkResult(\n    int taskId,\n    boolean success,\n    String message,\n    long elapsedMillis\n) {}"
+        },
+        {
+          "id": "worker",
+          "order": 3,
+          "title": "Exécuter une tâche",
+          "instructions": "Crée process qui mesure le temps, simule le travail avec Thread.sleep et renvoie un WorkResult. Restaure le statut d’interruption si nécessaire.",
+          "successCriteria": ["System.nanoTime mesure la durée.", "InterruptedException restaure l’interruption.", "La méthode renvoie un résultat dans les deux cas."],
+          "starterCode": "static WorkResult process(WorkItem item) {\n  long start = System.nanoTime();\n  try {\n    Thread.sleep(item.durationMillis());\n    return new WorkResult(item.id(), true, \"Terminé\", elapsed(start));\n  } catch (InterruptedException error) {\n    Thread.currentThread().interrupt();\n    return new WorkResult(item.id(), false, \"Interrompu\", elapsed(start));\n  }\n}"
+        },
+        {
+          "id": "executor",
+          "order": 4,
+          "title": "Limiter la concurrence",
+          "instructions": "Crée un ExecutorService de trois threads. Soumets chaque WorkItem avec CompletableFuture.supplyAsync en utilisant explicitement cet exécuteur.",
+          "successCriteria": ["Le pool contient exactement trois threads.", "Chaque tâche utilise supplyAsync.", "Le même ExecutorService est fourni à toutes les tâches."],
+          "starterCode": "ExecutorService executor = Executors.newFixedThreadPool(3);\nList<CompletableFuture<WorkResult>> futures = items.stream()\n    .map(item -> CompletableFuture.supplyAsync(\n        () -> process(item), executor\n    ))\n    .toList();"
+        },
+        {
+          "id": "collect-results",
+          "order": 5,
+          "title": "Rassembler les résultats",
+          "instructions": "Attends chaque CompletableFuture avec join et rassemble les WorkResult dans une liste. Compte ensuite les succès.",
+          "successCriteria": ["map utilise CompletableFuture::join.", "Les résultats sont rassemblés après exécution.", "Le nombre de succès utilise filter et count."],
+          "starterCode": "List<WorkResult> results = futures.stream()\n    .map(CompletableFuture::join)\n    .toList();\nlong successCount = results.stream()\n    .filter(WorkResult::success)\n    .count();"
+        },
+        {
+          "id": "clean-shutdown",
+          "order": 6,
+          "title": "Arrêter et présenter le bilan",
+          "instructions": "Place le traitement dans try/finally, arrête l’exécuteur et affiche un bilan incluant réussites et durée totale.",
+          "successCriteria": ["shutdown est appelé dans finally.", "Le bilan reste lisible.", "Aucune attente infinie n’est introduite."],
+          "starterCode": "long globalStart = System.nanoTime();\ntry {\n  // soumettre et rassembler les tâches\n  System.out.println(\"Succès : \" + successCount);\n} finally {\n  executor.shutdown();\n  System.out.println(\"Durée : \" + elapsed(globalStart) + \" ms\");\n}"
+        }
+      ]
+    }
+  ]
+}

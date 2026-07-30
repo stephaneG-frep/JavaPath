@@ -23,4 +23,12 @@ void main() {
       expect(UserProgress.levelForXp(300), 3);
     });
   });
+
+  test('le titre de progression évolue avec le niveau', () {
+    expect(UserProgress.rankForLevel(1), 'Java Rookie');
+    expect(UserProgress.rankForLevel(5), 'Java Apprentice');
+    expect(UserProgress.rankForLevel(10), 'Java Developer');
+    expect(UserProgress.rankForLevel(20), 'Java Expert');
+    expect(UserProgress.rankForLevel(30), 'Java Master');
+  });
 }

@@ -43,11 +43,10 @@ class _AiMentorScreenState extends ConsumerState<AiMentorScreen> {
       );
       _waiting = true;
     });
-    final response = await ref.read(aiMentorServiceProvider).respond(
-          MentorRequest(
-            message: text,
-            type: MentorRequestType.explainConcept,
-          ),
+    final response = await ref
+        .read(aiMentorServiceProvider)
+        .respond(
+          MentorRequest(message: text, type: MentorRequestType.explainConcept),
         );
     if (!mounted) return;
     setState(() {
@@ -91,10 +90,8 @@ class _AiMentorScreenState extends ConsumerState<AiMentorScreen> {
                       Text(
                         'Que veux-tu comprendre ?',
                         textAlign: TextAlign.center,
-                        style:
-                            Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                  fontWeight: FontWeight.w800,
-                                ),
+                        style: Theme.of(context).textTheme.headlineSmall
+                            ?.copyWith(fontWeight: FontWeight.w800),
                       ),
                       const SizedBox(height: 20),
                       for (final suggestion in _suggestions)
@@ -178,10 +175,7 @@ class _MessageBubble extends StatelessWidget {
             if (message.isLocalGuide) ...[
               const Text(
                 'GUIDE LOCAL',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                ),
+                style: TextStyle(fontSize: 11, fontWeight: FontWeight.w800),
               ),
               const SizedBox(height: 6),
             ],

@@ -1,0 +1,187 @@
+{
+  "locale": "fr",
+  "quizQuestions": [
+    {
+      "id": "professional-quiz-01",
+      "conceptId": "Clean Code",
+      "prompt": "Quel nom exprime le mieux une intention métier ?",
+      "choices": ["check()", "doIt()", "canBorrowBook()", "x()"],
+      "correctChoiceIndex": 2,
+      "explanation": "canBorrowBook décrit directement la question à laquelle la méthode répond."
+    },
+    {
+      "id": "professional-quiz-02",
+      "conceptId": "SOLID",
+      "prompt": "Quel principe invite à dépendre d’une interface plutôt que d’une technologie précise ?",
+      "choices": ["Responsabilité unique uniquement", "Inversion des dépendances", "Substitution de texte", "Ségrégation des données"],
+      "correctChoiceIndex": 1,
+      "explanation": "L’inversion des dépendances fait dépendre la logique de contrats stables."
+    },
+    {
+      "id": "professional-quiz-03",
+      "conceptId": "Architecture",
+      "prompt": "Où placer une règle métier de création d’un livre ?",
+      "choices": ["Dans le contrôleur HTTP", "Dans le service ou domaine", "Dans le fichier README", "Dans le pilote JDBC"],
+      "correctChoiceIndex": 1,
+      "explanation": "La règle métier reste dans la couche applicative ou domaine, indépendante du point d’entrée."
+    },
+    {
+      "id": "professional-quiz-04",
+      "conceptId": "Git",
+      "prompt": "Quel est le rôle de git add ?",
+      "choices": ["Publier sur GitHub", "Sélectionner les changements du prochain commit", "Supprimer l’historique", "Compiler Java"],
+      "correctChoiceIndex": 1,
+      "explanation": "git add place les changements choisis dans l’index du prochain commit."
+    },
+    {
+      "id": "professional-quiz-05",
+      "conceptId": "Maven",
+      "prompt": "Quelle commande exécute les tests Maven ?",
+      "choices": ["mvn test", "mvn push", "java test", "git verify"],
+      "correctChoiceIndex": 0,
+      "explanation": "La phase test compile et exécute les tests configurés dans le projet Maven."
+    },
+    {
+      "id": "professional-quiz-06",
+      "conceptId": "Gradle",
+      "prompt": "Pourquoi utiliser le Gradle Wrapper ?",
+      "choices": ["Pour fixer la version de Gradle du projet", "Pour remplacer Java", "Pour stocker les mots de passe", "Pour supprimer les tests"],
+      "correctChoiceIndex": 0,
+      "explanation": "Le wrapper fournit une version cohérente de Gradle à l’équipe et à l’intégration continue."
+    },
+    {
+      "id": "professional-quiz-07",
+      "conceptId": "JUnit",
+      "prompt": "Quelle assertion vérifie qu’une action lève une exception ?",
+      "choices": ["assertEquals", "assertThrows", "assertPrints", "verify"],
+      "correctChoiceIndex": 1,
+      "explanation": "assertThrows exécute l’action et vérifie le type de l’exception produite."
+    },
+    {
+      "id": "professional-quiz-08",
+      "conceptId": "Mockito",
+      "prompt": "Que vérifie verify(repository).save(book) ?",
+      "choices": ["Que le livre compile", "Que save a été appelé avec book", "Que la base contient forcément le livre", "Que Git a créé un commit"],
+      "correctChoiceIndex": 1,
+      "explanation": "verify contrôle l’interaction observée sur le mock, pas l’état d’une vraie base."
+    },
+    {
+      "id": "professional-quiz-09",
+      "conceptId": "Logging",
+      "prompt": "Quelle donnée ne doit jamais être écrite dans les logs ?",
+      "choices": ["Un identifiant technique", "La durée d’une opération", "Un mot de passe", "Le nombre d’éléments"],
+      "correctChoiceIndex": 2,
+      "explanation": "Les secrets et données personnelles sensibles doivent rester absents des journaux."
+    },
+    {
+      "id": "professional-quiz-10",
+      "conceptId": "Débogage",
+      "prompt": "Quelle approche protège durablement la correction d’un bug ?",
+      "choices": ["Masquer l’exception", "Écrire un test qui reproduit le bug", "Ajouter plusieurs null", "Supprimer les logs"],
+      "correctChoiceIndex": 1,
+      "explanation": "Le test reproduit la cause, valide la correction et prévient une régression."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "professional-exercise-01",
+      "conceptId": "Clean Code",
+      "type": "multipleChoice",
+      "prompt": "Quel remplacement améliore le mieux boolean check(User u) ?",
+      "difficulty": "Avancé",
+      "xpReward": 45,
+      "hints": ["Le nom doit expliquer la règle métier.", "La méthode décide si l’utilisateur peut emprunter."],
+      "choices": ["boolean x(User a)", "boolean canBorrowBook(User user)", "boolean execute(User data)", "boolean method(User value)"],
+      "solution": "boolean canBorrowBook(User user)",
+      "acceptedAnswers": ["boolean canBorrowBook(User user)", "canBorrowBook"],
+      "explanation": "Le nom de la méthode et du paramètre communique l’intention sans commentaire supplémentaire."
+    },
+    {
+      "id": "professional-exercise-02",
+      "conceptId": "SOLID",
+      "type": "completeCode",
+      "prompt": "Complète le constructeur injectant le contrat :\nBookService(BookRepository repository) {\n  ___.repository = repository;\n}",
+      "difficulty": "Avancé",
+      "xpReward": 45,
+      "hints": ["Il faut désigner l’objet courant.", "Le mot-clé comporte quatre lettres."],
+      "solution": "this",
+      "acceptedAnswers": ["this", "this.repository = repository;"],
+      "explanation": "Le service reçoit sa dépendance par constructeur au lieu de créer une implémentation concrète."
+    },
+    {
+      "id": "professional-exercise-03",
+      "conceptId": "Git",
+      "type": "completeCode",
+      "prompt": "Complète la commande qui sélectionne un fichier pour le prochain commit :\ngit ___ BookService.java",
+      "difficulty": "Intermédiaire",
+      "xpReward": 45,
+      "hints": ["La commande agit sur l’index.", "Elle comporte trois lettres."],
+      "solution": "add",
+      "acceptedAnswers": ["add", "git add BookService.java"],
+      "explanation": "git add ajoute la version courante du fichier à l’index du prochain commit."
+    },
+    {
+      "id": "professional-exercise-04",
+      "conceptId": "Maven",
+      "type": "multipleChoice",
+      "prompt": "Quelle portée convient à JUnit dans le pom.xml ?",
+      "difficulty": "Avancé",
+      "xpReward": 45,
+      "hints": ["JUnit n’est nécessaire que pour les tests.", "La portée porte le même nom."],
+      "choices": ["runtime", "provided", "test", "production"],
+      "solution": "test",
+      "acceptedAnswers": ["test", "<scope>test</scope>"],
+      "explanation": "La portée test empêche JUnit de devenir une dépendance de l’application livrée."
+    },
+    {
+      "id": "professional-exercise-05",
+      "conceptId": "JUnit",
+      "type": "completeCode",
+      "prompt": "Complète l’assertion d’exception :\n___(IllegalArgumentException.class, () -> service.create(\"\"));",
+      "difficulty": "Avancé",
+      "xpReward": 45,
+      "hints": ["L’assertion attend qu’une action échoue.", "Son nom commence par assert."],
+      "solution": "assertThrows",
+      "acceptedAnswers": ["assertThrows", "assertThrows(IllegalArgumentException.class, () -> service.create(\"\"))"],
+      "explanation": "assertThrows valide le type de l’exception et renvoie aussi l’exception pour vérifier son message."
+    },
+    {
+      "id": "professional-exercise-06",
+      "conceptId": "Mockito",
+      "type": "completeCode",
+      "prompt": "Complète la vérification d’interaction :\n___(repository).save(created);",
+      "difficulty": "Avancé",
+      "xpReward": 45,
+      "hints": ["Mockito doit vérifier l’appel.", "La méthode porte le nom anglais vérifier."],
+      "solution": "verify",
+      "acceptedAnswers": ["verify", "verify(repository).save(created);"],
+      "explanation": "verify contrôle que le service a demandé au dépôt de sauvegarder l’objet créé."
+    },
+    {
+      "id": "professional-exercise-07",
+      "conceptId": "Logging",
+      "type": "multipleChoice",
+      "prompt": "Quel log respecte le mieux la confidentialité ?",
+      "difficulty": "Avancé",
+      "xpReward": 45,
+      "hints": ["Évite mot de passe et token.", "Un identifiant technique suffit souvent."],
+      "choices": ["logger.info(\"password={}\", password)", "logger.info(\"token={}\", token)", "logger.info(\"userId={} connecté\", user.id())", "logger.info(\"carte={}\", cardNumber)"],
+      "solution": "logger.info(\"userId={} connecté\", user.id())",
+      "acceptedAnswers": ["logger.info(\"userId={} connecté\", user.id())", "userId"],
+      "explanation": "L’identifiant apporte du contexte sans exposer un secret d’authentification ou de paiement."
+    },
+    {
+      "id": "professional-exercise-08",
+      "conceptId": "Débogage",
+      "type": "multipleChoice",
+      "prompt": "Quelle information lire en priorité dans une stack trace ?",
+      "difficulty": "Avancé",
+      "xpReward": 45,
+      "hints": ["Commence par comprendre la nature de l’échec.", "Cherche ensuite la première ligne appartenant à ton code."],
+      "choices": ["Uniquement la dernière ligne", "Type, message et première ligne de ton code", "La quantité de mémoire libre", "Le nom du dépôt GitHub"],
+      "solution": "Type, message et première ligne de ton code",
+      "acceptedAnswers": ["Type, message et première ligne de ton code", "type message première ligne"],
+      "explanation": "Ces éléments indiquent ce qui a échoué et où commencer l’enquête dans le code applicatif."
+    }
+  ]
+}

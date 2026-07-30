@@ -32,6 +32,7 @@ class UserProgress {
   final int startedDay;
 
   int get level => levelForXp(xp);
+  String get rankTitle => rankForLevel(level);
   int get currentLevelStart => xpForLevel(level);
   int get nextLevelXp => xpForLevel(level + 1);
   double get levelProgress =>
@@ -48,6 +49,16 @@ class UserProgress {
   }
 
   static int xpForLevel(int level) => (level - 1) * level * 50;
+
+  static String rankForLevel(int level) {
+    return switch (level) {
+      >= 30 => 'Java Master',
+      >= 20 => 'Java Expert',
+      >= 10 => 'Java Developer',
+      >= 5 => 'Java Apprentice',
+      _ => 'Java Rookie',
+    };
+  }
 }
 
 class ConceptReview {
@@ -70,8 +81,8 @@ class ConceptReview {
 
   bool get isDue {
     final now = DateTime.now();
-    final today = DateTime.utc(now.year, now.month, now.day)
-            .millisecondsSinceEpoch ~/
+    final today =
+        DateTime.utc(now.year, now.month, now.day).millisecondsSinceEpoch ~/
         Duration.millisecondsPerDay;
     return nextReviewDay <= today;
   }

@@ -63,8 +63,7 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
         .read(progressRepositoryProvider)
         .recordAttempt(challenge.id, _activityType);
     _attempts++;
-    final valid =
-        AnswerValidator.matches(answer, challenge.acceptedAnswers);
+    final valid = AnswerValidator.matches(answer, challenge.acceptedAnswers);
     if (!valid) {
       await ref
           .read(progressRepositoryProvider)
@@ -84,7 +83,9 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
       hintsUsed: _hintsUsed,
       solutionViewed: _solutionViewed,
     );
-    final earned = await ref.read(progressRepositoryProvider).completeActivity(
+    final earned = await ref
+        .read(progressRepositoryProvider)
+        .completeActivity(
           activityId: challenge.id,
           activityType: _activityType,
           xp: reward,
@@ -97,8 +98,8 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
       _correct = true;
       _feedback = earned
           ? reward > 0
-              ? 'Bonne réponse ! +$reward XP'
-              : 'Bonne réponse ! La solution ayant été affichée, aucun XP n’est attribué.'
+                ? 'Bonne réponse ! +$reward XP'
+                : 'Bonne réponse ! La solution ayant été affichée, aucun XP n’est attribué.'
           : 'Bonne réponse ! Ce challenge était déjà validé.';
     });
   }
@@ -177,9 +178,9 @@ class _ChallengeScreenState extends ConsumerState<ChallengeScreen> {
           const SizedBox(height: 16),
           Text(
             challenge.title,
-            style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 8),
           Text(challenge.prompt),

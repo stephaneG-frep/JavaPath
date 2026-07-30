@@ -67,12 +67,11 @@ class DriftProgressRepository implements ProgressRepository {
     required String activityId,
     required String activityType,
     required int xp,
-  }) =>
-      _database.completeActivity(
-        activityId: activityId,
-        activityType: activityType,
-        xp: xp,
-      );
+  }) => _database.completeActivity(
+    activityId: activityId,
+    activityType: activityType,
+    xp: xp,
+  );
 
   @override
   Future<ActivityProgressState> readActivityState(
@@ -100,8 +99,7 @@ class DriftProgressRepository implements ProgressRepository {
     String activityId,
     String activityType,
     int hintsUsed,
-  ) =>
-      _database.revealHint(activityId, activityType, hintsUsed);
+  ) => _database.revealHint(activityId, activityType, hintsUsed);
 
   @override
   Future<void> viewSolution(String activityId, String activityType) =>
@@ -112,25 +110,24 @@ class DriftProgressRepository implements ProgressRepository {
       _database.watchCompletedActivityIds(activityType);
 
   @override
-  Stream<Set<String>> watchCompletedLessonIds() =>
-      _database.watchCompletedLessons().map(
-            (rows) => rows.map((row) => row.lessonId).toSet(),
-          );
+  Stream<Set<String>> watchCompletedLessonIds() => _database
+      .watchCompletedLessons()
+      .map((rows) => rows.map((row) => row.lessonId).toSet());
 
   @override
   Stream<List<ConceptReview>> watchReviews() {
     return _database.watchReviewRecords().map(
-          (rows) => rows
-              .map(
-                (row) => ConceptReview(
-                  conceptId: row.conceptId,
-                  errorCount: row.errorCount,
-                  successCount: row.successCount,
-                  nextReviewDay: row.nextReviewDay,
-                ),
-              )
-              .toList(),
-        );
+      (rows) => rows
+          .map(
+            (row) => ConceptReview(
+              conceptId: row.conceptId,
+              errorCount: row.errorCount,
+              successCount: row.successCount,
+              nextReviewDay: row.nextReviewDay,
+            ),
+          )
+          .toList(),
+    );
   }
 
   @override
@@ -150,12 +147,13 @@ final userProgressProvider = StreamProvider<UserProgress>(
   (ref) => ref.watch(progressRepositoryProvider).watchProgress(),
 );
 
-final completedActivityIdsProvider =
-    StreamProvider.family<Set<String>, String>((ref, activityType) {
-  return ref
-      .watch(progressRepositoryProvider)
-      .watchCompletedActivityIds(activityType);
-});
+final completedActivityIdsProvider = StreamProvider.family<Set<String>, String>(
+  (ref, activityType) {
+    return ref
+        .watch(progressRepositoryProvider)
+        .watchCompletedActivityIds(activityType);
+  },
+);
 
 final conceptReviewsProvider = StreamProvider<List<ConceptReview>>(
   (ref) => ref.watch(progressRepositoryProvider).watchReviews(),

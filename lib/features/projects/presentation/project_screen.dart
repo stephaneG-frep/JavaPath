@@ -15,11 +15,13 @@ class ProjectScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final project = ref.watch(projectProvider(projectId));
     final completedMissions =
-        ref.watch(completedActivityIdsProvider('project_mission')).valueOrNull ??
-            const <String>{};
+        ref
+            .watch(completedActivityIdsProvider('project_mission'))
+            .valueOrNull ??
+        const <String>{};
     final completedProjects =
         ref.watch(completedActivityIdsProvider('project')).valueOrNull ??
-            const <String>{};
+        const <String>{};
     if (project == null) {
       return Scaffold(
         appBar: AppBar(),
@@ -55,7 +57,9 @@ class ProjectScreen extends ConsumerWidget {
                   const SizedBox(height: 8),
                   Row(
                     children: [
-                      Text('$completedCount/${project.missions.length} missions'),
+                      Text(
+                        '$completedCount/${project.missions.length} missions',
+                      ),
                       const Spacer(),
                       Text(
                         completedProjects.contains(project.id)
@@ -72,9 +76,9 @@ class ProjectScreen extends ConsumerWidget {
           const SizedBox(height: 20),
           Text(
             'Missions',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  fontWeight: FontWeight.w800,
-                ),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
           ),
           const SizedBox(height: 10),
           for (var index = 0; index < project.missions.length; index++)
@@ -82,7 +86,8 @@ class ProjectScreen extends ConsumerWidget {
               project: project,
               mission: project.missions[index],
               completedMissionIds: completedMissions,
-              isUnlocked: index == 0 ||
+              isUnlocked:
+                  index == 0 ||
                   completedMissions.contains(
                     '${project.id}:${project.missions[index - 1].id}',
                   ),
@@ -138,12 +143,14 @@ class _MissionCard extends ConsumerWidget {
     );
     final currentCompleted = project.missions
         .where(
-          (item) =>
-              completedMissionIds.contains('${project.id}:${item.id}'),
+          (item) => completedMissionIds.contains('${project.id}:${item.id}'),
         )
         .length;
-    final completedAfter = currentCompleted +
-        (newlyCompleted && !completedMissionIds.contains(_completionId) ? 1 : 0);
+    final completedAfter =
+        currentCompleted +
+        (newlyCompleted && !completedMissionIds.contains(_completionId)
+            ? 1
+            : 0);
     final projectFinished = completedAfter == project.missions.length;
     if (projectFinished) {
       final earned = await repository.completeActivity(
@@ -187,8 +194,8 @@ class _MissionCard extends ConsumerWidget {
           child: completed
               ? const Icon(Icons.check_rounded)
               : isUnlocked
-                  ? Text('${mission.order}')
-                  : const Icon(Icons.lock_outline_rounded, size: 19),
+              ? Text('${mission.order}')
+              : const Icon(Icons.lock_outline_rounded, size: 19),
         ),
         title: Text(
           mission.title,
@@ -198,8 +205,8 @@ class _MissionCard extends ConsumerWidget {
           completed
               ? 'Terminée'
               : isUnlocked
-                  ? 'Appuie pour voir la mission'
-                  : 'Termine la mission précédente',
+              ? 'Appuie pour voir la mission'
+              : 'Termine la mission précédente',
         ),
         childrenPadding: const EdgeInsets.fromLTRB(18, 0, 18, 18),
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
@@ -235,9 +242,7 @@ class _MissionCard extends ConsumerWidget {
             child: FilledButton.icon(
               onPressed: completed ? null : () => _complete(context, ref),
               icon: Icon(
-                completed
-                    ? Icons.check_rounded
-                    : Icons.task_alt_rounded,
+                completed ? Icons.check_rounded : Icons.task_alt_rounded,
               ),
               label: Text(
                 completed ? 'Mission terminée' : 'J’ai terminé cette mission',

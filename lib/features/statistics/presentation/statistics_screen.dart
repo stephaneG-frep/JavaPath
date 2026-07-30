@@ -19,12 +19,12 @@ class StatisticsScreen extends ConsumerWidget {
     final challenges = ref.watch(challengeCatalogProvider).valueOrNull;
     final projects = ref.watch(projectsProvider).valueOrNull;
     final targets = _ActivityTargets(
-      lessons: path?.modules.expand((module) => module.lessons).length ?? 52,
-      quizQuestions: practice?.quizQuestions.length ?? 50,
-      exercises: practice?.exercises.length ?? 34,
+      lessons: path?.modules.expand((module) => module.lessons).length ?? 98,
+      quizQuestions: practice?.quizQuestions.length ?? 80,
+      exercises: practice?.exercises.length ?? 58,
       debugChallenges: challenges?.debugChallenges.length ?? 5,
       predictions: challenges?.predictions.length ?? 5,
-      projects: projects?.length ?? 4,
+      projects: projects?.length ?? 9,
     );
     return Scaffold(
       appBar: AppBar(title: const Text('Statistiques')),

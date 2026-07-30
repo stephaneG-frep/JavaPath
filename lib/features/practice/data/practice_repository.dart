@@ -19,6 +19,9 @@ class AssetPracticeRepository implements PracticeRepository {
       rootBundle.loadString('assets/content/practice_oop_fr.json'),
       rootBundle.loadString('assets/content/practice_intermediate_fr.json'),
       rootBundle.loadString('assets/content/practice_modern_fr.json'),
+      rootBundle.loadString('assets/content/practice_advanced_fr.json'),
+      rootBundle.loadString('assets/content/practice_professional_fr.json'),
+      rootBundle.loadString('assets/content/practice_backend_fr.json'),
     ]);
     final questions = <QuizQuestion>[];
     final exercises = <Exercise>[];
@@ -29,10 +32,7 @@ class AssetPracticeRepository implements PracticeRepository {
       questions.addAll(catalog.quizQuestions);
       exercises.addAll(catalog.exercises);
     }
-    return PracticeCatalog(
-      quizQuestions: questions,
-      exercises: exercises,
-    );
+    return PracticeCatalog(quizQuestions: questions, exercises: exercises);
   }
 }
 

@@ -24,10 +24,7 @@ class JavaSandboxPolicy {
 }
 
 class RemoteExecutionRequest {
-  const RemoteExecutionRequest({
-    required this.code,
-    required this.policy,
-  });
+  const RemoteExecutionRequest({required this.code, required this.policy});
 
   final String code;
   final JavaSandboxPolicy policy;
@@ -58,7 +55,8 @@ class RemoteJavaExecutionService implements JavaExecutionService {
     if (code.length > policy.maxCodeLength) {
       return JavaExecutionResult(
         status: JavaExecutionStatus.compilationError,
-        output: 'Le code dépasse la limite de ${policy.maxCodeLength} caractères.',
+        output:
+            'Le code dépasse la limite de ${policy.maxCodeLength} caractères.',
         isMock: false,
       );
     }
@@ -69,7 +67,7 @@ class RemoteJavaExecutionService implements JavaExecutionService {
       final output = result.output.length <= policy.maxOutputLength
           ? result.output
           : '${result.output.substring(0, policy.maxOutputLength)}\n'
-              '[Sortie tronquée]';
+                '[Sortie tronquée]';
       return JavaExecutionResult(
         status: result.status,
         output: output,

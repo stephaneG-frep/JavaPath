@@ -16,7 +16,11 @@ class AssetProjectRepository implements ProjectRepository {
   Future<List<LearningProject>> loadProjects() async {
     final sources = await Future.wait([
       rootBundle.loadString('assets/content/projects_fr.json'),
+      rootBundle.loadString('assets/content/projects_beginner_extra_fr.json'),
       rootBundle.loadString('assets/content/projects_modern_fr.json'),
+      rootBundle.loadString('assets/content/projects_advanced_fr.json'),
+      rootBundle.loadString('assets/content/projects_professional_fr.json'),
+      rootBundle.loadString('assets/content/projects_backend_fr.json'),
     ]);
     final projects = <LearningProject>[];
     for (final source in sources) {
