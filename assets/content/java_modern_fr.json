@@ -1,0 +1,223 @@
+{
+  "locale": "fr",
+  "version": 1,
+  "modules": [
+    {
+      "id": "modern-functional",
+      "level": 4,
+      "title": "Programmation fonctionnelle",
+      "description": "Exprime de petits comportements comme des valeurs réutilisables.",
+      "projectTitle": "Analyseur de données",
+      "projectId": "analyseur-donnees",
+      "lessons": [
+        {
+          "id": "lambdas",
+          "moduleId": "modern-functional",
+          "title": "Expressions lambda",
+          "description": "Écris une fonction courte sans créer une classe dédiée.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 25,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Pourquoi une lambda ?", "content": "Certaines opérations ont besoin d’un comportement temporaire : comparer deux valeurs, filtrer un élément ou réagir à un événement. Une lambda décrit ce comportement au lieu de créer une classe entière."},
+            {"title": "Paramètres et corps", "content": "La flèche -> sépare les paramètres du corps. Un corps d’une seule expression peut omettre les accolades et Java déduit souvent le type des paramètres."},
+            {"title": "Rester lisible", "content": "Une lambda convient à une logique courte. Si elle accumule des conditions ou porte un sens métier important, extrais une méthode nommée."}
+          ],
+          "codeExamples": [
+            {"title": "Transformer un texte", "code": "Function<String, String> upper =\n    text -> text.toUpperCase();\n\nSystem.out.println(upper.apply(\"java\"));", "explanation": "La lambda reçoit text et renvoie sa version en majuscules. apply exécute ce comportement et affiche JAVA."}
+          ]
+        },
+        {
+          "id": "interfaces-fonctionnelles",
+          "moduleId": "modern-functional",
+          "title": "Interfaces fonctionnelles",
+          "description": "Comprends le contrat qui donne un type aux lambdas.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 26,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Une seule méthode abstraite", "content": "Une interface fonctionnelle possède une unique méthode abstraite. Une lambda fournit directement l’implémentation de cette méthode."},
+            {"title": "Les contrats standards", "content": "Predicate<T> teste et renvoie boolean, Function<T,R> transforme, Consumer<T> consomme sans résultat et Supplier<T> produit une valeur."},
+            {"title": "@FunctionalInterface", "content": "L’annotation demande au compilateur de vérifier que l’interface reste fonctionnelle. Elle documente aussi clairement son intention."}
+          ],
+          "codeExamples": [
+            {"title": "Tester un nombre", "code": "import java.util.function.Predicate;\n\nPredicate<Integer> isAdult = age -> age >= 18;\nSystem.out.println(isAdult.test(20));", "explanation": "Predicate<Integer> attend un Integer et produit un boolean. test(20) renvoie true."}
+          ]
+        },
+        {
+          "id": "method-references",
+          "moduleId": "modern-functional",
+          "title": "Références de méthodes",
+          "description": "Réutilise une méthode existante avec la syntaxe ::.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 20,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Une lambda déjà écrite ailleurs", "content": "Quand une lambda appelle seulement une méthode existante, une référence de méthode exprime la même intention plus directement."},
+            {"title": "La syntaxe ::", "content": "System.out::println référence une méthode d’instance. String::toUpperCase référence une méthode applicable à chaque String reçu."},
+            {"title": "Ne pas chercher la forme la plus courte", "content": "Utilise une référence si son sens reste évident. Une lambda explicite est parfois plus simple pour un débutant ou lorsque les paramètres sont réordonnés."}
+          ],
+          "codeExamples": [
+            {"title": "Afficher chaque nom", "code": "List<String> names = List.of(\"Lina\", \"Sami\");\nnames.forEach(System.out::println);", "explanation": "forEach fournit chaque nom à la méthode println référencée. Le résultat est identique à name -> System.out.println(name)."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modern-streams",
+      "level": 4,
+      "title": "Streams",
+      "description": "Construis des pipelines lisibles pour sélectionner et transformer des données.",
+      "projectTitle": "Analyseur de données",
+      "projectId": "analyseur-donnees",
+      "lessons": [
+        {
+          "id": "streams",
+          "moduleId": "modern-streams",
+          "title": "Découvrir les Streams",
+          "description": "Traite une suite de valeurs sans modifier la collection source.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 27,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Un flux de traitement", "content": "Un Stream n’est pas une collection de stockage. Il représente une suite d’opérations appliquées aux éléments d’une source."},
+            {"title": "Opérations intermédiaires et terminales", "content": "filter et map préparent un pipeline. Une opération terminale comme toList, count ou forEach déclenche réellement son exécution."},
+            {"title": "Un Stream ne se réutilise pas", "content": "Après une opération terminale, le flux est consommé. Crée un nouveau stream depuis la collection pour effectuer un autre traitement."}
+          ],
+          "codeExamples": [
+            {"title": "Compter des valeurs", "code": "List<Integer> scores = List.of(8, 12, 17);\nlong count = scores.stream().count();\nSystem.out.println(count);", "explanation": "stream crée le flux et count le consomme. La liste source reste inchangée et le résultat vaut 3."}
+          ]
+        },
+        {
+          "id": "stream-filter",
+          "moduleId": "modern-streams",
+          "title": "Filtrer avec filter",
+          "description": "Conserve seulement les éléments qui respectent une condition.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 23,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Un prédicat par élément", "content": "filter reçoit un Predicate. L’élément continue dans le pipeline si le test renvoie true."},
+            {"title": "Décrire l’intention", "content": "Une suite de filtres courts peut lire comme une phrase : conserver les scores valides, puis ceux supérieurs à la moyenne."},
+            {"title": "La source reste intacte", "content": "filter ne retire rien de la liste initiale. L’opération terminale construit le résultat séparément."}
+          ],
+          "codeExamples": [
+            {"title": "Garder les notes réussies", "code": "List<Integer> passed = scores.stream()\n    .filter(score -> score >= 10)\n    .toList();", "explanation": "Le prédicat accepte uniquement les scores d’au moins 10. toList rassemble ces valeurs dans une nouvelle liste."}
+          ]
+        },
+        {
+          "id": "stream-map",
+          "moduleId": "modern-streams",
+          "title": "Transformer avec map",
+          "description": "Convertis chaque élément en une nouvelle valeur.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 23,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Une valeur devient une autre", "content": "map applique une Function à chaque élément. Le type du résultat peut être différent du type d’entrée."},
+            {"title": "Séparer les étapes", "content": "filter décide quels éléments garder ; map décide ce qu’ils deviennent. Cette séparation rend le pipeline plus facile à expliquer."},
+            {"title": "Éviter les effets de bord", "content": "Une transformation devrait produire une valeur sans modifier un état extérieur. Le résultat devient plus prévisible et testable."}
+          ],
+          "codeExamples": [
+            {"title": "Extraire les noms", "code": "List<String> names = contacts.stream()\n    .map(Contact::getName)\n    .toList();", "explanation": "Chaque Contact est transformé en String grâce à getName. La nouvelle liste contient uniquement les noms."}
+          ]
+        },
+        {
+          "id": "stream-reduce",
+          "moduleId": "modern-streams",
+          "title": "Combiner avec reduce",
+          "description": "Ramène plusieurs valeurs à un résultat unique.",
+          "difficulty": "avance",
+          "estimatedMinutes": 28,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Accumuler progressivement", "content": "reduce combine l’accumulateur courant avec chaque nouvel élément jusqu’à produire une seule valeur."},
+            {"title": "La valeur identité", "content": "Dans reduce(0, Integer::sum), zéro est le résultat de départ et aussi la valeur correcte pour une liste vide."},
+            {"title": "Choisir un outil clair", "content": "Pour compter ou additionner des nombres, des opérations spécialisées peuvent être plus lisibles. reduce est utile pour une combinaison personnalisée."}
+          ],
+          "codeExamples": [
+            {"title": "Additionner les scores", "code": "int total = scores.stream()\n    .reduce(0, Integer::sum);\nSystem.out.println(total);", "explanation": "L’accumulateur commence à zéro puis reçoit chaque score. Le résultat final contient leur somme."}
+          ]
+        },
+        {
+          "id": "collectors",
+          "moduleId": "modern-streams",
+          "title": "Collectors",
+          "description": "Regroupe les résultats d’un Stream dans une structure utile.",
+          "difficulty": "avance",
+          "estimatedMinutes": 29,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Collecter un résultat", "content": "collect réalise une réduction structurée. Collectors fournit des stratégies pour créer une liste, joindre du texte ou regrouper par catégorie."},
+            {"title": "Regrouper des données", "content": "groupingBy construit une Map dont chaque clé correspond à un critère et chaque valeur contient les éléments du groupe."},
+            {"title": "toList moderne", "content": "Stream.toList() est pratique et renvoie une liste non modifiable. Collectors.toList() reste utile dans certains pipelines et anciennes versions Java."}
+          ],
+          "codeExamples": [
+            {"title": "Regrouper par ville", "code": "Map<String, List<Contact>> byCity = contacts.stream()\n    .collect(Collectors.groupingBy(Contact::getCity));", "explanation": "Chaque contact est classé sous la clé correspondant à sa ville. Le résultat est une Map de groupes."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modern-language",
+      "level": 4,
+      "title": "Java moderne",
+      "description": "Découvre les constructions récentes qui réduisent le code répétitif.",
+      "projectTitle": "Analyseur de données",
+      "projectId": "analyseur-donnees",
+      "lessons": [
+        {
+          "id": "records",
+          "moduleId": "modern-language",
+          "title": "Records",
+          "description": "Modélise une donnée immuable avec très peu de code.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 24,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Un transporteur de données", "content": "Un record convient à une valeur décrite principalement par ses composants, comme un relevé contenant un nom et un score."},
+            {"title": "Code généré", "content": "Java fournit le constructeur, les accesseurs, equals, hashCode et toString. Les accesseurs portent le nom du composant, par exemple score()."},
+            {"title": "Immuable, mais pas magique", "content": "Les références des composants ne peuvent pas être réaffectées. Si un composant contient un objet modifiable, cet objet peut toutefois encore changer."}
+          ],
+          "codeExamples": [
+            {"title": "Décrire un résultat", "code": "record Result(String name, int score) {}\n\nResult result = new Result(\"Lina\", 18);\nSystem.out.println(result.score());", "explanation": "Le record déclare deux composants. Java crée le constructeur et l’accesseur score(), qui affiche 18."}
+          ]
+        },
+        {
+          "id": "switch-moderne",
+          "moduleId": "modern-language",
+          "title": "switch moderne",
+          "description": "Utilise switch comme une expression sûre et concise.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 22,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Produire une valeur", "content": "Un switch moderne peut renvoyer directement un résultat affecté à une variable. Chaque branche utilise -> et ne tombe pas dans la suivante."},
+            {"title": "Exhaustivité", "content": "Toutes les possibilités doivent être couvertes. Avec une enum, le compilateur peut vérifier que chaque constante possède une branche."},
+            {"title": "yield pour un bloc", "content": "Une branche contenant plusieurs instructions utilise des accolades puis yield pour fournir sa valeur finale."}
+          ],
+          "codeExamples": [
+            {"title": "Traduire un statut", "code": "String label = switch (status) {\n  case NEW -> \"Nouveau\";\n  case VALID -> \"Validé\";\n  case ERROR -> \"Erreur\";\n};", "explanation": "Chaque constante produit une chaîne. Aucun break n’est nécessaire et le compilateur contrôle les cas."}
+          ]
+        },
+        {
+          "id": "nouveautes-java",
+          "moduleId": "modern-language",
+          "title": "Évolutions importantes de Java",
+          "description": "Repère les fonctionnalités modernes et leur version minimale.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 25,
+          "xpReward": 25,
+          "sections": [
+            {"title": "Java évolue régulièrement", "content": "Depuis Java 10, var réduit les répétitions pour les variables locales lorsque le type reste évident. Les text blocks facilitent les textes multilignes."},
+            {"title": "Versions LTS", "content": "Les versions à support long sont souvent choisies en entreprise. Une fonctionnalité disponible dans un Java récent peut être interdite par la version configurée dans le projet."},
+            {"title": "Lisibilité avant nouveauté", "content": "Une syntaxe moderne doit clarifier le code. Vérifie la version cible dans Maven ou Gradle et évite var lorsque le type devient difficile à deviner."}
+          ],
+          "codeExamples": [
+            {"title": "Texte multiligne et var", "code": "var language = \"Java\";\nString json = \"\"\"\n    {\n      \"language\": \"Java\"\n    }\n    \"\"\";", "explanation": "var laisse le compilateur déduire String pour language. Le text block conserve un texte sur plusieurs lignes sans multiplier les échappements."}
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -96,6 +96,14 @@ abstract final class AchievementService {
         current: progress.completedLessons,
         target: 27,
       ),
+      AchievementStatus(
+        id: 'java-developer',
+        title: 'Java Developer',
+        description: 'Terminer le parcours Java intermédiaire.',
+        iconKey: 'developer',
+        current: progress.completedLessons,
+        target: 41,
+      ),
     ];
   }
 }

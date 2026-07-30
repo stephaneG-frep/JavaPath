@@ -32,8 +32,8 @@ class AchievementsScreen extends ConsumerWidget {
                       Text(
                         '$unlocked/${badges.length} badges débloqués',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                              fontWeight: FontWeight.w800,
-                            ),
+                          fontWeight: FontWeight.w800,
+                        ),
                       ),
                     ],
                   ),
@@ -108,6 +108,7 @@ class _BadgeCard extends StatelessWidget {
       'streak' => Icons.local_fire_department_rounded,
       'xp' => Icons.bolt_rounded,
       'object' => Icons.account_tree_rounded,
+      'developer' => Icons.developer_mode_rounded,
       _ => Icons.school_rounded,
     };
   }

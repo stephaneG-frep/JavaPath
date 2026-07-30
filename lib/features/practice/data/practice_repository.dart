@@ -17,6 +17,8 @@ class AssetPracticeRepository implements PracticeRepository {
     final sources = await Future.wait([
       rootBundle.loadString('assets/content/practice_fr.json'),
       rootBundle.loadString('assets/content/practice_oop_fr.json'),
+      rootBundle.loadString('assets/content/practice_intermediate_fr.json'),
+      rootBundle.loadString('assets/content/practice_modern_fr.json'),
     ]);
     final questions = <QuizQuestion>[];
     final exercises = <Exercise>[];

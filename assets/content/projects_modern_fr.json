@@ -1,0 +1,64 @@
+{
+  "locale": "fr",
+  "projects": [
+    {
+      "id": "analyseur-donnees",
+      "title": "Analyseur de données",
+      "description": "Analyse un jeu de ventes avec records, lambdas et Streams pour produire des indicateurs utiles.",
+      "difficulty": "Intermédiaire",
+      "estimatedHours": 5,
+      "concepts": ["Records", "Lambdas", "Streams", "Collectors"],
+      "xpReward": 200,
+      "missions": [
+        {
+          "id": "sale-record",
+          "order": 1,
+          "title": "Modéliser une vente",
+          "instructions": "Crée un record Sale contenant product, category, quantity et unitPrice. Ajoute une méthode total qui multiplie la quantité par le prix unitaire.",
+          "successCriteria": ["Sale est déclaré avec record.", "Les quatre composants ont un type précis.", "total renvoie un double calculé sans modifier l’objet."],
+          "starterCode": "public record Sale(\n    String product,\n    String category,\n    int quantity,\n    double unitPrice\n) {\n  public double total() {\n    return quantity * unitPrice;\n  }\n}"
+        },
+        {
+          "id": "sample-data",
+          "order": 2,
+          "title": "Préparer les données",
+          "instructions": "Crée une List<Sale> non modifiable contenant au moins cinq ventes réparties dans plusieurs catégories.",
+          "successCriteria": ["La liste est typée avec Sale.", "Elle contient au moins cinq éléments.", "Au moins deux catégories sont présentes."],
+          "starterCode": "List<Sale> sales = List.of(\n    new Sale(\"Clavier\", \"Informatique\", 2, 49.90),\n    new Sale(\"Livre Java\", \"Livres\", 3, 29.00),\n    new Sale(\"Écran\", \"Informatique\", 1, 229.00)\n);"
+        },
+        {
+          "id": "filter-sales",
+          "order": 3,
+          "title": "Filtrer les ventes importantes",
+          "instructions": "Crée une méthode expensiveSales qui conserve les ventes dont le total dépasse un seuil reçu en paramètre.",
+          "successCriteria": ["La méthode utilise stream().", "filter compare chaque total au seuil.", "toList produit une nouvelle liste."],
+          "starterCode": "static List<Sale> expensiveSales(\n    List<Sale> sales,\n    double minimum\n) {\n  return sales.stream()\n      .filter(sale -> sale.total() >= minimum)\n      .toList();\n}"
+        },
+        {
+          "id": "global-total",
+          "order": 4,
+          "title": "Calculer le chiffre total",
+          "instructions": "Transforme chaque vente en son montant, puis additionne les montants pour obtenir le total global.",
+          "successCriteria": ["mapToDouble utilise Sale::total.", "Le pipeline produit un double.", "Toutes les ventes participent au calcul."],
+          "starterCode": "double total = sales.stream()\n    .mapToDouble(Sale::total)\n    .sum();"
+        },
+        {
+          "id": "group-category",
+          "order": 5,
+          "title": "Regrouper par catégorie",
+          "instructions": "Utilise Collectors.groupingBy pour créer une Map associant chaque catégorie à la liste de ses ventes.",
+          "successCriteria": ["Le résultat est une Map<String, List<Sale>>.", "groupingBy utilise Sale::category.", "Chaque vente apparaît dans un seul groupe."],
+          "starterCode": "Map<String, List<Sale>> byCategory = sales.stream()\n    .collect(Collectors.groupingBy(Sale::category));"
+        },
+        {
+          "id": "report",
+          "order": 6,
+          "title": "Afficher le rapport",
+          "instructions": "Affiche le total global, puis chaque catégorie avec son nombre de ventes. Utilise forEach et une lambda courte.",
+          "successCriteria": ["Le total possède un libellé clair.", "Toutes les catégories sont parcourues.", "Le rapport affiche le nombre de ventes par catégorie."],
+          "starterCode": "System.out.printf(\"Total : %.2f €%n\", total);\nbyCategory.forEach((category, items) ->\n    System.out.println(category + \" : \" + items.size() + \" ventes\")\n);"
+        }
+      ]
+    }
+  ]
+}

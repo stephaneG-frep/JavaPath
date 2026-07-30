@@ -12,12 +12,12 @@ Cette base comprend :
 - thèmes clair, sombre et système ;
 - dashboard avec progression XP ;
 - parcours pédagogique alimenté par un fichier JSON français ;
-- 6 modules et 27 leçons Java réelles, dont le niveau POO complet ;
-- 30 questions de quiz avec correction expliquée ;
-- 18 exercices validés localement avec attribution d’XP ;
+- 12 modules et 52 leçons Java réelles, des fondamentaux à Java moderne ;
+- 50 questions de quiz avec correction expliquée ;
+- 34 exercices validés localement avec attribution d’XP ;
 - 5 Debug Challenges et 5 exercices de prédiction ;
 - indices progressifs avec réduction transparente de l’XP ;
-- 3 projets Java découpés en 17 missions guidées ;
+- 4 projets Java découpés en 23 missions guidées ;
 - playground avec coloration Java, snippets, favoris et historique ;
 - badges, séries protégées, statistiques et révisions espacées ;
 - Java Mentor local et contrats pour l’IA, l’exécution distante et la synchronisation ;

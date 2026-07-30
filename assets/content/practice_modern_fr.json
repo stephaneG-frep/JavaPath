@@ -1,0 +1,184 @@
+{
+  "locale": "fr",
+  "quizQuestions": [
+    {
+      "id": "modern-quiz-01",
+      "conceptId": "Lambdas",
+      "prompt": "Que sépare la flèche -> dans une lambda ?",
+      "choices": ["La classe et son package", "Les paramètres et le corps", "Deux fichiers", "Une clé et une valeur"],
+      "correctChoiceIndex": 1,
+      "explanation": "À gauche se trouvent les paramètres ; à droite, le comportement exécuté."
+    },
+    {
+      "id": "modern-quiz-02",
+      "conceptId": "Interfaces fonctionnelles",
+      "prompt": "Quel contrat reçoit une valeur et renvoie un boolean ?",
+      "choices": ["Consumer", "Supplier", "Predicate", "Runnable uniquement"],
+      "correctChoiceIndex": 2,
+      "explanation": "Predicate<T> représente un test et sa méthode test renvoie boolean."
+    },
+    {
+      "id": "modern-quiz-03",
+      "conceptId": "Streams",
+      "prompt": "Un Stream sert principalement à…",
+      "choices": ["Stocker durablement des fichiers", "Décrire un pipeline de traitement", "Remplacer la JVM", "Créer une base SQL"],
+      "correctChoiceIndex": 1,
+      "explanation": "Un Stream enchaîne des opérations sur une source ; il n’est pas une collection de stockage."
+    },
+    {
+      "id": "modern-quiz-04",
+      "conceptId": "filter",
+      "prompt": "Que conserve filter ?",
+      "choices": ["Les éléments dont le prédicat vaut true", "Toujours le premier élément", "Uniquement les nombres", "Les éléments transformés en texte"],
+      "correctChoiceIndex": 0,
+      "explanation": "filter laisse continuer uniquement les éléments acceptés par son Predicate."
+    },
+    {
+      "id": "modern-quiz-05",
+      "conceptId": "map",
+      "prompt": "Quel est le rôle de map dans un Stream ?",
+      "choices": ["Supprimer le fichier source", "Transformer chaque élément", "Arrêter toujours le pipeline", "Trier automatiquement"],
+      "correctChoiceIndex": 1,
+      "explanation": "map applique une fonction à chaque valeur et produit un flux de résultats."
+    },
+    {
+      "id": "modern-quiz-06",
+      "conceptId": "reduce",
+      "prompt": "Que produit généralement reduce ?",
+      "choices": ["Une valeur combinée", "Une nouvelle classe", "Une exception", "Un thread"],
+      "correctChoiceIndex": 0,
+      "explanation": "reduce combine progressivement les éléments pour obtenir un résultat final."
+    },
+    {
+      "id": "modern-quiz-07",
+      "conceptId": "Collectors",
+      "prompt": "Quel Collector permet de former des groupes dans une Map ?",
+      "choices": ["joining", "groupingBy", "count", "filteringOnly"],
+      "correctChoiceIndex": 1,
+      "explanation": "Collectors.groupingBy classe les éléments selon une fonction de clé."
+    },
+    {
+      "id": "modern-quiz-08",
+      "conceptId": "Références de méthodes",
+      "prompt": "Quelle syntaxe référence la méthode println ?",
+      "choices": ["System.out->println", "System.out::println", "println:System.out", "System.out.println::()"],
+      "correctChoiceIndex": 1,
+      "explanation": "Le double deux-points relie la cible à la méthode référencée."
+    },
+    {
+      "id": "modern-quiz-09",
+      "conceptId": "Records",
+      "prompt": "Quel code un record fournit-il automatiquement ?",
+      "choices": ["Une API REST", "Constructeur, accesseurs, equals, hashCode et toString", "Une base de données", "Une méthode main"],
+      "correctChoiceIndex": 1,
+      "explanation": "Un record génère le code standard nécessaire à une valeur de données."
+    },
+    {
+      "id": "modern-quiz-10",
+      "conceptId": "switch moderne",
+      "prompt": "Quel avantage apporte la syntaxe case X -> ?",
+      "choices": ["Elle évite la chute involontaire entre les branches", "Elle exige toujours break", "Elle désactive le compilateur", "Elle accepte uniquement String"],
+      "correctChoiceIndex": 0,
+      "explanation": "Une branche fléchée ne continue pas automatiquement dans la branche suivante."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "modern-exercise-01",
+      "conceptId": "Lambdas",
+      "type": "completeCode",
+      "prompt": "Complète la lambda :\nPredicate<Integer> positive = number ___ number > 0;",
+      "difficulty": "Intermédiaire",
+      "xpReward": 35,
+      "hints": ["Il faut séparer le paramètre du corps.", "Utilise une flèche composée de deux caractères."],
+      "solution": "->",
+      "acceptedAnswers": ["->", "number -> number > 0"],
+      "explanation": "La flèche -> sépare le paramètre number de l’expression boolean."
+    },
+    {
+      "id": "modern-exercise-02",
+      "conceptId": "Predicate",
+      "type": "predictOutput",
+      "prompt": "Que va afficher ce code ?\nPredicate<String> longWord = word -> word.length() > 4;\nSystem.out.println(longWord.test(\"Java\"));",
+      "difficulty": "Intermédiaire",
+      "xpReward": 35,
+      "hints": ["Java contient quatre caractères.", "Le test demande strictement plus de quatre."],
+      "solution": "false",
+      "acceptedAnswers": ["false"],
+      "explanation": "La longueur vaut 4, donc la condition 4 > 4 est fausse."
+    },
+    {
+      "id": "modern-exercise-03",
+      "conceptId": "filter",
+      "type": "completeCode",
+      "prompt": "Complète le pipeline pour garder les scores valides :\nscores.stream().___(score -> score >= 10).toList();",
+      "difficulty": "Intermédiaire",
+      "xpReward": 35,
+      "hints": ["L’opération conserve selon une condition.", "Son nom anglais signifie filtrer."],
+      "solution": "filter",
+      "acceptedAnswers": ["filter", "filter(score -> score >= 10)"],
+      "explanation": "filter conserve les valeurs dont le prédicat renvoie true."
+    },
+    {
+      "id": "modern-exercise-04",
+      "conceptId": "map",
+      "type": "multipleChoice",
+      "prompt": "Quelle opération transforme Contact en String dans un Stream ?",
+      "difficulty": "Intermédiaire",
+      "xpReward": 35,
+      "hints": ["Elle applique une Function.", "Elle produit un élément de sortie pour chaque entrée."],
+      "choices": ["filter(Contact::getName)", "map(Contact::getName)", "count(Contact::getName)", "remove(Contact::getName)"],
+      "solution": "map(Contact::getName)",
+      "acceptedAnswers": ["map(Contact::getName)", "map"],
+      "explanation": "map utilise getName pour transformer chaque Contact en son nom String."
+    },
+    {
+      "id": "modern-exercise-05",
+      "conceptId": "reduce",
+      "type": "predictOutput",
+      "prompt": "Que va afficher ce code ?\nint total = List.of(2, 3, 4).stream()\n    .reduce(0, Integer::sum);\nSystem.out.println(total);",
+      "difficulty": "Intermédiaire",
+      "xpReward": 35,
+      "hints": ["L’accumulateur commence à zéro.", "Additionne 2, 3 et 4."],
+      "solution": "9",
+      "acceptedAnswers": ["9"],
+      "explanation": "reduce additionne successivement les trois valeurs : 0 + 2 + 3 + 4 = 9."
+    },
+    {
+      "id": "modern-exercise-06",
+      "conceptId": "Références de méthodes",
+      "type": "completeCode",
+      "prompt": "Remplace la lambda par une référence :\nnames.forEach(name -> System.out.println(name));\nnames.forEach(___);",
+      "difficulty": "Intermédiaire",
+      "xpReward": 35,
+      "hints": ["Référence l’objet System.out.", "Utilise :: avant println."],
+      "solution": "System.out::println",
+      "acceptedAnswers": ["System.out::println", "system.out::println"],
+      "explanation": "System.out::println représente la même opération que la lambda initiale."
+    },
+    {
+      "id": "modern-exercise-07",
+      "conceptId": "Records",
+      "type": "findError",
+      "prompt": "Quelle syntaxe lit le composant score d’un record Result ?\nresult.getScore()",
+      "difficulty": "Intermédiaire",
+      "xpReward": 35,
+      "hints": ["L’accesseur ne commence pas par get.", "Il porte exactement le nom du composant."],
+      "solution": "result.score()",
+      "acceptedAnswers": ["result.score()", "score()"],
+      "explanation": "Les accesseurs générés par un record portent directement le nom du composant."
+    },
+    {
+      "id": "modern-exercise-08",
+      "conceptId": "switch moderne",
+      "type": "completeCode",
+      "prompt": "Complète la branche moderne :\ncase VALID ___ \"Validé\";",
+      "difficulty": "Intermédiaire",
+      "xpReward": 35,
+      "hints": ["La branche produit directement une valeur.", "Utilise la même flèche que dans une lambda."],
+      "solution": "->",
+      "acceptedAnswers": ["->", "case VALID -> \"Validé\";"],
+      "explanation": "La flèche associe le cas VALID à la valeur produite par la branche."
+    }
+  ]
+}

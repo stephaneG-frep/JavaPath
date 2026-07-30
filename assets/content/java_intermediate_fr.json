@@ -1,0 +1,274 @@
+{
+  "locale": "fr",
+  "version": 1,
+  "modules": [
+    {
+      "id": "inter-collections",
+      "level": 3,
+      "title": "Collections Java",
+      "description": "Choisis et manipule la bonne structure pour stocker plusieurs objets.",
+      "projectTitle": "Gestionnaire de contacts",
+      "projectId": "contacts",
+      "lessons": [
+        {
+          "id": "arraylist",
+          "moduleId": "inter-collections",
+          "title": "ArrayList",
+          "description": "Construis une liste dynamique qui grandit avec tes données.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 22,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Pourquoi une liste dynamique ?", "content": "Un tableau possède une taille fixe. ArrayList peut grandir ou rétrécir pendant l’exécution, ce qui convient à une liste de contacts dont la taille est inconnue."},
+            {"title": "Le type des éléments", "content": "ArrayList<Contact> signifie que la liste accepte uniquement des Contact. Les chevrons décrivent le type générique et permettent au compilateur de détecter une mauvaise insertion."},
+            {"title": "Opérations essentielles", "content": "add ajoute, get lit par index, set remplace et remove supprime. Les index commencent à zéro et size() renvoie le nombre d’éléments."}
+          ],
+          "codeExamples": [
+            {"title": "Une liste de noms", "code": "import java.util.ArrayList;\n\nArrayList<String> names = new ArrayList<>();\nnames.add(\"Lina\");\nnames.add(\"Sami\");\nSystem.out.println(names.get(0));", "explanation": "La liste contient deux String. get(0) lit le premier élément et affiche Lina."}
+          ]
+        },
+        {
+          "id": "linkedlist",
+          "moduleId": "inter-collections",
+          "title": "LinkedList",
+          "description": "Découvre une liste conçue comme une chaîne d’éléments.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 20,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Une autre implémentation de List", "content": "LinkedList respecte l’interface List comme ArrayList. On peut donc utiliser les opérations habituelles add, get et remove."},
+            {"title": "Quand la choisir ?", "content": "LinkedList facilite surtout les ajouts et retraits aux extrémités. ArrayList reste généralement préférable pour les lectures fréquentes par index."},
+            {"title": "Programmer avec l’interface", "content": "Déclarer List<String> réduit la dépendance à une implémentation précise. Le programme peut changer de type de liste avec moins de modifications."}
+          ],
+          "codeExamples": [
+            {"title": "Une file d’attente simple", "code": "import java.util.LinkedList;\nimport java.util.List;\n\nList<String> queue = new LinkedList<>();\nqueue.add(\"Premier\");\nqueue.add(\"Deuxième\");\nSystem.out.println(queue.remove(0));", "explanation": "La variable utilise le contrat List et l’objet réel est une LinkedList. Le premier élément est retiré puis affiché."}
+          ]
+        },
+        {
+          "id": "hashmap",
+          "moduleId": "inter-collections",
+          "title": "HashMap",
+          "description": "Associe une clé unique à une valeur pour retrouver rapidement une donnée.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 24,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Clé et valeur", "content": "Une Map ne range pas ses valeurs par position. Elle associe chaque clé à une valeur, comme un numéro de téléphone à un Contact."},
+            {"title": "Ajouter et rechercher", "content": "put enregistre une association et get recherche par clé. Une nouvelle valeur placée sous une clé existante remplace l’ancienne."},
+            {"title": "Gérer l’absence", "content": "get peut renvoyer null si la clé n’existe pas. containsKey vérifie explicitement la présence avant une lecture."}
+          ],
+          "codeExamples": [
+            {"title": "Rechercher un indicatif", "code": "import java.util.HashMap;\nimport java.util.Map;\n\nMap<String, String> countries = new HashMap<>();\ncountries.put(\"33\", \"France\");\ncountries.put(\"32\", \"Belgique\");\nSystem.out.println(countries.get(\"33\"));", "explanation": "Les clés et valeurs sont des String. La clé 33 permet de retrouver et afficher France."}
+          ]
+        },
+        {
+          "id": "hashset",
+          "moduleId": "inter-collections",
+          "title": "HashSet",
+          "description": "Conserve des valeurs uniques sans gérer leur position.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 20,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Une collection sans doublon", "content": "Un Set représente un ensemble. Ajouter deux fois une valeur égale ne crée pas un second élément."},
+            {"title": "Pas d’index", "content": "HashSet ne garantit pas une position stable. On le parcourt ou on utilise contains pour vérifier rapidement la présence d’une valeur."},
+            {"title": "Égalité des objets", "content": "Pour tes propres classes, l’unicité dépend de equals et hashCode. Ces deux méthodes doivent respecter le même sens de l’égalité."}
+          ],
+          "codeExamples": [
+            {"title": "Éliminer les doublons", "code": "import java.util.HashSet;\nimport java.util.Set;\n\nSet<String> tags = new HashSet<>();\ntags.add(\"java\");\ntags.add(\"java\");\nSystem.out.println(tags.size());", "explanation": "La seconde insertion est ignorée car java est déjà présent. La taille affichée vaut 1."}
+          ]
+        },
+        {
+          "id": "iterator",
+          "moduleId": "inter-collections",
+          "title": "Iterator",
+          "description": "Parcours une collection et supprime proprement pendant l’itération.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 21,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Un curseur de parcours", "content": "Iterator avance élément par élément. hasNext indique s’il reste une valeur et next renvoie la suivante."},
+            {"title": "Supprimer sans casser la boucle", "content": "Modifier directement une collection dans une boucle for-each peut provoquer ConcurrentModificationException. iterator.remove() retire en sécurité l’élément courant."},
+            {"title": "Quand l’utiliser ?", "content": "Le for-each suffit pour une lecture simple. Iterator devient utile quand le parcours doit contrôler la suppression."}
+          ],
+          "codeExamples": [
+            {"title": "Retirer les nombres négatifs", "code": "Iterator<Integer> it = numbers.iterator();\nwhile (it.hasNext()) {\n  int number = it.next();\n  if (number < 0) {\n    it.remove();\n  }\n}", "explanation": "next sélectionne l’élément courant. remove passe par l’itérateur et maintient un parcours cohérent."}
+          ]
+        },
+        {
+          "id": "collections-tri",
+          "moduleId": "inter-collections",
+          "title": "Collections et tri",
+          "description": "Trie et transforme des listes avec les outils de la bibliothèque standard.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 24,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Ne pas réinventer l’algorithme", "content": "La classe utilitaire Collections fournit des opérations éprouvées comme sort, reverse, min et max."},
+            {"title": "Ordre naturel", "content": "Les nombres et les chaînes possèdent déjà un ordre naturel. Collections.sort modifie directement la liste reçue."},
+            {"title": "Ordre personnalisé", "content": "Un Comparator décrit un autre critère, par exemple trier des contacts selon leur nom plutôt que leur date de création."}
+          ],
+          "codeExamples": [
+            {"title": "Trier des scores", "code": "import java.util.ArrayList;\nimport java.util.Collections;\n\nArrayList<Integer> scores = new ArrayList<>();\nscores.add(18);\nscores.add(7);\nscores.add(12);\nCollections.sort(scores);\nSystem.out.println(scores);", "explanation": "sort place les nombres en ordre croissant. L’affichage devient [7, 12, 18]."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inter-errors-files",
+      "level": 3,
+      "title": "Exceptions et fichiers",
+      "description": "Traite les situations anormales et conserve des données dans des fichiers.",
+      "projectTitle": "Gestionnaire de contacts",
+      "projectId": "contacts",
+      "lessons": [
+        {
+          "id": "exceptions",
+          "moduleId": "inter-errors-files",
+          "title": "Comprendre les exceptions",
+          "description": "Distingue une situation exceptionnelle d’une erreur de compilation.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 22,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Un problème pendant l’exécution", "content": "Une exception est un objet décrivant un problème survenu pendant que le programme fonctionne : index invalide, fichier absent ou texte impossible à convertir."},
+            {"title": "La pile d’appels", "content": "La stack trace indique le type de l’exception et le chemin des méthodes jusqu’à la ligne fautive. Lis d’abord le type, le message et la première ligne appartenant à ton code."},
+            {"title": "Checked ou unchecked", "content": "Certaines exceptions doivent être déclarées ou traitées par le compilateur. Les RuntimeException signalent souvent une erreur de logique ou une entrée invalide."}
+          ],
+          "codeExamples": [
+            {"title": "Une conversion impossible", "code": "String text = \"vingt\";\nint age = Integer.parseInt(text);", "explanation": "Le code compile, mais parseInt lève NumberFormatException à l’exécution car vingt ne représente pas un entier."}
+          ]
+        },
+        {
+          "id": "try-catch-finally",
+          "moduleId": "inter-errors-files",
+          "title": "try, catch et finally",
+          "description": "Intercepte une erreur attendue et rétablis un état propre.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 24,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Le bloc try", "content": "Place dans try uniquement l’opération susceptible d’échouer. Un bloc court rend l’origine du problème plus claire."},
+            {"title": "Le bloc catch", "content": "catch reçoit une exception d’un type précis et décide comment réagir. Évite de capturer Exception partout, car cela masque des problèmes inattendus."},
+            {"title": "Le bloc finally", "content": "finally s’exécute généralement qu’il y ait erreur ou non. Il sert au nettoyage, même si try-with-resources est préférable pour fermer les ressources modernes."}
+          ],
+          "codeExamples": [
+            {"title": "Valider un âge saisi", "code": "try {\n  int age = Integer.parseInt(input);\n  System.out.println(age);\n} catch (NumberFormatException error) {\n  System.out.println(\"Entre un nombre entier.\");\n} finally {\n  System.out.println(\"Saisie traitée.\");\n}", "explanation": "Une entrée invalide déclenche le catch. finally affiche son message dans les deux cas."}
+          ]
+        },
+        {
+          "id": "exceptions-personnalisees",
+          "moduleId": "inter-errors-files",
+          "title": "Exceptions personnalisées",
+          "description": "Donne un nom métier précis à une règle qui n’est pas respectée.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 22,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Exprimer le domaine", "content": "ContactNotFoundException explique mieux le problème qu’une RuntimeException générique. Le type devient une partie lisible du contrat."},
+            {"title": "Créer le type", "content": "Une exception personnalisée hérite de Exception ou RuntimeException. Son constructeur transmet généralement un message à super."},
+            {"title": "Ne pas tout transformer en exception", "content": "Une absence normale peut être représentée par Optional. Réserve l’exception à une situation que l’opération ne peut pas gérer normalement."}
+          ],
+          "codeExamples": [
+            {"title": "Une erreur métier explicite", "code": "class ContactNotFoundException extends RuntimeException {\n  ContactNotFoundException(String name) {\n    super(\"Contact introuvable : \" + name);\n  }\n}", "explanation": "Le nom du type et son message donnent immédiatement le contexte utile pour comprendre l’échec."}
+          ]
+        },
+        {
+          "id": "fichiers",
+          "moduleId": "inter-errors-files",
+          "title": "Lire et écrire des fichiers",
+          "description": "Comprends le flux entre les données du programme et le stockage.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 24,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Pourquoi persister ?", "content": "Les variables disparaissent à l’arrêt du programme. Écrire un fichier permet de retrouver des données lors du prochain lancement."},
+            {"title": "Texte et encodage", "content": "Un fichier texte transforme des caractères en octets selon un encodage. UTF-8 est un choix courant qui prend en charge les accents."},
+            {"title": "Gérer les erreurs", "content": "L’accès au disque peut échouer à cause d’un chemin incorrect ou de permissions. IOException oblige à prévoir ce cas."}
+          ],
+          "codeExamples": [
+            {"title": "Écrire une ligne", "code": "import java.io.IOException;\nimport java.nio.file.Files;\nimport java.nio.file.Path;\n\ntry {\n  Files.writeString(Path.of(\"contact.txt\"), \"Lina;0600000000\");\n} catch (IOException error) {\n  System.out.println(\"Écriture impossible\");\n}", "explanation": "writeString enregistre le texte. Le catch transforme une erreur technique en message compréhensible."}
+          ]
+        },
+        {
+          "id": "path-files",
+          "moduleId": "inter-errors-files",
+          "title": "Path et Files",
+          "description": "Manipule les chemins et fichiers avec l’API moderne de Java.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 25,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Path décrit un emplacement", "content": "Path représente un chemin sans ouvrir lui-même le fichier. Path.of construit ce chemin de manière lisible."},
+            {"title": "Files réalise les opérations", "content": "Files.exists vérifie l’existence, readString lit du texte, createDirectories prépare un dossier et deleteIfExists supprime prudemment."},
+            {"title": "Chemin relatif ou absolu", "content": "Un chemin relatif part du dossier de travail du programme. Un chemin absolu désigne un emplacement complet mais rend souvent le programme moins portable."}
+          ],
+          "codeExamples": [
+            {"title": "Lire si le fichier existe", "code": "Path path = Path.of(\"data\", \"contacts.txt\");\nif (Files.exists(path)) {\n  String content = Files.readString(path);\n  System.out.println(content);\n}", "explanation": "Path assemble les parties du chemin. Files vérifie ensuite l’existence avant de lire le contenu."}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inter-modern-tools",
+      "level": 3,
+      "title": "Types et API utiles",
+      "description": "Écris un code plus sûr avec les dates, Optional et les génériques.",
+      "projectTitle": "Gestionnaire de contacts",
+      "projectId": "contacts",
+      "lessons": [
+        {
+          "id": "dates-heures",
+          "moduleId": "inter-modern-tools",
+          "title": "Dates et heures",
+          "description": "Représente correctement une date, une heure ou une durée.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 24,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Choisir le bon type", "content": "LocalDate représente une date sans heure, LocalTime une heure sans date et LocalDateTime combine les deux sans fuseau horaire."},
+            {"title": "Des objets immuables", "content": "Les classes de java.time ne se modifient pas. plusDays renvoie un nouvel objet, ce qui évite des changements cachés partagés ailleurs."},
+            {"title": "Afficher et analyser", "content": "DateTimeFormatter décrit explicitement le format attendu. Cela évite de mélanger jour et mois selon les pays."}
+          ],
+          "codeExamples": [
+            {"title": "Calculer demain", "code": "import java.time.LocalDate;\n\nLocalDate today = LocalDate.now();\nLocalDate tomorrow = today.plusDays(1);\nSystem.out.println(tomorrow);", "explanation": "today reste inchangé. plusDays crée la date du lendemain et l’affichage utilise le format ISO."}
+          ]
+        },
+        {
+          "id": "optional",
+          "moduleId": "inter-modern-tools",
+          "title": "Optional",
+          "description": "Représente explicitement une valeur qui peut être absente.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 23,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Rendre l’absence visible", "content": "Optional<Contact> annonce dans le type que la recherche peut ne rien trouver. Le code appelant doit alors choisir une réaction."},
+            {"title": "Créer un Optional", "content": "Optional.of contient une valeur non nulle, empty représente l’absence et ofNullable accepte les deux situations."},
+            {"title": "Éviter get sans contrôle", "content": "orElse fournit une valeur par défaut et ifPresent exécute une action seulement si la valeur existe. get seul peut lever NoSuchElementException."}
+          ],
+          "codeExamples": [
+            {"title": "Afficher un résultat éventuel", "code": "Optional<String> result = findName(\"Lina\");\nresult.ifPresentOrElse(\n    System.out::println,\n    () -> System.out.println(\"Introuvable\")\n);", "explanation": "La première action reçoit la valeur présente. La seconde s’exécute lorsque la recherche est vide."}
+          ]
+        },
+        {
+          "id": "generiques",
+          "moduleId": "inter-modern-tools",
+          "title": "Les génériques",
+          "description": "Crée des classes et méthodes réutilisables sans perdre la sécurité des types.",
+          "difficulty": "intermediaire",
+          "estimatedMinutes": 27,
+          "xpReward": 20,
+          "sections": [
+            {"title": "Un type en paramètre", "content": "Dans Box<T>, T représente un type choisi lors de l’utilisation. Box<String> et Box<Integer> réutilisent la même logique avec des données différentes."},
+            {"title": "Sécurité à la compilation", "content": "Sans génériques, il faudrait manipuler Object et effectuer des conversions risquées. Le compilateur vérifie maintenant que le contenu et la lecture utilisent le même type."},
+            {"title": "Conventions et limites", "content": "T signifie souvent Type, E Element, K Key et V Value. Une borne comme <T extends Comparable<T>> limite les types acceptés selon une capacité nécessaire."}
+          ],
+          "codeExamples": [
+            {"title": "Une boîte typée", "code": "class Box<T> {\n  private T value;\n\n  void set(T value) {\n    this.value = value;\n  }\n\n  T get() {\n    return value;\n  }\n}\n\nBox<String> box = new Box<>();\nbox.set(\"Java\");", "explanation": "Pour cette instance, T devient String. set refuse un Integer et get renvoie directement un String."}
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -17,6 +17,8 @@ class AssetCourseRepository implements CourseRepository {
     final sources = await Future.wait([
       rootBundle.loadString('assets/content/java_path_fr.json'),
       rootBundle.loadString('assets/content/java_oop_fr.json'),
+      rootBundle.loadString('assets/content/java_intermediate_fr.json'),
+      rootBundle.loadString('assets/content/java_modern_fr.json'),
     ]);
     final modules = <LearningModule>[];
     for (final source in sources) {

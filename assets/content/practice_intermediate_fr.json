@@ -1,0 +1,184 @@
+{
+  "locale": "fr",
+  "quizQuestions": [
+    {
+      "id": "inter-quiz-01",
+      "conceptId": "ArrayList",
+      "prompt": "Pourquoi choisir ArrayList plutôt qu’un tableau pour une liste de contacts ?",
+      "choices": ["Sa taille peut évoluer", "Il accepte tous les types en même temps", "Il n’utilise aucune mémoire", "Il trie toujours automatiquement"],
+      "correctChoiceIndex": 0,
+      "explanation": "ArrayList peut grandir et rétrécir pendant l’exécution, contrairement à un tableau de taille fixe."
+    },
+    {
+      "id": "inter-quiz-02",
+      "conceptId": "HashMap",
+      "prompt": "Que fait put avec une clé déjà présente dans une HashMap ?",
+      "choices": ["Il crée un doublon de clé", "Il remplace la valeur associée", "Il efface toute la map", "Il lève toujours une exception"],
+      "correctChoiceIndex": 1,
+      "explanation": "Une Map conserve une seule valeur par clé ; put remplace donc l’ancienne association."
+    },
+    {
+      "id": "inter-quiz-03",
+      "conceptId": "HashSet",
+      "prompt": "Quelle propriété caractérise un Set ?",
+      "choices": ["Ses éléments ont toujours un index", "Il refuse les valeurs en double", "Il associe chaque valeur à une clé", "Sa taille est fixe"],
+      "correctChoiceIndex": 1,
+      "explanation": "Un Set modélise un ensemble de valeurs uniques."
+    },
+    {
+      "id": "inter-quiz-04",
+      "conceptId": "Iterator",
+      "prompt": "Comment supprimer sûrement l’élément courant pendant un parcours avec Iterator ?",
+      "choices": ["collection.clear()", "iterator.remove()", "iterator.next(null)", "removeAll sans condition"],
+      "correctChoiceIndex": 1,
+      "explanation": "iterator.remove() met à jour le parcours et la collection de façon cohérente."
+    },
+    {
+      "id": "inter-quiz-05",
+      "conceptId": "Exceptions",
+      "prompt": "Quelle exception signale souvent qu’un texte ne peut pas devenir un nombre ?",
+      "choices": ["IOException", "NumberFormatException", "FileNotFoundError", "StringException"],
+      "correctChoiceIndex": 1,
+      "explanation": "Integer.parseInt lève NumberFormatException lorsque le texte ne représente pas un entier valide."
+    },
+    {
+      "id": "inter-quiz-06",
+      "conceptId": "try/catch",
+      "prompt": "Quel est le rôle principal de catch ?",
+      "choices": ["Compiler le programme", "Traiter une exception d’un type précis", "Répéter une boucle", "Créer automatiquement un fichier"],
+      "correctChoiceIndex": 1,
+      "explanation": "catch reçoit l’exception interceptée et définit la réaction adaptée."
+    },
+    {
+      "id": "inter-quiz-07",
+      "conceptId": "Path et Files",
+      "prompt": "Quelle classe réalise l’opération de lecture avec l’API moderne ?",
+      "choices": ["Path uniquement", "Files", "String", "System"],
+      "correctChoiceIndex": 1,
+      "explanation": "Path décrit l’emplacement ; Files fournit notamment readString et writeString."
+    },
+    {
+      "id": "inter-quiz-08",
+      "conceptId": "Dates",
+      "prompt": "Que renvoie date.plusDays(1) ?",
+      "choices": ["Une nouvelle date", "La même date modifiée en secret", "Toujours null", "Une chaîne de caractères"],
+      "correctChoiceIndex": 0,
+      "explanation": "Les objets java.time sont immuables : plusDays crée une nouvelle valeur."
+    },
+    {
+      "id": "inter-quiz-09",
+      "conceptId": "Optional",
+      "prompt": "Que représente Optional.empty() ?",
+      "choices": ["Une erreur de compilation", "Une valeur présente mais vide", "L’absence explicite de valeur", "Une liste sans élément"],
+      "correctChoiceIndex": 2,
+      "explanation": "Optional.empty() représente un résultat absent sans renvoyer directement null."
+    },
+    {
+      "id": "inter-quiz-10",
+      "conceptId": "Génériques",
+      "prompt": "Que signifie T dans class Box<T> ?",
+      "choices": ["Un thread obligatoire", "Un type fourni lors de l’utilisation", "Une variable globale", "Un fichier texte"],
+      "correctChoiceIndex": 1,
+      "explanation": "T est un paramètre de type remplacé par exemple par String dans Box<String>."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "inter-exercise-01",
+      "conceptId": "ArrayList",
+      "type": "completeCode",
+      "prompt": "Complète l’ajout :\nList<String> names = new ArrayList<>();\nnames.___(\"Lina\");",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Utilise la méthode standard d’insertion.", "Son nom comporte trois lettres."],
+      "solution": "add",
+      "acceptedAnswers": ["add", "add(\"Lina\")", "names.add(\"Lina\");"],
+      "explanation": "add place la nouvelle valeur à la fin de la liste."
+    },
+    {
+      "id": "inter-exercise-02",
+      "conceptId": "HashMap",
+      "type": "predictOutput",
+      "prompt": "Que va afficher ce code ?\nMap<String, Integer> ages = new HashMap<>();\nages.put(\"Lina\", 20);\nages.put(\"Lina\", 21);\nSystem.out.println(ages.get(\"Lina\"));",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Une clé est unique.", "La seconde valeur remplace la première."],
+      "solution": "21",
+      "acceptedAnswers": ["21"],
+      "explanation": "Le second put utilise la même clé Lina et remplace 20 par 21."
+    },
+    {
+      "id": "inter-exercise-03",
+      "conceptId": "HashSet",
+      "type": "predictOutput",
+      "prompt": "Que va afficher ce code ?\nSet<String> tags = new HashSet<>();\ntags.add(\"java\");\ntags.add(\"java\");\nSystem.out.println(tags.size());",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Un Set conserve des valeurs uniques.", "La seconde insertion est un doublon."],
+      "solution": "1",
+      "acceptedAnswers": ["1"],
+      "explanation": "Le doublon n’est pas ajouté, la collection contient donc un seul élément."
+    },
+    {
+      "id": "inter-exercise-04",
+      "conceptId": "Collections",
+      "type": "completeCode",
+      "prompt": "Complète le tri croissant :\nList<Integer> scores = new ArrayList<>();\nCollections.___(scores);",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["La méthode réordonne la liste.", "Son nom anglais signifie trier."],
+      "solution": "sort",
+      "acceptedAnswers": ["sort", "sort(scores)", "Collections.sort(scores);"],
+      "explanation": "Collections.sort modifie la liste pour placer ses éléments dans leur ordre naturel."
+    },
+    {
+      "id": "inter-exercise-05",
+      "conceptId": "Exceptions",
+      "type": "findError",
+      "prompt": "Quelle exception peut produire cette ligne ?\nint age = Integer.parseInt(\"vingt\");",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Le texte n’a pas le format d’un entier.", "Le nom commence par NumberFormat."],
+      "solution": "NumberFormatException",
+      "acceptedAnswers": ["numberformatexception", "NumberFormatException"],
+      "explanation": "parseInt attend des chiffres et lève NumberFormatException pour le texte vingt."
+    },
+    {
+      "id": "inter-exercise-06",
+      "conceptId": "Path et Files",
+      "type": "completeCode",
+      "prompt": "Complète la lecture :\nPath path = Path.of(\"notes.txt\");\nString text = Files.___(path);",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["On souhaite lire tout le texte.", "La méthode se termine par String."],
+      "solution": "readString",
+      "acceptedAnswers": ["readString", "readString(path)", "Files.readString(path);"],
+      "explanation": "Files.readString lit le contenu textuel complet du chemin fourni."
+    },
+    {
+      "id": "inter-exercise-07",
+      "conceptId": "Optional",
+      "type": "multipleChoice",
+      "prompt": "Quelle méthode fournit une valeur de remplacement si l’Optional est vide ?",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Elle commence par or.", "Elle reçoit la valeur de secours."],
+      "choices": ["get()", "orElse(...)", "isEmpty(null)", "remove()"],
+      "solution": "orElse(...)",
+      "acceptedAnswers": ["orElse(...)", "orElse", "orelse"],
+      "explanation": "orElse renvoie le contenu présent ou la valeur de remplacement fournie."
+    },
+    {
+      "id": "inter-exercise-08",
+      "conceptId": "Génériques",
+      "type": "completeCode",
+      "prompt": "Complète le type pour une boîte de texte :\nBox<___> box = new Box<>();",
+      "difficulty": "Intermédiaire",
+      "xpReward": 30,
+      "hints": ["Le contenu attendu est du texte.", "Utilise la classe Java des chaînes."],
+      "solution": "String",
+      "acceptedAnswers": ["String", "string", "Box<String>"],
+      "explanation": "Box<String> fixe le paramètre T à String pour cette utilisation."
+    }
+  ]
+}
